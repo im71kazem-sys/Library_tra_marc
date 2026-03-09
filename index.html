@@ -120,7 +120,28 @@
                 <td><input type="text" class="data-input" placeholder="$a العنوان الرئيسي / $c بيان المسؤولية."></td>
                 
             </tr>
-			
+			<!-- التبويبة 2-4: الوصف والسلسلة -->
+<div id="tab2" class="work-area">
+    <table>
+        <!-- حقل 245 -->
+        <tr data-tag="245">
+            <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd245.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">245</span></td>
+            <td class="label-box">العنوان وبيان المسؤولية</td>
+            <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="0" maxlength="1"></td>
+            <td><input type="text" class="data-input" placeholder="$a العنوان الرئيسي / $c بيان المسؤولية."></td>
+        </tr>
+
+        <!-- حقل 246 (حقل مكرر) -->
+        <tr data-tag="246">
+            <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">246</span></td>
+            <td class="label-box">شكل مختلف للعنوان</td>
+            <td class="ind-box"><input type="text" value="3" maxlength="1"><input type="text" value="0" maxlength="1"></td>
+            <td><input type="text" class="data-input" placeholder="$a العنوان البديل أو المتغير."></td>
+			td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+        </tr>
+    </table>
+</div>
+
             <!-- حقل 300 الوصف المادي -->
 <tr data-tag="300">
     <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd300.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">300</span></td>
