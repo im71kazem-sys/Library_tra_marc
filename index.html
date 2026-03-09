@@ -4,120 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة عماد كاظم السعدي الأكاديمية</title>
-    <!-- استدعاء خطوط تدعم النمط الأكاديمي -->
     <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
-        :root { 
-            --koha-blue: #004b85; 
-            --koha-light: #f4f7f9; 
-            --border: #c8d1d9; 
-            --red: #d73a49; 
-            --green: #28a745; 
-        }
-
-        body { 
-            /* تغيير الخط إلى نمط Times الأكاديمي */
-            font-family: 'Times New Roman', 'Amiri', serif; 
-            background-color: var(--koha-light); 
-            margin: 0; 
-            font-size: 1.1rem;
-        }
-
-        header { 
-            background: var(--koha-blue); 
-            color: white; 
-            padding: 15px 30px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border-bottom: 4px solid #003660; 
-        }
-
-        .container { 
-            width: 98%; 
-            margin: 20px auto; 
-            background: white; 
-            border: 1px solid var(--border); 
-            border-radius: 4px; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
-            overflow: hidden;
-        }
-        
-        .tabs-header { 
-            display: flex; 
-            background: #e1e8ed; 
-            border-bottom: 1px solid var(--border); 
-            overflow-x: auto; 
-        }
-
-        .tab-btn { 
-            padding: 12px 25px; 
-            border: none; 
-            background: none; 
-            cursor: pointer; 
-            font-weight: bold; 
-            color: var(--koha-blue); 
-            border-left: 1px solid var(--border); 
-            white-space: nowrap; 
-            font-family: 'Cairo', sans-serif;
-        }
-
+        :root { --koha-blue: #004b85; --koha-light: #f4f7f9; --border: #c8d1d9; --red: #d73a49; --green: #28a745; }
+        body { font-family: 'Times New Roman', 'Amiri', serif; background-color: var(--koha-light); margin: 0; font-size: 1.15rem; }
+        header { background: var(--koha-blue); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #003660; }
+        .container { width: 98%; margin: 20px auto; background: white; border: 1px solid var(--border); border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        .tabs-header { display: flex; background: #e1e8ed; border-bottom: 1px solid var(--border); overflow-x: auto; }
+        .tab-btn { padding: 12px 25px; border: none; background: none; cursor: pointer; font-weight: bold; color: var(--koha-blue); border-left: 1px solid var(--border); white-space: nowrap; font-family: 'Cairo', sans-serif; }
         .tab-btn.active { background: white; border-bottom: 2px solid white; margin-bottom: -1px; }
-
         .work-area { padding: 25px; display: none; min-height: 500px; }
         .work-area.active { display: block; }
-
-        /* تعديل الجدول لمنع التداخل */
-        table { width: 100%; border-collapse: collapse; table-layout: fixed; }
-        tr { border-bottom: 1px solid #eee; transition: background 0.3s; }
-        tr:hover { background-color: #f9f9f9; }
-        td { padding: 15px 10px; vertical-align: middle; }
-
-        .tag-info { width: 100px; display: flex; align-items: center; gap: 8px; }
-        .tag-num { font-weight: bold; color: var(--red); font-size: 1.2rem; font-family: monospace; }
-        .loc-link { text-decoration: none; font-size: 1.1rem; }
-
-        .label-box { width: 220px; font-weight: 600; color: #333; }
         
-        .ind-box { width: 100px; text-align: center; }
-        .ind-box input { 
-            width: 30px; 
-            text-align: center; 
-            border: 1px solid #ccc; 
-            padding: 5px; 
-            background: #fffde7; 
-            font-family: monospace; 
-            margin: 0 2px;
-        }
-
-        .data-input { 
-            width: 100%; 
-            padding: 10px; 
-            border: 1px solid #ccc; 
-            border-radius: 4px; 
-            font-family: 'Courier New', monospace; 
-            font-size: 1rem;
-            box-sizing: border-box; /* يمنع خروج الحقل عن المسار */
-        }
-
-        .btn-action { 
-            border: none; 
-            border-radius: 50%; 
-            width: 32px; 
-            height: 32px; 
-            cursor: pointer; 
-            color: white; 
-            font-weight: bold; 
-            font-size: 1.3rem; 
-        }
+        table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+        tr { border-bottom: 1px solid #eee; }
+        td { padding: 12px 10px; vertical-align: middle; }
+        
+        .tag-info { width: 90px; }
+        .tag-num { font-weight: bold; color: var(--red); font-size: 1.2rem; font-family: monospace; }
+        .label-box { width: 200px; font-weight: 600; color: #333; }
+        .ind-box { width: 90px; text-align: center; }
+        .ind-box input { width: 30px; text-align: center; border: 1px solid #ccc; padding: 5px; background: #fffde7; font-family: monospace; margin: 0 2px; }
+        .data-input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 1.05rem; box-sizing: border-box; }
+        
+        .btn-action { border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; color: white; font-weight: bold; font-size: 1.3rem; }
         .add { background: var(--green); }
         .del { background: var(--red); }
-
         .footer-actions { background: #f8f9fa; padding: 25px; text-align: center; border-top: 1px solid var(--border); }
         .btn-main { padding: 12px 40px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; margin: 0 10px; font-family: 'Cairo'; }
         .btn-excel { background: #1d6f42; color: white; }
-        .btn-reset { background: #6c757d; color: white; }
-
         footer { text-align: center; padding: 20px; font-size: 0.9rem; color: #666; background: white; border-top: 1px solid #ddd; }
     </style>
 </head>
@@ -138,91 +53,116 @@
         <button class="tab-btn" onclick="switchTab(event, 'tab7')">7XX (المداخل الإضافية)</button>
     </div>
 
-    <!-- التبويبة 0: الضبط -->
+    <!-- 0XX الضبط -->
     <div id="tab0" class="work-area active">
         <table>
             <tr data-tag="020">
-                <td class="tag-info"><a href="#" class="loc-link">🔗</a> <span class="tag-num">020</span></td>
+                <td class="tag-info"><span class="tag-num">020</span></td>
                 <td class="label-box">ردمك (ISBN)</td>
                 <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a 978... $q غلاف ورقى"></td>
-                <td style="width: 50px;"><button class="add btn-action" onclick="addRow(this)">+</button></td>
+                <td><input type="text" class="data-input" placeholder="$a 978..."></td>
+                <td style="width:50px"><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
             <tr data-tag="082">
-                <td class="tag-info"><a href="#" class="loc-link">🔗</a> <span class="tag-num">082</span></td>
-                <td class="label-box">تصنيف ديوي العشري</td>
+                <td class="tag-info"><span class="tag-num">082</span></td>
+                <td class="label-box">تصنيف ديوي</td>
                 <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="4" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a 892.736 $b Z397abb $2 22"></td>
+                <td><input type="text" class="data-input" placeholder="$a 813.54"></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
         </table>
     </div>
 
-    <!-- التبويبة 2: الوصف والسلسلة (تم دمج حقل 300 و 490 لمنع التداخل) -->
+    <!-- 1XX المداخل الرئيسية (بدون زر إضافة) -->
+    <div id="tab1" class="work-area">
+        <table>
+            <tr data-tag="100">
+                <td class="tag-info"><span class="tag-num">100</span></td>
+                <td class="label-box">اسم شخصي</td>
+                <td class="ind-box"><input type="text" value="1"><input type="text" value="#"></td>
+                <td><input type="text" class="data-input" placeholder="$a الاسم، $d التواريخ."></td>
+                <td style="width:50px"></td>
+            </tr>
+            <tr data-tag="110">
+                <td class="tag-info"><span class="tag-num">110</span></td>
+                <td class="label-box">اسم هيئة</td>
+                <td class="ind-box"><input type="text" value="2"><input type="text" value="#"></td>
+                <td><input type="text" class="data-input" placeholder="$a اسم الهيئة."></td>
+                <td></td>
+            </tr>
+            <tr data-tag="111">
+                <td class="tag-info"><span class="tag-num">111</span></td>
+                <td class="label-box">اسم مؤتمر</td>
+                <td class="ind-box"><input type="text" value="2"><input type="text" value="#"></td>
+                <td><input type="text" class="data-input" placeholder="$a اسم المؤتمر."></td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 2XX-4XX (245 ممنوع التكرار، 246 مسموح) -->
     <div id="tab2" class="work-area">
         <table>
             <tr data-tag="245">
-                <td class="tag-info"><a href="#" class="loc-link">🔗</a> <span class="tag-num">245</span></td>
+                <td class="tag-info"><span class="tag-num">245</span></td>
                 <td class="label-box">العنوان وبيان المسؤولية</td>
-                <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="0" maxlength="1"></td>
+                <td class="ind-box"><input type="text" value="1"><input type="text" value="0"></td>
                 <td><input type="text" class="data-input" placeholder="$a العنوان الرئيسي / $c بيان المسؤولية."></td>
-                <td></td>
+                <td style="width:50px"></td>
+            </tr>
+            <tr data-tag="246">
+                <td class="tag-info"><span class="tag-num">246</span></td>
+                <td class="label-box">عنوان متغير</td>
+                <td class="ind-box"><input type="text" value="3"><input type="text" value="0"></td>
+                <td><input type="text" class="data-input" placeholder="$a العنوان البديل."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
             <tr data-tag="300">
-                <td class="tag-info"><a href="#" class="loc-link">🔗</a> <span class="tag-num">300</span></td>
+                <td class="tag-info"><span class="tag-num">300</span></td>
                 <td class="label-box">الوصف المادي</td>
-                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a عدد الصفحات : $b توضيحات ؛ $c الحجم."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-            <tr data-tag="336">
-                <td class="tag-info"><a href="#" class="loc-link">🔗</a> <span class="tag-num">336</span></td>
-                <td class="label-box">نوع المحتوى</td>
-                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a text $2 rdacontent"></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-            <tr data-tag="490">
-                <td class="tag-info"><a href="#" class="loc-link">🔗</a> <span class="tag-num">490</span></td>
-                <td class="label-box">بيان السلسلة</td>
-                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a اسم السلسلة ؛ $v المجلد."></td>
+                <td class="ind-box"><input type="text" value="#"><input type="text" value="#"></td>
+                <td><input type="text" class="data-input" placeholder="$a عدد الصفحات ؛ $c الحجم."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
         </table>
     </div>
 
-    <!-- التبويبة 5: التبصرات -->
+    <!-- 5XX التبصرات (إضافة 502 و 504 و 505) -->
     <div id="tab5" class="work-area">
         <table>
             <tr data-tag="500">
-                <td class="tag-info"><a href="#" class="loc-link">🔗</a> <span class="tag-num">500</span></td>
+                <td class="tag-info"><span class="tag-num">500</span></td>
                 <td class="label-box">تبصرة عامة</td>
-                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a نص التبصرة هنا..."></td>
+                <td class="ind-box"><input type="text" value="#"><input type="text" value="#"></td>
+                <td><input type="text" class="data-input" placeholder="$a ملاحظات عامة."></td>
+                <td style="width:50px"><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="502">
+                <td class="tag-info"><span class="tag-num">502</span></td>
+                <td class="label-box">تبصرة الأطروحة</td>
+                <td class="ind-box"><input type="text" value="#"><input type="text" value="#"></td>
+                <td><input type="text" class="data-input" placeholder="$a أطروحة (ماجستير/دكتوراه) - جامعة...، سنة."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
             <tr data-tag="504">
-                <td class="tag-info"><a href="#" class="loc-link">🔗</a> <span class="tag-num">504</span></td>
-                <td class="label-box">تبصرة مراجع</td>
-                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a يشتمل على إرجاعات ببليوغرافية."></td>
+                <td class="tag-info"><span class="tag-num">504</span></td>
+                <td class="label-box">تبصرة المراجع</td>
+                <td class="ind-box"><input type="text" value="#"><input type="text" value="#"></td>
+                <td><input type="text" class="data-input" placeholder="$a يتضمن إرجاعات ببليوغرافية."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
             <tr data-tag="505">
-                <td class="tag-info"><a href="#" class="loc-link">🔗</a> <span class="tag-num">505</span></td>
+                <td class="tag-info"><span class="tag-num">505</span></td>
                 <td class="label-box">تبصرة المحتويات</td>
-                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a ج.1. العنوان الأول -- ج.2. العنوان الثاني."></td>
+                <td class="ind-box"><input type="text" value="0"><input type="text" value="#"></td>
+                <td><input type="text" class="data-input" placeholder="$a محتويات المجلدات أو الفصول."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
         </table>
     </div>
 
-    <!-- باقي التبويبات تتبع نفس النمط -->
-    <div id="tab1" class="work-area"><table><tr data-tag="100"><td class="tag-info"><span class="tag-num">100</span></td><td class="label-box">اسم شخصي</td><td class="ind-box"><input type="text" value="1"> <input type="text" value="#"></td><td><input type="text" class="data-input"></td><td></td></tr></table></div>
-    <div id="tab6" class="work-area"><table><tr data-tag="650"><td class="tag-info"><span class="tag-num">650</span></td><td class="label-box">رأس موضوع</td><td class="ind-box"><input type="text" value="#"> <input type="text" value="4"></td><td><input type="text" class="data-input" placeholder="$a الموضوع"></td><td><button class="add btn-action" onclick="addRow(this)">+</button></td></tr></table></div>
-    <div id="tab7" class="work-area"><table><tr data-tag="700"><td class="tag-info"><span class="tag-num">700</span></td><td class="label-box">مدخل إضافي</td><td class="ind-box"><input type="text" value="1"> <input type="text" value="#"></td><td><input type="text" class="data-input"></td><td><button class="add btn-action" onclick="addRow(this)">+</button></td></tr></table></div>
+    <div id="tab6" class="work-area"><table><tr data-tag="650"><td class="tag-info"><span class="tag-num">650</span></td><td class="label-box">رأس موضوع</td><td class="ind-box"><input type="text" value="#"><input type="text" value="4"></td><td><input type="text" class="data-input"></td><td style="width:50px"><button class="add btn-action" onclick="addRow(this)">+</button></td></tr></table></div>
+    <div id="tab7" class="work-area"><table><tr data-tag="700"><td class="tag-info"><span class="tag-num">700</span></td><td class="label-box">مدخل إضافي</td><td class="ind-box"><input type="text" value="1"><input type="text" value="#"></td><td><input type="text" class="data-input"></td><td style="width:50px"><button class="add btn-action" onclick="addRow(this)">+</button></td></tr></table></div>
 
     <div class="footer-actions">
         <button class="btn-main btn-excel">تصدير البيانات إلى Excel</button>
@@ -230,9 +170,7 @@
     </div>
 </div>
 
-<footer>
-    جميع الحقوق محفوظة © 2024 - منصة الأستاذ عماد كاظم السعدي الأكاديمية
-</footer>
+<footer>جميع الحقوق محفوظة © 2024 - منصة الأستاذ عماد كاظم السعدي الأكاديمية</footer>
 
 <script>
     function switchTab(evt, tabId) {
@@ -247,19 +185,10 @@
     function addRow(btn) {
         let row = btn.closest('tr');
         let clone = row.cloneNode(true);
-        clone.querySelectorAll('input').forEach(input => input.value = '');
-        // إعادة تعيين المؤشرات الافتراضية للنسخة الجديدة
-        clone.querySelector('.ind-box').innerHTML = row.querySelector('.ind-box').innerHTML;
-        
-        let actionCell = clone.querySelector('td:last-child');
-        actionCell.innerHTML = '<button class="del btn-action" onclick="removeRow(this)">-</button>';
+        clone.querySelector('.data-input').value = '';
+        clone.querySelector('td:last-child').innerHTML = '<button class="del btn-action" onclick="this.closest(\'tr\').remove()">-</button>';
         row.parentNode.insertBefore(clone, row.nextSibling);
     }
-
-    function removeRow(btn) {
-        btn.closest('tr').remove();
-    }
 </script>
-
 </body>
 </html>
