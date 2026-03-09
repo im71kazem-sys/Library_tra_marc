@@ -91,21 +91,21 @@
                 <td class="label-box">اسم شخصي</td>
                 <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a الاسم، $d التواريخ."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+                
             </tr>
             <tr data-tag="110">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd110.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">110</span></td>
                 <td class="label-box">اسم هيئة</td>
                 <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a اسم الهيئة."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+                
             </tr>
             <tr data-tag="111">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd111.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">111</span></td>
                 <td class="label-box">اسم مؤتمر</td>
                 <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a اسم المؤتمر $d (السنة : $c المكان)"></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+                
             </tr>
         </table>
     </div>
@@ -118,15 +118,43 @@
                 <td class="label-box">العنوان وبيان المسؤولية</td>
                 <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="0" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a العنوان الرئيسي / $c بيان المسؤولية."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+                
             </tr>
-            <tr data-tag="300">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd300.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">300</span></td>
-                <td class="label-box">الوصف المادي</td>
-                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a عدد الصفحات ؛ $c الحجم."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
+			
+            <!-- حقل 300 الوصف المادي -->
+<tr data-tag="300">
+    <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd300.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">300</span></td>
+    <td class="label-box">الوصف المادي</td>
+    <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+    <td><input type="text" class="data-input" placeholder="$a عدد الصفحات ؛ $c الحجم."></td>
+    <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+</tr>
+
+<!-- حقول RDA الإضافية -->
+<tr data-tag="336">
+    <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">336</span></td>
+    <td class="label-box">نوع المحتوى (RDA)</td>
+    <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+    <td><input type="text" class="data-input" placeholder="$a نص $2 rdacontent"></td>
+    <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+</tr>
+
+<tr data-tag="337">
+    <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">337</span></td>
+    <td class="label-box">نوع الوسيط (RDA)</td>
+    <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+    <td><input type="text" class="data-input" placeholder="$a بدون وسيط $2 rdamedia"></td>
+    <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+</tr>
+
+<tr data-tag="338">
+    <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">338</span></td>
+    <td class="label-box">نوع الناقل (RDA)</td>
+    <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+    <td><input type="text" class="data-input" placeholder="$a مجلد $2 rdacarrier"></td>
+    <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+</tr>
+
             <tr data-tag="490">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd490.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">490</span></td>
                 <td class="label-box">بيان السلسلة</td>
@@ -147,6 +175,14 @@
                 <td><input type="text" class="data-input" placeholder="أدخل الملاحظات العامة هنا..."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+			            <tr data-tag="502">
+                <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">502</span></td>
+                <td class="label-box">تبصرة الأطروحة</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a نوع الدرجة العلمية -- الجامعة والكلية، السنة."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+
             <tr data-tag="504">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd504.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">504</span></td>
                 <td class="label-box">تبصرة مراجع</td>
@@ -232,7 +268,7 @@
 </div>
 
 <footer>
-جميع حفوظة عماد كاظم السعدي © 2026 .
+   حفوظة للمطور عماد كاظم السعدي © 2026 | جميع الحقول مطابقة لمعايير21 الدولية جميع[2].
 </footer>
 
 <script>
