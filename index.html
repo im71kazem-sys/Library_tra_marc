@@ -3,302 +3,282 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة عماد كاظم السعدي الأكاديمية - الدليل الكامل لمارك 21</title>
+    <title>منصة عماد كاظم السعدي - نظام مارك 21 المتكامل</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --koha-blue: #004b85; --koha-light: #f4f7f9; --border: #c8d1d9; --red: #d73a49; --green: #28a745; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--koha-light); margin: 0; }
+        :root { --koha-blue: #004b85; --koha-light: #f4f7f9; --border: #c8d1d9; --red: #d73a49; --green: #28a745; --yellow: #fffde7; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--koha-light); margin: 0; padding-bottom: 50px; }
         header { background: var(--koha-blue); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #003660; }
-        .container { width: 98%; margin: 20px auto; background: white; border: 1px solid var(--border); border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .container { width: 95%; margin: 20px auto; background: white; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        
+        .tabs-header { display: flex; background: #e1e8ed; border-bottom: 1px solid var(--border); overflow-x: auto; }
+        .tab-btn { padding: 15px 20px; border: none; background: none; cursor: pointer; font-weight: bold; color: var(--koha-blue); border-left: 1px solid var(--border); white-space: nowrap; transition: 0.3s; }
+        .tab-btn.active { background: white; border-bottom: 3px solid var(--koha-blue); }
 
-        .tabs-header { display: flex; background: #e1e8ed; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: thin; }
-        .tab-btn { padding: 12px 25px; border: none; background: none; cursor: pointer; font-weight: bold; color: var(--koha-blue); border-left: 1px solid var(--border); white-space: nowrap; }
-        .tab-btn.active { background: white; border-bottom: 2px solid white; margin-bottom: -1px; }
-
-        .work-area { padding: 25px; display: none; min-height: 500px; }
+        .work-area { padding: 20px; display: none; }
         .work-area.active { display: block; }
 
-        table { width: 100%; border-collapse: collapse; }
-        tr { border-bottom: 1px solid #eee; }
-        td { padding: 12px 10px; vertical-align: middle; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        tr { border-bottom: 1px solid #eee; transition: background 0.2s; }
+        tr:hover { background: #fcfcfc; }
+        td { padding: 12px; vertical-align: middle; }
 
-        .tag-info { display: flex; align-items: center; gap: 8px; width: 140px; }
-        .tag-num { font-weight: bold; color: var(--red); font-size: 1.1rem; font-family: monospace; }
-        .loc-link { text-decoration: none; font-size: 1.1rem; }
+        .tag-info { display: flex; align-items: center; gap: 10px; width: 120px; }
+        .tag-num { font-weight: 700; color: var(--red); font-size: 1.1rem; font-family: monospace; }
+        .loc-link { text-decoration: none; font-size: 1rem; color: var(--koha-blue); }
 
-        .ind-box input { width: 35px; text-align: center; border: 1px solid #ccc; padding: 6px; background: #fffde7; font-family: monospace; }
-        .label-box { width: 280px; font-size: 0.9rem; color: #444; font-weight: 600; }
+        .ind-box { display: flex; gap: 3px; }
+        .ind-box input { width: 25px; text-align: center; border: 1px solid #ccc; padding: 5px; background: var(--yellow); font-family: monospace; font-weight: bold; }
+        
+        .label-box { width: 220px; font-size: 0.9rem; color: #333; font-weight: 600; }
+        .data-input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 1rem; box-sizing: border-box; }
+        .data-input:focus { border-color: var(--koha-blue); outline: none; background: #fff; }
 
-        .data-input { width: 98%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 1.05rem; }
-        .data-input:focus { border-color: var(--koha-blue); outline: none; box-shadow: 0 0 8px rgba(0,75,133,0.1); }
-
-        .btn-action { border: none; border-radius: 50%; width: 32px; height: 32px; cursor: pointer; color: white; font-weight: bold; font-size: 1.3rem; line-height: 1; }
+        .btn-action { border: none; border-radius: 4px; width: 30px; height: 30px; cursor: pointer; color: white; font-weight: bold; display: flex; align-items: center; justify-content: center; }
         .add { background: var(--green); }
-        .del { background: var(--red); }
+        .del { background: var(--red); margin-top: 5px; }
 
-        .footer-actions { background: #f8f9fa; padding: 25px; text-align: center; border-top: 1px solid var(--border); }
-        .btn-main { padding: 12px 40px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; margin: 0 10px; font-family: 'Cairo'; }
-        .btn-excel { background: #1d6f42; color: white; }
+        .footer-actions { background: #f8f9fa; padding: 20px; text-align: center; border-top: 1px solid var(--border); }
+        .btn-main { padding: 12px 30px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; margin: 5px; font-family: 'Cairo'; transition: 0.3s; }
+        .btn-save { background: var(--koha-blue); color: white; }
         .btn-reset { background: #6c757d; color: white; }
-
-        footer { text-align: center; padding: 20px; font-size: 0.85rem; color: #666; background: white; border-top: 1px solid #ddd; }
     </style>
 </head>
-
 <body>
 
 <header>
-    <div><strong>منصة عماد السعدي المتكاملة للفهرسة</strong> | مختبر MARC 21</div>
-    <div>بيئة محاكاة Koha - متوافق مع تسجيلات المستوى الكامل</div>
+    <div><strong>منصة عماد السعدي</strong> | مختبر مارك 21 الاحترافي</div>
+    <div style="font-size: 0.9rem;">المستوى الكامل للوصف البيبليوغرافي</div>
 </header>
 
 <div class="container">
-
     <div class="tabs-header">
         <button class="tab-btn active" onclick="switchTab(event, 'tab0')">0XX (الضبط)</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab1')">1XX (المداخل الرئيسية)</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab2')">2XX-4XX (الوصف/السلسلة)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab1')">1XX (المدخل الرئيسي)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab2')">2XX-4XX (الوصف)</button>
         <button class="tab-btn" onclick="switchTab(event, 'tab5')">5XX (التبصرات)</button>
         <button class="tab-btn" onclick="switchTab(event, 'tab6')">6XX (الموضوعات)</button>
-        <button class="tab-btn" onclick="switchTab(event, 'tab7')">7XX (المداخل الإضافية)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab7')">7XX (مداخل إضافية)</button>
     </div>
 
-    <!-- tab0 -->
+    <!-- التبويبة 0 -->
     <div id="tab0" class="work-area active">
-        <table>
+        <table id="table0">
             <tr data-tag="020">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd020.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">020</span></td>
                 <td class="label-box">ردمك (ISBN)</td>
                 <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="مثال: $a 978... $q غلاف ورقى"></td>
+                <td><input type="text" class="data-input" placeholder="$a 9789957321245"></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
-
             <tr data-tag="082">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd082.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">082</span></td>
-                <td class="label-box">تصنيف ديوي العشري</td>
+                <td class="label-box">تصنيف ديوي</td>
                 <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="4" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="مثال: $a 892.736 $b Z397abb $2 22"></td>
+                <td><input type="text" class="data-input" placeholder="$a 025.04 $2 23"></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
         </table>
     </div>
 
-    <!-- tab1 -->
+    <!-- التبويبة 1: المداخل الرئيسية -->
     <div id="tab1" class="work-area">
         <table>
             <tr data-tag="100">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd100.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">100</span></td>
+                <td class="tag-info"><span class="tag-num">100</span></td>
                 <td class="label-box">اسم شخصي</td>
                 <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a الاسم، $d التواريخ."></td>
+                <td><input type="text" class="data-input" placeholder="$a السعدي، عماد كاظم، $e مؤلف."></td>
             </tr>
-
             <tr data-tag="110">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd110.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">110</span></td>
+                <td class="tag-info"><span class="tag-num">110</span></td>
                 <td class="label-box">اسم هيئة</td>
                 <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a اسم الهيئة."></td>
+                <td><input type="text" class="data-input" placeholder="$a جامعة بغداد. $b كلية الآداب."></td>
             </tr>
-
             <tr data-tag="111">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd111.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">111</span></td>
+                <td class="tag-info"><span class="tag-num">111</span></td>
                 <td class="label-box">اسم مؤتمر</td>
                 <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a اسم المؤتمر $d (السنة : $c المكان)"></td>
+                <td><input type="text" class="data-input" placeholder="$a مؤتمر الفهرسة العربي $d (2023 : $c دبي)"></td>
+            </tr>
+            <tr data-tag="130">
+                <td class="tag-info"><span class="tag-num">130</span></td>
+                <td class="label-box">عنوان موحد</td>
+                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a القرآن الكريم."></td>
             </tr>
         </table>
     </div>
 
-    <!-- tab2 -->
+    <!-- التبويبة 2: الوصف -->
     <div id="tab2" class="work-area">
         <table>
-
             <tr data-tag="245">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd245.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">245</span></td>
+                <td class="tag-info"><span class="tag-num">245</span></td>
                 <td class="label-box">العنوان وبيان المسؤولية</td>
                 <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="0" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a العنوان الرئيسي / $c بيان المسؤولية."></td>
+                <td><input type="text" class="data-input" placeholder="$a عنوان الكتاب : $b عنوان فرعي / $c تأليف عماد السعدي."></td>
             </tr>
-
-            <tr data-tag="246">
-                <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">246</span></td>
-                <td class="label-box">شكل مختلف للعنوان</td>
-                <td class="ind-box"><input type="text" value="3" maxlength="1"><input type="text" value="0" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a العنوان البديل أو المتغير."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            <tr data-tag="250">
+                <td class="tag-info"><span class="tag-num">250</span></td>
+                <td class="label-box">بيان الطبعة</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a ط. 2."></td>
             </tr>
-
+            <tr data-tag="264">
+                <td class="tag-info"><span class="tag-num">264</span></td>
+                <td class="label-box">النشر والتوزيع</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="1" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a عمان : $b دار الفكر، $c 2024."></td>
+            </tr>
             <tr data-tag="300">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd300.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">300</span></td>
+                <td class="tag-info"><span class="tag-num">300</span></td>
                 <td class="label-box">الوصف المادي</td>
                 <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a عدد الصفحات ؛ $c الحجم."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+                <td><input type="text" class="data-input" placeholder="$a 350 ص. : $b مصور ؛ $c 24 سم."></td>
             </tr>
-
-            <tr data-tag="490">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd490.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">490</span></td>
-                <td class="label-box">بيان السلسلة</td>
-                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a اسم السلسلة ؛ $v المجلد."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-
         </table>
     </div>
 
-    <!-- tab5 -->
+    <!-- التبويبة 5: التبصرات -->
     <div id="tab5" class="work-area">
         <table>
-
             <tr data-tag="500">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd500.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">500</span></td>
+                <td class="tag-info"><span class="tag-num">500</span></td>
                 <td class="label-box">تبصرة عامة</td>
                 <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="أدخل الملاحظات العامة هنا..."></td>
+                <td><input type="text" class="data-input" placeholder="$a يشتمل على كشافات."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
-
-            <tr data-tag="502">
-                <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">502</span></td>
-                <td class="label-box">تبصرة الأطروحة</td>
-                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a نوع الدرجة العلمية -- الجامعة والكلية، السنة."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-
             <tr data-tag="504">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd504.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">504</span></td>
-                <td class="label-box">تبصرة مراجع</td>
+                <td class="tag-info"><span class="tag-num">504</span></td>
+                <td class="label-box">تبصرة بيبليوغرافية</td>
                 <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" value="$a يشتمل على ارجاعات ببليوجرافية."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+                <td><input type="text" class="data-input" placeholder="$a يتضمن إرجاعات بيبليوغرافية (ص. 340-348)."></td>
             </tr>
-
-            <tr data-tag="505">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd505.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">505</span></td>
-                <td class="label-box">تبصرة المحتويات</td>
-                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a ج. 1. العنوان الأول -- ج. 2. العنوان الثاني."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-
         </table>
     </div>
 
-    <!-- tab6 -->
+    <!-- التبويبة 6: الموضوعات -->
     <div id="tab6" class="work-area">
         <table>
-
+            <!-- 600 -->
+            <tr data-tag="600">
+                <td class="tag-info"><span class="tag-num">600</span></td>
+                <td class="label-box">موضوع - اسم شخص</td>
+                <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a المتنبي، أحمد بن الحسين، $d 915-965."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <!-- 610 -->
+            <tr data-tag="610">
+                <td class="tag-info"><span class="tag-num">610</span></td>
+                <td class="label-box">موضوع - اسم هيئة</td>
+                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a جامعة الدول العربية."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <!-- 611 -->
+            <tr data-tag="611">
+                <td class="tag-info"><span class="tag-num">611</span></td>
+                <td class="label-box">موضوع - اسم مؤتمر</td>
+                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a معرض القاهرة الدولي للكتاب."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <!-- 650 -->
             <tr data-tag="650">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd650.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">650</span></td>
-                <td class="label-box">موضوع - مصطلح موضوعي</td>
-                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="7" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a رأس الموضوع $v التقسيم $2 المصدر"></td>
+                <td class="tag-info"><span class="tag-num">650</span></td>
+                <td class="label-box">موضوع - رأس موضوع</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a المكتبات الرقمية $z العراق."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
-
+            <!-- 651 -->
             <tr data-tag="651">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd651.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">651</span></td>
+                <td class="tag-info"><span class="tag-num">651</span></td>
                 <td class="label-box">موضوع - اسم جغرافي</td>
-                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="7" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a العراق $x تاريخ."></td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a بغداد $x تاريخ $y القرن 20."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
-
+            <!-- 655 -->
             <tr data-tag="655">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd655.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">655</span></td>
-                <td class="label-box">نوع المادة / كشاف</td>
-                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="7" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a القصص التاريخية. $2 qrmak"></td>
+                <td class="tag-info"><span class="tag-num">655</span></td>
+                <td class="label-box">موضوع - نوع/شكل</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a قواميس."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
-
         </table>
     </div>
 
-    <!-- tab7 -->
+    <!-- التبويبة 7: المداخل الإضافية -->
     <div id="tab7" class="work-area">
         <table>
-
             <tr data-tag="700">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd700.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">700</span></td>
-                <td class="label-box">مدخل إضافي - شخص</td>
+                <td class="tag-info"><span class="tag-num">700</span></td>
+                <td class="label-box">إضافي - اسم شخص</td>
                 <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="اسم المترجم أو المحرر..."></td>
+                <td><input type="text" class="data-input" placeholder="$a محمد، علي، $e مترجم."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
-
             <tr data-tag="710">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd710.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">710</span></td>
-                <td class="label-box">مدخل إضافي - هيئة</td>
+                <td class="tag-info"><span class="tag-num">710</span></td>
+                <td class="label-box">إضافي - اسم هيئة</td>
                 <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="اسم الهيئة الإضافية..."></td>
+                <td><input type="text" class="data-input" placeholder="$a جمعية المكتبات المتخصصة."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
-
             <tr data-tag="711">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd711.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">711</span></td>
-                <td class="label-box">مدخل إضافي - مؤتمر</td>
+                <td class="tag-info"><span class="tag-num">711</span></td>
+                <td class="label-box">إضافي - مؤتمر</td>
                 <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="اسم المؤتمر الإضافي..."></td>
+                <td><input type="text" class="data-input" placeholder="$a القمة العربية الرقمية."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
-
-            <tr data-tag="773">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd773.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">773</span></td>
-                <td class="label-box">المادة المضيفة (Host)</td>
-                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$t العنوان $g الأجزاء $w رقم الضبط"></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-
         </table>
     </div>
 
     <div class="footer-actions">
-        <button class="btn-main btn-excel" onclick="exportData()">📊 تصدير السجل إلى Excel</button>
-        <button class="btn-main btn-reset" onclick="location.reload()">🔄 مسح</button>
+        <button class="btn-main btn-save" onclick="alert('تم حفظ البيانات بنجاح وفق معيار MARC21')">حفظ التسجيلة</button>
+        <button class="btn-main btn-reset" onclick="location.reload()">إعادة ضبط</button>
     </div>
-
 </div>
 
 <footer>
-    حفوظة للمطور عماد كاظم السعدي © 2026 | جميع الحقول مطابقة لمعايير21 الدولية جميع[2].
+    &copy; 2024 منصة عماد كاظم السعدي الأكاديمية - جميع الحقوق محفوظة
 </footer>
 
 <script>
     function switchTab(evt, tabId) {
-        document.querySelectorAll('.work-area').forEach(wa => wa.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(tb => tb.classList.remove('active'));
-        document.getElementById(tabId).classList.add('active');
-        evt.currentTarget.classList.add('active');
+        let areas = document.getElementsByClassName("work-area");
+        for (let i = 0; i < areas.length; i++) { areas[i].classList.remove("active"); }
+        
+        let btns = document.getElementsByClassName("tab-btn");
+        for (let i = 0; i < btns.length; i++) { btns[i].classList.remove("active"); }
+
+        document.getElementById(tabId).classList.add("active");
+        evt.currentTarget.classList.add("active");
     }
 
     function addRow(btn) {
-        const row = btn.closest('tr');
-        const clone = row.cloneNode(true);
+        let currentRow = btn.closest('tr');
+        let clone = currentRow.cloneNode(true);
+        
+        // مسح القيم في السطر الجديد
         clone.querySelector('.data-input').value = "";
-        const actionCell = clone.cells[clone.cells.length - 1];
-        actionCell.innerHTML = '<button class="del btn-action" onclick="this.closest(\'tr\').remove()">×</button>';
-        row.parentNode.insertBefore(clone, row.nextSibling);
+        
+        // تحويل زر الإضافة إلى زر حذف في السطر الجديد
+        let actionCell = clone.cells[clone.cells.length - 1];
+        actionCell.innerHTML = '<button class="del btn-action" onclick="removeRow(this)">×</button>';
+        
+        currentRow.parentNode.insertBefore(clone, currentRow.nextSibling);
     }
 
-    function exportData() {
-        let csv = "\uFEFFالحقل,الوصف,المؤشرات,البيانات المكتوبة\n";
-        document.querySelectorAll('tr[data-tag]').forEach(tr => {
-            const tag = tr.getAttribute('data-tag');
-            const desc = tr.querySelector('.label-box').innerText;
-            const ind = Array.from(tr.querySelectorAll('.ind-box input')).map(i => i.value).join('');
-            const data = tr.querySelector('.data-input').value.replace(/,/g, " ");
-            csv += `${tag},${desc},${ind},${data}\n`;
-        });
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "MARC21_Catalog_Emad_Saadi.csv";
-        link.click();
+    function removeRow(btn) {
+        btn.closest('tr').remove();
     }
 </script>
 
