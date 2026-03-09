@@ -204,17 +204,24 @@ border-top:1px solid #ddd;
 <div class="tabs-header">
 
 <button class="tab-btn active" onclick="switchTab(event,'tab0')">0XX الضبط</button>
+
 <button class="tab-btn" onclick="switchTab(event,'tab1')">1XX المداخل الرئيسية</button>
-<button class="tab-btn" onclick="switchTab(event,'tab2')">2XX الوصف</button>
-<button class="tab-btn" onclick="switchTab(event,'tab3')">الوصف المادي</button>
+
+<button class="tab-btn" onclick="switchTab(event,'tab2')">2XX الوصف الببليوجرافي</button>
+
+<button class="tab-btn" onclick="switchTab(event,'tab3')">3XX الوصف المادي</button>
+
 <button class="tab-btn" onclick="switchTab(event,'tab4')">4XX السلاسل</button>
+
 <button class="tab-btn" onclick="switchTab(event,'tab5')">5XX التبصرات</button>
+
 <button class="tab-btn" onclick="switchTab(event,'tab6')">6XX الموضوعات</button>
+
 <button class="tab-btn" onclick="switchTab(event,'tab7')">7XX المداخل الإضافية</button>
+
 <button class="tab-btn" onclick="switchTab(event,'tab8')">8XX السلاسل المقننة</button>
 
 </div>
-
 
 <!-- 0XX -->
 
@@ -513,7 +520,279 @@ border-top:1px solid #ddd;
 </table>
 
 </div>
+<div id="tab4" class="work-area">
 
+<table>
+
+<tr data-tag="490">
+
+<td class="tag-info">
+
+<a href="https://www.loc.gov/marc/bibliographic/bd490.html" target="_blank" class="loc-link">🔗</a>
+
+<span class="tag-num">490</span>
+
+</td>
+
+<td class="label-box">بيان السلسلة</td>
+
+<td class="ind-box">
+
+<input value="0">
+
+<input value="#">
+
+</td>
+
+<td>
+
+<input class="data-input" placeholder="$a اسم السلسلة ; $v رقم الجزء">
+
+</td>
+
+<td>
+
+<button class="add btn-action" onclick="addRow(this)">+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+  <div id="tab5" class="work-area">
+
+<table>
+
+<tr data-tag="500">
+
+<td class="tag-info">
+
+<a href="https://www.loc.gov/marc/bibliographic/bd500.html" target="_blank" class="loc-link">🔗</a>
+
+<span class="tag-num">500</span>
+
+</td>
+
+<td class="label-box">تبصرة عامة</td>
+
+<td class="ind-box">
+
+<input value="#">
+
+<input value="#">
+
+</td>
+
+<td>
+
+<input class="data-input" placeholder="أدخل الملاحظات العامة">
+
+</td>
+
+<td>
+
+<button class="add btn-action" onclick="addRow(this)">+</button>
+
+</td>
+
+</tr>
+
+<tr data-tag="504">
+
+<td class="tag-info">
+
+<a href="https://www.loc.gov/marc/bibliographic/bd504.html" target="_blank" class="loc-link">🔗</a>
+
+<span class="tag-num">504</span>
+
+</td>
+
+<td class="label-box">تبصرة مراجع</td>
+
+<td class="ind-box">
+
+<input value="#">
+
+<input value="#">
+
+</td>
+
+<td>
+
+<input class="data-input" value="$a يشتمل على إرجاعات ببليوجرافية.">
+
+</td>
+
+<td>
+
+<button class="add btn-action" onclick="addRow(this)">+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+  <div id="tab6" class="work-area">
+
+<table>
+
+<tr data-tag="650">
+
+<td class="tag-info">
+
+<a href="https://www.loc.gov/marc/bibliographic/bd650.html" target="_blank" class="loc-link">🔗</a>
+
+<span class="tag-num">650</span>
+
+</td>
+
+<td class="label-box">موضوع - مصطلح موضوعي</td>
+
+<td class="ind-box">
+
+<input value="#">
+
+<input value="7">
+
+</td>
+
+<td>
+
+<input class="data-input" placeholder="$a رأس الموضوع $2 المصدر">
+
+</td>
+
+<td>
+
+<button class="add btn-action" onclick="addRow(this)">+</button>
+
+</td>
+
+</tr>
+
+<tr data-tag="651">
+
+<td class="tag-info">
+
+<a href="https://www.loc.gov/marc/bibliographic/bd651.html" target="_blank" class="loc-link">🔗</a>
+
+<span class="tag-num">651</span>
+
+</td>
+
+<td class="label-box">موضوع جغرافي</td>
+
+<td class="ind-box">
+
+<input value="#">
+
+<input value="7">
+
+</td>
+
+<td>
+
+<input class="data-input" placeholder="$a العراق $x تاريخ">
+
+</td>
+
+<td>
+
+<button class="add btn-action" onclick="addRow(this)">+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+  <div id="tab7" class="work-area">
+
+<table>
+
+<tr data-tag="700">
+
+<td class="tag-info">
+
+<a href="https://www.loc.gov/marc/bibliographic/bd700.html" target="_blank" class="loc-link">🔗</a>
+
+<span class="tag-num">700</span>
+
+</td>
+
+<td class="label-box">مدخل إضافي - شخص</td>
+
+<td class="ind-box">
+
+<input value="1">
+
+<input value="#">
+
+</td>
+
+<td>
+
+<input class="data-input" placeholder="$a الاسم">
+
+</td>
+
+<td>
+
+<button class="add btn-action" onclick="addRow(this)">+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+  <div id="tab8" class="work-area">
+
+<table>
+
+<tr data-tag="830">
+
+<td class="tag-info">
+
+<a href="https://www.loc.gov/marc/bibliographic/bd830.html" target="_blank" class="loc-link">🔗</a>
+
+<span class="tag-num">830</span>
+
+</td>
+
+<td class="label-box">سلسلة مقننة</td>
+
+<td class="ind-box">
+
+<input value="#">
+
+<input value="#">
+
+</td>
+
+<td>
+
+<input class="data-input" placeholder="$a اسم السلسلة المقننة">
+
+</td>
+
+<td>
+
+<button class="add btn-action" onclick="addRow(this)">+</button>
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
 
 <div class="footer-actions">
 
@@ -629,3 +908,4 @@ document.getElementById("marcOutput").value=marc;
 
 </body>
 </html>
+
