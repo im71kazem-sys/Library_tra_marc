@@ -119,14 +119,42 @@
                 <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="0" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a العنوان الرئيسي / $c بيان المسؤولية."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
+                        <!-- حقل 300 الأصلي -->
             <tr data-tag="300">
-                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd300.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">300</span></td>
+                <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">300</span></td>
                 <td class="label-box">الوصف المادي</td>
                 <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a عدد الصفحات ؛ $c الحجم."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+
+            <!-- حقل 336 - نوع المحتوى -->
+            <tr data-tag="336">
+                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd336.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">336</span></td>
+                <td class="label-box">نوع المحتوى</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a نص $b txt $2 rdacontent"></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+
+            <!-- حقل 337 - نوع الوسيط -->
+            <tr data-tag="337">
+                <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">337</span></td>
+                <td class="label-box">نوع الوسيط</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a غير وسيط $b n $2 rdamedia"></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+
+            <!-- حقل 338 - نوع الحامل -->
+            <tr data-tag="338">
+                <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">338</span></td>
+                <td class="label-box">نوع الحامل</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a مجلد $b nc $2 rdacarrier"></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+
             <tr data-tag="490">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd490.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">490</span></td>
                 <td class="label-box">بيان السلسلة</td>
@@ -271,5 +299,6 @@
 
 </body>
 </html>
+
 
 
