@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -11,8 +10,7 @@
         body { font-family: 'Cairo', sans-serif; background-color: var(--koha-light); margin: 0; }
         header { background: var(--koha-blue); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #003660; }
         .container { width: 98%; margin: 20px auto; background: white; border: 1px solid var(--border); border-radius: 4px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        
-        /* التبويبات */
+
         .tabs-header { display: flex; background: #e1e8ed; border-bottom: 1px solid var(--border); overflow-x: auto; scrollbar-width: thin; }
         .tab-btn { padding: 12px 25px; border: none; background: none; cursor: pointer; font-weight: bold; color: var(--koha-blue); border-left: 1px solid var(--border); white-space: nowrap; }
         .tab-btn.active { background: white; border-bottom: 2px solid white; margin-bottom: -1px; }
@@ -30,7 +28,7 @@
 
         .ind-box input { width: 35px; text-align: center; border: 1px solid #ccc; padding: 6px; background: #fffde7; font-family: monospace; }
         .label-box { width: 280px; font-size: 0.9rem; color: #444; font-weight: 600; }
-        
+
         .data-input { width: 98%; padding: 12px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 1.05rem; }
         .data-input:focus { border-color: var(--koha-blue); outline: none; box-shadow: 0 0 8px rgba(0,75,133,0.1); }
 
@@ -46,6 +44,7 @@
         footer { text-align: center; padding: 20px; font-size: 0.85rem; color: #666; background: white; border-top: 1px solid #ddd; }
     </style>
 </head>
+
 <body>
 
 <header>
@@ -54,6 +53,7 @@
 </header>
 
 <div class="container">
+
     <div class="tabs-header">
         <button class="tab-btn active" onclick="switchTab(event, 'tab0')">0XX (الضبط)</button>
         <button class="tab-btn" onclick="switchTab(event, 'tab1')">1XX (المداخل الرئيسية)</button>
@@ -63,7 +63,7 @@
         <button class="tab-btn" onclick="switchTab(event, 'tab7')">7XX (المداخل الإضافية)</button>
     </div>
 
-    <!-- التبويبة 0: الضبط -->
+    <!-- tab0 -->
     <div id="tab0" class="work-area active">
         <table>
             <tr data-tag="020">
@@ -73,6 +73,7 @@
                 <td><input type="text" class="data-input" placeholder="مثال: $a 978... $q غلاف ورقى"></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+
             <tr data-tag="082">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd082.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">082</span></td>
                 <td class="label-box">تصنيف ديوي العشري</td>
@@ -83,7 +84,7 @@
         </table>
     </div>
 
-    <!-- التبويبة 1: المداخل الرئيسية (كاملة) -->
+    <!-- tab1 -->
     <div id="tab1" class="work-area">
         <table>
             <tr data-tag="100">
@@ -91,58 +92,50 @@
                 <td class="label-box">اسم شخصي</td>
                 <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a الاسم، $d التواريخ."></td>
-                
             </tr>
+
             <tr data-tag="110">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd110.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">110</span></td>
                 <td class="label-box">اسم هيئة</td>
                 <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a اسم الهيئة."></td>
-                
             </tr>
+
             <tr data-tag="111">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd111.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">111</span></td>
                 <td class="label-box">اسم مؤتمر</td>
                 <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a اسم المؤتمر $d (السنة : $c المكان)"></td>
-                
             </tr>
         </table>
     </div>
 
-    <!-- التبويبة 2-4: الوصف والسلسلة -->
+    <!-- tab2 -->
     <div id="tab2" class="work-area">
         <table>
+
             <tr data-tag="245">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd245.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">245</span></td>
                 <td class="label-box">العنوان وبيان المسؤولية</td>
                 <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="0" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a العنوان الرئيسي / $c بيان المسؤولية."></td>
-                   		
-        <!-- حقل 246 (حقل مكرر) -->
-        <tr data-tag="246">
-            <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">246</span></td>
-            <td class="label-box">شكل مختلف للعنوان</td>
-            <td class="ind-box"><input type="text" value="3" maxlength="1"><input type="text" value="0" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a العنوان البديل أو المتغير."></td>
-			td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-    </table>
-</div>
+            </tr>
 
-            <!-- حقل 300 الوصف المادي -->
-<tr data-tag="300">
-    <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd300.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">300</span></td>
-    <td class="label-box">الوصف المادي</td>
-    <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-    <td><input type="text" class="data-input" placeholder="$a عدد الصفحات ؛ $c الحجم."></td>
-    <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-</tr>
+            <tr data-tag="246">
+                <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">246</span></td>
+                <td class="label-box">شكل مختلف للعنوان</td>
+                <td class="ind-box"><input type="text" value="3" maxlength="1"><input type="text" value="0" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a العنوان البديل أو المتغير."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
 
-
-
-
-
+            <tr data-tag="300">
+                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd300.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">300</span></td>
+                <td class="label-box">الوصف المادي</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a عدد الصفحات ؛ $c الحجم."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
 
             <tr data-tag="490">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd490.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">490</span></td>
@@ -151,15 +144,14 @@
                 <td><input type="text" class="data-input" placeholder="$a اسم السلسلة ؛ $v المجلد."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+
         </table>
     </div>
-	
-	
-	
 
-    <!-- التبويبة 5: التبصرات (مؤكدة ومكررة) -->
+    <!-- tab5 -->
     <div id="tab5" class="work-area">
         <table>
+
             <tr data-tag="500">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd500.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">500</span></td>
                 <td class="label-box">تبصرة عامة</td>
@@ -167,7 +159,8 @@
                 <td><input type="text" class="data-input" placeholder="أدخل الملاحظات العامة هنا..."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
-			            <tr data-tag="502">
+
+            <tr data-tag="502">
                 <td class="tag-info"><a href="https://www.loc.gov" target="_blank" class="loc-link">🔗</a> <span class="tag-num">502</span></td>
                 <td class="label-box">تبصرة الأطروحة</td>
                 <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
@@ -182,6 +175,7 @@
                 <td><input type="text" class="data-input" value="$a يشتمل على ارجاعات ببليوجرافية."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+
             <tr data-tag="505">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd505.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">505</span></td>
                 <td class="label-box">تبصرة المحتويات</td>
@@ -189,16 +183,14 @@
                 <td><input type="text" class="data-input" placeholder="$a ج. 1. العنوان الأول -- ج. 2. العنوان الثاني."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+
         </table>
     </div>
 
-
-
-
-
-    <!-- التبويبة 6: الموضوعات (مؤكدة ومكررة) -->
+    <!-- tab6 -->
     <div id="tab6" class="work-area">
         <table>
+
             <tr data-tag="650">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd650.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">650</span></td>
                 <td class="label-box">موضوع - مصطلح موضوعي</td>
@@ -206,6 +198,7 @@
                 <td><input type="text" class="data-input" placeholder="$a رأس الموضوع $v التقسيم $2 المصدر"></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+
             <tr data-tag="651">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd651.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">651</span></td>
                 <td class="label-box">موضوع - اسم جغرافي</td>
@@ -213,6 +206,7 @@
                 <td><input type="text" class="data-input" placeholder="$a العراق $x تاريخ."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+
             <tr data-tag="655">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd655.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">655</span></td>
                 <td class="label-box">نوع المادة / كشاف</td>
@@ -220,15 +214,14 @@
                 <td><input type="text" class="data-input" placeholder="$a القصص التاريخية. $2 qrmak"></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+
         </table>
     </div>
-	
-	
-	
 
-    <!-- التبويبة 7: المداخل الإضافية (كاملة) -->
+    <!-- tab7 -->
     <div id="tab7" class="work-area">
         <table>
+
             <tr data-tag="700">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd700.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">700</span></td>
                 <td class="label-box">مدخل إضافي - شخص</td>
@@ -236,6 +229,7 @@
                 <td><input type="text" class="data-input" placeholder="اسم المترجم أو المحرر..."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+
             <tr data-tag="710">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd710.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">710</span></td>
                 <td class="label-box">مدخل إضافي - هيئة</td>
@@ -243,6 +237,7 @@
                 <td><input type="text" class="data-input" placeholder="اسم الهيئة الإضافية..."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+
             <tr data-tag="711">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd711.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">711</span></td>
                 <td class="label-box">مدخل إضافي - مؤتمر</td>
@@ -250,6 +245,7 @@
                 <td><input type="text" class="data-input" placeholder="اسم المؤتمر الإضافي..."></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+
             <tr data-tag="773">
                 <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd773.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">773</span></td>
                 <td class="label-box">المادة المضيفة (Host)</td>
@@ -257,6 +253,7 @@
                 <td><input type="text" class="data-input" placeholder="$t العنوان $g الأجزاء $w رقم الضبط"></td>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
+
         </table>
     </div>
 
@@ -264,10 +261,11 @@
         <button class="btn-main btn-excel" onclick="exportData()">📊 تصدير السجل إلى Excel</button>
         <button class="btn-main btn-reset" onclick="location.reload()">🔄 مسح</button>
     </div>
+
 </div>
 
 <footer>
-   حفوظة للمطور عماد كاظم السعدي © 2026 | جميع الحقول مطابقة لمعايير21 الدولية جميع[2].
+    حفوظة للمطور عماد كاظم السعدي © 2026 | جميع الحقول مطابقة لمعايير21 الدولية جميع[2].
 </footer>
 
 <script>
