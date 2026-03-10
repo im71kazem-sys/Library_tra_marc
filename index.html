@@ -53,9 +53,8 @@
 
     
     <style>
-        .btn-excel { background-color: #217346; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-family: 'Cairo'; font-weight: bold; }
-        .btn-reset { background-color: #f44336; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-family: 'Cairo'; font-weight: bold; }
-        header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background-color: #f8f9fa; border-bottom: 2px solid #ddd; }
+        .btn-text { background-color: #555; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-family: 'Cairo'; font-weight: bold; }
+
     </style>
 </head>
 <body>
@@ -68,7 +67,8 @@
     
     <div style="display: flex; gap: 10px;">
         <!-- تغيير النص داخل الزر -->
-<button onclick="exportToExcel()" class="btn-excel">📊 تصدير اكسل</button>
+</button<button onclick="exportToText()" class="btn-text">📄 تصدير Text</button>
+
 
         <button onclick="location.reload()" class="btn-reset">🧹 مسح البيانات</button>
     </div>
@@ -88,7 +88,7 @@
     <button class="tab-btn" onclick="switchTab(event, 'tab6')">6XX (الموضوعات)</button>
     <button class="tab-btn" onclick="switchTab(event, 'tab7')">7XX (مداخل إضافية)</button>
 </div>
->
+
 <!-- التبويبة 0: الضبط -->
 <div id="tab0" class="work-area active">
     <table id="table0">
@@ -488,6 +488,55 @@ r>
 
 
 <script>
+function exportToText() {
+    let textData = "--- تصدير بيانات منصة السعدي ---\n";
+    textData += "تاريخ التصدير: " + new Date().toLocaleString('ar-EG') + "\n\n";
+    textData += "رقم التاج | اسم الحقل | المؤشرات | المحتوى\n";
+    textData += "-------------------------------------------\n";
+
+    let allRows = document.querySelectorAll('tr[data-tag]');
+    let hasData = false;
+
+    allRows.forEach(row => {
+        let tagNum = row.getAttribute('data-tag');
+        let labelName = row.querySelector('.label-box')?.innerText.trim() || "";
+        
+        let indicators = "";
+        row.querySelectorAll('.ind-box input').forEach(input => {
+            indicators += (input.value === "" || input.value === " ") ? "#" : input.value;
+        });
+
+        let contentValue = "";
+        let mainInput = row.querySelector('.data-input');
+        if (mainInput) {
+            contentValue = mainInput.value;
+        } else if (tagNum === "008") {
+            let subFields = [];
+            row.querySelectorAll('.sub-field input, .sub-field select').forEach(el => {
+                if(el.value.trim() !== "") subFields.push(el.value);
+            });
+            contentValue = subFields.join(" | ");
+        }
+
+        if (contentValue.trim() !== "") {
+            textData += `${tagNum} | ${labelName} | [${indicators}] | ${contentValue}\n`;
+            hasData = true;
+        }
+    });
+
+    if (!hasData) {
+        alert("لا توجد بيانات لتصديرها!");
+        return;
+    }
+
+    // إنشاء ملف التحميل
+    let blob = new Blob([textData], { type: "text/plain;charset=utf-8" });
+    let link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "MARC_Data_" + new Date().getTime() + ".txt";
+    link.click();
+}
+
     function switchTab(evt, tabId) {
         let areas = document.getElementsByClassName("work-area");
         for (let i = 0; i < areas.length; i++) { areas[i].classList.remove("active"); }
