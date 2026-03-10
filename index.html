@@ -67,7 +67,7 @@
     
     <div style="display: flex; gap: 10px;">
         <!-- تغيير النص داخل الزر -->
-</button<button onclick="exportToText()" class="btn-text">📄 تصدير Text</button>
+</button<button onclick="exportToText()" class="btn-text">📄 يتم تصدير Text</button>
 
 
         <button onclick="location.reload()" class="btn-reset">🧹 مسح البيانات</button>
@@ -475,11 +475,10 @@ r>
             </tr>
         </table>
     </div>
-
-    <div class="footer-actions">
-        <button class="btn-main btn-save" onclick="alert('تم حفظ البيانات بنجاح وفق معيار MARC21')">حفظ التسجيلة</button>
-        <button class="btn-main btn-reset" onclick="location.reload()">إعادة ضبط</button>
-    </div>
+<div class="footer-actions">
+    <!-- تعديل onclick لاستدعاء دالة التحميل -->
+    <button class="btn-main btn-save" onclick="downloadRecord()">حفظ التسجيلة</button>
+    <button class="btn-main btn-reset" onclick="location.reload()">إعادة ضبط</button>
 </div>
 
 <footer>
@@ -488,83 +487,42 @@ r>
 
 
 <script>
-function exportToText() {
-    let textData = "--- تصدير بيانات منصة السعدي ---\n";
-    textData += "تاريخ التصدير: " + new Date().toLocaleString('ar-EG') + "\n\n";
-    textData += "رقم التاج | اسم الحقل | المؤشرات | المحتوى\n";
-    textData += "-------------------------------------------\n";
+function downloadRecord() {
+    let content = "--- تسجيلة MARC21 - منصة عماد السعدي ---\n";
+    content += "تاريخ الحفظ: " + new Date().toLocaleString('ar-EG') + "\n";
+    content += "----------------------------------------------\n\n";
 
-    let allRows = document.querySelectorAll('tr[data-tag]');
+    // تجميع البيانات من الأسطر
+    let rows = document.querySelectorAll('tr[data-tag]');
     let hasData = false;
 
-    allRows.forEach(row => {
-        let tagNum = row.getAttribute('data-tag');
-        let labelName = row.querySelector('.label-box')?.innerText.trim() || "";
-        
-        let indicators = "";
-        row.querySelectorAll('.ind-box input').forEach(input => {
-            indicators += (input.value === "" || input.value === " ") ? "#" : input.value;
-        });
+    rows.forEach(row => {
+        let tag = row.getAttribute('data-tag');
+        let label = row.querySelector('.label-box')?.innerText.trim() || "";
+        let val = row.querySelector('.data-input')?.value || "";
 
-        let contentValue = "";
-        let mainInput = row.querySelector('.data-input');
-        if (mainInput) {
-            contentValue = mainInput.value;
-        } else if (tagNum === "008") {
-            let subFields = [];
-            row.querySelectorAll('.sub-field input, .sub-field select').forEach(el => {
-                if(el.value.trim() !== "") subFields.push(el.value);
-            });
-            contentValue = subFields.join(" | ");
-        }
-
-        if (contentValue.trim() !== "") {
-            textData += `${tagNum} | ${labelName} | [${indicators}] | ${contentValue}\n`;
+        if (val.trim() !== "") {
+            content += `التاج [${tag}] - ${label}: ${val}\n`;
             hasData = true;
         }
     });
 
     if (!hasData) {
-        alert("لا توجد بيانات لتصديرها!");
+        alert("تنبيه: لا توجد بيانات مدخلة لحفظها!");
         return;
     }
 
-    // إنشاء ملف التحميل
-    let blob = new Blob([textData], { type: "text/plain;charset=utf-8" });
+    // كود إنشاء الملف وبدء التحميل في الدوانلود
+    let blob = new Blob([content], { type: "text/plain;charset=utf-8" });
     let link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "MARC_Data_" + new Date().getTime() + ".txt";
+    link.download = "MARC21_Record.txt"; // اسم الملف الذي سيظهر في التحميل
     link.click();
+    
+    // رسالة تأكيد للمستخدم
+    alert("تم تصدير الملف بنجاح إلى مجلد التحميلات (Downloads)");
 }
 
-    function switchTab(evt, tabId) {
-        let areas = document.getElementsByClassName("work-area");
-        for (let i = 0; i < areas.length; i++) { areas[i].classList.remove("active"); }
-        
-        let btns = document.getElementsByClassName("tab-btn");
-        for (let i = 0; i < btns.length; i++) { btns[i].classList.remove("active"); }
-
-        document.getElementById(tabId).classList.add("active");
-        evt.currentTarget.classList.add("active");
-    }
-
-    function addRow(btn) {
-        let currentRow = btn.closest('tr');
-        let clone = currentRow.cloneNode(true);
-        
-        // مسح القيم في السطر الجديد
-        clone.querySelector('.data-input').value = "";
-        
-        // تحويل زر الإضافة إلى زر حذف في السطر الجديد
-        let actionCell = clone.cells[clone.cells.length - 1];
-        actionCell.innerHTML = '<button class="del btn-action" onclick="removeRow(this)">×</button>';
-        
-        currentRow.parentNode.insertBefore(clone, currentRow.nextSibling);
-    }
-
-    function removeRow(btn) {
-        btn.closest('tr').remove();
-    }
 </script>
 
 </body>
