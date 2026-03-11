@@ -17,7 +17,6 @@
 
         .work-area { padding: 20px; display: none; }
         .work-area.active { display: block; }
-
         table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
         tr { border-bottom: 1px solid #eee; transition: background 0.2s; }
         tr:hover { background: #fcfcfc; }
@@ -50,7 +49,6 @@
     <meta charset="UTF-8">
     <!-- استدعاء المكتبة (مهم جداً) -->
     <script src="https://cdnjs.cloudflare.com"></script>
-
     
     <style>
         .btn-text { background-color: #555; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-family: 'Cairo'; font-weight: bold; }
@@ -69,12 +67,9 @@
     <div style="display: flex; gap: 10px;">
         <!-- تغيير النص داخل الزر -->
 
-
-
         <button onclick="location.reload()" class="btn-reset">🧹 مسح البيانات</button> <button class="btn-main btn-save" onclick="saveToFile()">حفظ التسجيلة (Text)</button>
     </div>
 </header>
-
 
 <div class="tabs-header">
     <button class="tab-btn active" onclick="switchTab(event, 'tab0')">0XX (الضبط)</button>
@@ -173,8 +168,6 @@
     </table>
 </div>
 
-
-
     <!-- التبويبة 1: المداخل الرئيسية -->
     <div id="tab1" class="work-area">
         <table>
@@ -221,9 +214,7 @@ r>
         </table>
     </div>
 
- 
-
-        <!-- التبويبة 2: الوصف -->
+         <!-- التبويبة 2: الوصف -->
 <div id="tab2" class="work-area">
     <table>
         <!-- 210 العنوان المختصر -->
@@ -333,8 +324,6 @@ r>
 </div>
 >
 
-	
-
     <!-- التبويبة 5: التبصرات -->
 <div id="tab5" class="work-area">
     <table id="table5">
@@ -402,7 +391,6 @@ r>
         </tr>
     </table>
 </div>
-
 
     <!-- التبويبة 6: الموضوعات -->
     <div id="tab6" class="work-area">
@@ -520,7 +508,6 @@ r>
     &copy; 2026 منصة عماد كاظم السعدي الأكاديمية - جميع الحقوق محفوظة
 </footer>
 
-
 <script>
 // 1. وظيفة التنقل بين التبويبات (Tabs)
 function switchTab(event, tabId) {
@@ -611,15 +598,9 @@ function saveToFile() {
     link.download = "MARC21_Record.txt";
     link.click();
 }
-
-
-
 </script>
-
-
-
-
 </body>
 </html>
+
 
 
