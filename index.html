@@ -93,39 +93,51 @@
 <!-- التبويبة 0: الضبط -->
 <div id="tab0" class="work-area active">
     <table id="table0">
-        <!-- حقل 008 (بيانات ثابتة) -->
-        <tr data-tag="008">
-            <td class="tag-info">
-                <a href="https://www.bibalex.org/als/marcA/00X-DW/bd008.html" target="_blank" class="loc-link">🔗</a> 
-                <span class="tag-num">008</span>
-            </td>
-            <td class="label-box">بيانات ثابتة</td>
-            <td class="ind-box">
-                <input type="text" value="#" maxlength="1" disabled>
-                <input type="text" value="#" maxlength="1" disabled>
-            </td>
-            <td>
-                <div class="field-008-container" style="display: flex; gap: 8px; align-items: center; background: #f9f9f9; padding: 5px; border-radius: 4px; border: 1px dashed #ddd; justify-content: flex-end;">
-                    <div class="sub-field">
-                        <small style="display:block; font-size:10px; color:#666;">تاريخ (00-05)</small>
-                        <input type="text" style="width: 60px; text-align: center; border: 1px solid #ccc; height: 25px;" placeholder="240519" maxlength="6">
-                    </div>
-                    <div class="sub-field">
-                        <small style="display:block; font-size:10px; color:#666;">دولة (15-17)</small>
-                        <input type="text" style="width: 40px; text-align: center; border: 1px solid #ccc; height: 25px;" placeholder="ua" maxlength="3">
-                    </div>
-                    <div class="sub-field">
-                        <small style="display:block; font-size:10px; color:#1a73e8; font-weight:bold;">اللغة (35-37)</small>
-                        <select style="width: 100px; height: 25px; border: 1px solid #1a73e8; border-radius: 2px; cursor: pointer;">
-                            <option value="ara">العربية (ara)</option>
-                            <option value="eng">الإنجليزية (eng)</option>
-                            <option value="und">غير محددة</option>
-                        </select>
-                    </div>
-                </div>
-            </td>
-            <td><button class="add btn-action" style="visibility: hidden;">+</button></td>
-        </tr>
+        <!-- حقل 008 (بيانات ثابتة) - النسخة المعتمدة التي لا تكسر التصميم -->
+<tr data-tag="008">
+    <td class="tag-info">
+        <a href="https://www.bibalex.org" target="_blank" class="loc-link">🔗</a> 
+        <span class="tag-num">008</span>
+    </td>
+    <td class="label-box">بيانات ثابتة</td>
+    <td class="ind-box">
+        <input type="text" value="#" maxlength="1" disabled>
+        <input type="text" value="#" maxlength="1" disabled>
+    </td>
+    <td>
+        <div class="field-008-container" style="display: flex; gap: 5px; align-items: center; background: #f9f9f9; padding: 4px; border-radius: 4px; border: 1px dashed #ddd; justify-content: flex-end; width: 100%; max-width: 380px; margin-left: auto;">
+            
+            <!-- حقل النوع (أضفناه هنا ليكون صغيراً جداً) -->
+            <div class="sub-field" style="text-align: center;">
+                <small style="display:block; font-size:9px; color:#e67e22; font-weight:bold;">النوع</small>
+                <select style="width: 65px; height: 24px; border: 1px solid #ccc; border-radius: 2px; font-size: 10px; cursor: pointer;">
+                    <option value="B">كتب</option>
+                    <option value="S">دورية</option>
+                </select>
+            </div>
+
+            <div class="sub-field" style="text-align: center;">
+                <small style="display:block; font-size:9px; color:#666;">تاريخ (00-05)</small>
+                <input type="text" style="width: 55px; text-align: center; border: 1px solid #ccc; height: 24px; font-size: 10px;" placeholder="240519" maxlength="6">
+            </div>
+
+            <div class="sub-field" style="text-align: center;">
+                <small style="display:block; font-size:9px; color:#666;">دولة</small>
+                <input type="text" style="width: 35px; text-align: center; border: 1px solid #ccc; height: 24px; font-size: 10px;" placeholder="ua" maxlength="3">
+            </div>
+
+            <div class="sub-field" style="text-align: center;">
+                <small style="display:block; font-size:9px; color:#1a73e8; font-weight:bold;">اللغة (35-37)</small>
+                <select style="width: 85px; height: 24px; border: 1px solid #1a73e8; border-radius: 2px; font-size: 10px; cursor: pointer;">
+                    <option value="ara">العربية (ara)</option>
+                    <option value="eng">الإنجليزية</option>
+                </select>
+            </div>
+
+        </div>
+    </td>
+    <td><button class="add btn-action" style="visibility: hidden;">+</button></td>
+</tr>
 
         <!-- ردمك 020 -->
         <tr data-tag="020">
@@ -621,5 +633,6 @@ function saveToFile() {
 
 </body>
 </html>
+
 
 
