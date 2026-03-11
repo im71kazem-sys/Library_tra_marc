@@ -488,57 +488,62 @@ r>
 
 
 <script>
+function addRow(button) {
+    // 1. الوصول إلى الصف الحالي
+    const currentRow = button.closest('tr');
+    
+    // 2. إنشاء نسخة من هذا الصف
+    const newRow = currentRow.cloneNode(true);
+    
+    // 3. مسح قيمة حقل الإدخال في الصف الجديد
+    const input = newRow.querySelector('.data-input');
+    if (input) input.value = '';
 
-function switchTab(event, tabId) {
-    // 1. إخفاء جميع مساحات العمل (Work Areas)
-    const workAreas = document.querySelectorAll('.work-area');
-    workAreas.forEach(area => {
-        area.style.display = 'none';
-        area.classList.remove('active');
-    });
-
-    // 2. إزالة حالة النشاط (Active) من جميع الأزرار
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    tabButtons.forEach(btn => {
-        btn.classList.remove('active');
-    });
-
-    // 3. إظهار التبويب المختار
-    const selectedTab = document.getElementById(tabId);
-    if (selectedTab) {
-        selectedTab.style.display = 'block';
-        selectedTab.classList.add('active');
+    // 4. تحويل زر الإضافة في الصف الجديد إلى زر حذف (تغيير الشكل والوظيفة)
+    const actionBtn = newRow.querySelector('button'); 
+    if (actionBtn) {
+        actionBtn.innerHTML = '×'; // علامة الحذف
+        actionBtn.style.backgroundColor = '#e74c3c'; // لون أحمر
+        actionBtn.style.color = 'white';
+        actionBtn.setAttribute('onclick', 'removeRow(this)'); // ربطه بدالة الحذف
     }
 
-    // 4. إضافة حالة النشاط للزر الذي تم النقر عليه
-    event.currentTarget.classList.add('active');
+    // 5. إضافة الصف الجديد مباشرة بعد الصف الحالي
+    currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
 }
 
+// دالة الحذف الجديدة
+function removeRow(button) {
+    const rowToRemove = button.closest('tr');
+    rowToRemove.remove();
+}
+
+// دالة الحفظ (ستعمل تلقائياً على الصفوف الموجودة فقط)
 function saveToFile() {
     let content = "تنسيق مارك 21 - منصة عماد السعدي\n";
     content += "----------------------------------\n\n";
 
-    // جلب جميع الصفوف التي تحتوي على بيانات
     const rows = document.querySelectorAll('tr[data-tag]');
     
     rows.forEach(row => {
-        const tag = row.getAttribute('data-tag'); // رقم الحقل
-        const ind1 = row.querySelector('.ind-box input:nth-child(1)')?.value || '#'; // المؤشر 1
-        const ind2 = row.querySelector('.ind-box input:nth-child(2)')?.value || '#'; // المؤشر 2
-        const data = row.querySelector('.data-input')?.value || ''; // البيانات
+        const tag = row.getAttribute('data-tag');
+        const ind1 = row.querySelector('.ind-box input:nth-child(1)')?.value || '#';
+        const ind2 = row.querySelector('.ind-box input:nth-child(2)')?.value || '#';
+        const data = row.querySelector('.data-input')?.value || '';
 
         if (data.trim() !== "") {
             content += `${tag} ${ind1}${ind2} ${data}\n`;
         }
     });
 
-    // إنشاء ملف وتحميله
     const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
     link.download = "MARC21_Record.txt";
     link.click();
 }
+
+
 </script>
 
 
