@@ -42,22 +42,107 @@
         .btn-main { padding: 12px 30px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; margin: 5px; font-family: 'Cairo'; transition: 0.3s; }
         .btn-save { background: var(--koha-blue); color: white; }
         .btn-reset { background: #6c757d; color: white; }
+		.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
+.modal-content { background: white; margin: 5% auto; padding: 25px; border-radius: 10px; width: 70%; direction: rtl; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.close { float: left; font-size: 28px; cursor: pointer; color: #aaa; }
+.close:hover { color: red; }
+/* تصميم النافذة المنبثقة */
+        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
+        .modal-content { background: white; margin: 2% auto; padding: 20px; border-radius: 12px; width: 95%; max-height: 90vh; overflow-y: auto; direction: rtl; box-shadow: 0 5px 30px rgba(0,0,0,0.3); border-top: 8px solid var(--koha-blue); }
+        
+        .smart-layout { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 15px; }
+        
+        /* تصميم "قسم البطاقة المنظم" */
+        .card-form { background: #fffde7; padding: 15px; border: 1px solid #e6db55; border-radius: 8px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); }
+        .form-group { margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
+        .form-group label { width: 120px; font-size: 0.85rem; font-weight: bold; color: #555; }
+        .form-group input { flex: 1; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Cairo'; font-size: 0.9rem; }
+        .form-group input:focus { border-color: var(--koha-blue); outline: none; background: #fff; }
+
+        /* صندوق النتيجة */
+        .result-box { background: #1e272e; color: #0be881; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; border: 2px solid #2f3542; min-height: 400px; }
+        
+        .btn-main { padding: 10px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; font-family: 'Cairo'; margin: 5px 0; width: 100%; transition: 0.3s; }
+        .btn-save { background: var(--koha-blue); color: white; }
+        .btn-reset { background: #d63031; color: white; }
+        .btn-download { background: #27ae60; color: white; }
+        
+        h4 { margin-top: 0; color: var(--koha-blue); border-bottom: 1px solid #eee; padding-bottom: 5px; font-size: 1rem; }
+        .close-btn { float: left; font-size: 30px; cursor: pointer; color: #999; }
+    </style>
+
     </style>
 	
 <!DOCTYPE html>
-<html dir="rtl" lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <!-- استدعاء المكتبة (مهم جداً) -->
-    <script src="https://cdnjs.cloudflare.com"></script>
-
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة عماد السعدي - نظام مارك 21 المتكامل</title>
+    <link href="https://fonts.googleapis.com" rel="stylesheet">
     <style>
-        .btn-text { background-color: #555; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-family: 'Cairo'; font-weight: bold; }
+        <style>
 
+. body { background-color: #d1d1d1; font-family: 'Times New Roman', Times, serif; padding: 20px; }
+        .main-container { max-width: 1000px; margin: auto; display: flex; gap: 20px; flex-wrap: wrap; }
+        
+        /* قسم إدخال البيانات */
+        .input-panel { flex: 1; background: #f9f9f9; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.2); min-width: 350px; }
+        .field { margin-bottom: 10px; display: flex; align-items: center; }
+        .field label { width: 100px; font-size: 14px; font-weight: bold; }
+        .field input, .field select { flex: 1; padding: 6px; border: 1px solid #aaa; border-radius: 3px; }
+
+        /* ستايل البطاقة القديمة */
+        .card-preview { 
+            width: 500px; 
+            height: 300px; 
+            background-color: #fff9e6; /* لون ورقي قديم */
+            border: 1px solid #b5b5b5; 
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+            padding: 30px;
+            position: relative;
+            color: #222;
+            font-family: "Courier New", Courier, monospace; /* خط يشبه الآلة الكاتبة */
+            line-height: 1.4;
+            overflow: hidden;
+        }
+
+        /* ثقب البطاقة الشهير في الأسفل */
+        .card-hole {
+            width: 25px;
+            height: 25px;
+            background-color: #d1d1d1;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 1px solid #aaa;
+        }
+
+        .class-number { position: absolute; top: 30px; right: 30px; font-weight: bold; width: 60px; }
+        .main-entry { margin-bottom: 10px; font-weight: bold; }
+        .title-body { text-indent: 30px; }
+        
+        /* قسم مخرجات مارك الأسود */
+        .marc-output {
+            width: 100%;
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        h3 { border-bottom: 2px solid #0056b3; padding-bottom: 5px; margin-top: 0; color: #0056b3; }
+        button { background: #0056b3; color: white; border: none; padding: 10px 20px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
     </style>
 </head>
 <body>
+
+
 
 <header>
 
@@ -70,9 +155,13 @@
         <!-- تغيير النص داخل الزر -->
 
 
+<div style="display: flex; gap: 10px;">
+   
+    
+    <button onclick="location.reload()" class="btn-reset">🧹 مسح البيانات</button> 
+    <button class="btn-main btn-save" onclick="saveToFile()">حفظ التسجيلة (Text)</button>
+</div>
 
-        <button onclick="location.reload()" class="btn-reset">🧹 مسح البيانات</button> <button class="btn-main btn-save" onclick="saveToFile()">حفظ التسجيلة (Text)</button>
-    </div>
 </header>
 
 
@@ -88,6 +177,17 @@
     <button class="tab-btn" onclick="switchTab(event, 'tab5')">5XX (التبصرات)</button>
     <button class="tab-btn" onclick="switchTab(event, 'tab6')">6XX (الموضوعات)</button>
     <button class="tab-btn" onclick="switchTab(event, 'tab7')">7XX (مداخل إضافية)</button>
+	<div class="smart-grid">
+           
+
+</div>
+
+<script>
+    
+</script>
+
+</body>
+</html>
 </div>
 
 <!-- التبويبة 0: الضبط -->
@@ -96,7 +196,7 @@
         <!-- حقل 008 (بيانات ثابتة) - النسخة المعتمدة التي لا تكسر التصميم -->
 <tr data-tag="008">
     <td class="tag-info">
-        <a href="https://www.bibalex.org" target="_blank" class="loc-link">🔗</a> 
+        <a href="https://www.loc.gov/marc/bibliographic/bd008.html" target="_blank" class="loc-link">🔗</a> 
         <span class="tag-num">008</span>
     </td>
     <td class="label-box">بيانات ثابتة</td>
@@ -138,6 +238,7 @@
     </td>
     <td><button class="add btn-action" style="visibility: hidden;">+</button></td>
 </tr>
+
 
         <!-- ردمك 020 -->
         <tr data-tag="020">
@@ -205,7 +306,7 @@
     <td>
             </td>
 </tr>
-r>
+
             <tr data-tag="110">
                 <td class="tag-info">
 				<a href="https://www.bibalex.org/als/marcA/1XX-DW/bd110.html" target="_blank" class="loc-link">🔗</a>
@@ -400,7 +501,7 @@ r>
             <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/5XX-DW/bd541.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">541</span></td>
             <td class="label-box">المصدر المباشر</td>
             <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$cهدية;$a,عماد السعدي;$d1999."></td>
+            <td><input type="text" class="data-input" placeholder="$cهدية;$a,عماد السعدي;$d1."></td>
             <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
         </tr>
 
@@ -521,118 +622,1128 @@ r>
                 <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
         </table>
+		
+</script>
+
+
     </div>
 <div class="footer-actions">
     <!-- تعديل onclick لاستدعاء دالة التحميل -->
     <button class="btn-main btn-save" onclick="downloadRecord()">حفظ التسجيلة</button>
     <button class="btn-main btn-reset" onclick="location.reload()">إعادة ضبط</button>
+	<!-- زر عائم لفتح المساعد (يظهر في زاوية الشاشة) -->
+<button onclick="toggleMarcHelper()" style="position: fixed; bottom: 20px; left: 20px; z-index: 1000; background: #1a73e8; color: white; border: none; border-radius: 50px; padding: 10px 20px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+    🔍التاج 008
+	</button>
+
+<!-- النافذة المنبثقة (Modal) -->
+<div id="marcHelperModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;">
+    <div style="background: white; width: 90%; max-width: 800px; border-radius: 15px; padding: 20px; position: relative; max-height: 90vh; overflow-y: auto; direction: rtl;">
+        
+        <span onclick="toggleMarcHelper()" style="position: absolute; left: 20px; top: 15px; cursor: pointer; font-size: 24px;">&times;</span>
+        <h3 style="border-bottom: 2px solid #1a73e8; padding-bottom: 10px; margin-bottom: 20px;">مساعد ضبط سجلات MARC</h3>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <!-- قسم الاختيارات (الكود الأول) -->
+            <div style="background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #ddd;">
+                <label style="font-weight: bold; display: block; margin-bottom: 10px;">اختر الحقل الفرعي (Leader/008):</label>
+                <select id="helper-select" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                    <option value="" disabled selected>-- اختر من القائمة --</option>
+                    <optgroup label="Leader">
+                        <option value="LDR [00-04]">00-04: طول السجل</option>
+                        <option value="LDR [06]">06: نوع السجل</option>
+                    </optgroup>
+                    <optgroup label="Field 008">
+                        <option value="008 [35-37]">35-37: لغة الوعاء</option>
+                        <option value="008 [15-17]">15-17: بلد النشر</option>
+                    </optgroup>
+                </select>
+                <button onclick="addToHelperSheet()" style="width: 100%; background: #1a73e8; color: white; border: none; padding: 8px; border-radius: 5px; cursor: pointer;">إضافة للمسودة +</button>
+            </div>
+
+            <!-- قسم المسودة (النتيجة) -->
+            <div>
+                <label style="font-weight: bold;">مسودة التجميع السريع:</label>
+                <textarea id="helper-result" style="width: 100%; height: 120px; margin-top: 10px; border-radius: 5px; border: 1px solid #ccc; font-family: monospace; padding: 10px;" placeholder="ستظهر البيانات المختارة هنا..."></textarea>
+                <button onclick="copyHelperText()" style="width: 100%; margin-top: 5px; background: #333; color: white; border: none; padding: 5px; border-radius: 5px; cursor: pointer; font-size: 12px;">نسخ المحتوى</button>
+            </div>
+        </div>
+
+        <!-- حقل 008 التفصيلي (الكود الثاني) -->
+        <div style="margin-top: 20px; padding: 15px; border: 1px dashed #1a73e8; border-radius: 10px;">
+            <h4 style="margin-top: 0; color: #1a73e8;">معاينة سريعة لحقل 008 الأساسي:</h4>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap; background: #fff; padding: 10px;">
+                <div style="text-align: center;">
+                    <small style="display:block; font-size:10px; color:#e67e22;">النوع</small>
+                    <select style="font-size: 11px; padding: 3px;"><option>كتب (B)</option><option>دورية (S)</option></select>
+                </div>
+                <div style="text-align: center;">
+                    <small style="display:block; font-size:10px;">تاريخ (00-05)</small>
+                    <input type="text" value="240519" style="width: 60px; text-align: center;">
+                </div>
+                <div style="text-align: center;">
+                    <small style="display:block; font-size:10px; color:#1a73e8;">اللغة</small>
+                    <select style="font-size: 11px; padding: 3px;"><option>العربية (ara)</option><option>الإنجليزية</option></select>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<footer>
-    &copy; 2026 منصة عماد كاظم السعدي الأكاديمية - جميع الحقوق محفوظة
-</footer>
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الفهرسة المتقدم - بطاقة الكتاب</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f1f5f9; margin: 0; padding: 0; }
+        
+        /* الزر العائم */
+        .floating-card-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #2c3e50;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            color: white;
+            border: 2px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+        }
+        .floating-card-btn:hover {
+            background: #1e2b37;
+            transform: scale(1.05);
+        }
+        
+        /* نافذة البطاقة المنبثقة */
+        .card-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15,23,42,0.98);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            direction: rtl;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+        }
+        
+        .modal-content {
+            background: #fff;
+            width: 98%;
+            max-width: 1500px;
+            height: 95vh;
+            border-radius: 20px;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            overflow: hidden;
+        }
+        
+        /* قسم الإدخال */
+        .input-section {
+            padding: 25px;
+            background: #f8fafc;
+            border-left: 1px solid #e2e8f0;
+            overflow-y: auto;
+        }
+        
+        .input-section h3 {
+            color: #1e293b;
+            border-bottom: 3px solid #3b82f6;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .input-section input, .input-section textarea, .input-section select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 5px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        
+        .input-section label {
+            font-size: 13px;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 3px;
+            color: #475569;
+        }
+        
+        /* منطقة العرض */
+        .preview-section {
+            background: #0f172a;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-y: auto;
+            gap: 20px;
+        }
+        
+        /* البطاقة الورقية */
+        .library-card {
+            width: 850px;
+            min-height: 450px;
+            background: #fffdf5;
+            border: 1px solid #d2b48c;
+            position: relative;
+            padding: 50px;
+            color: #1e293b;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            font-family: 'Times New Roman', serif;
+            direction: rtl;
+        }
+        
+        .call-number {
+            position: absolute;
+            top: 40px;
+            right: 50px;
+            font-weight: bold;
+            font-size: 24px;
+            color: #b91c1c;
+            width: 120px;
+        }
+        
+        .main-entry {
+            margin-right: 140px;
+            font-weight: bold;
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+        
+        .body-text {
+            margin-right: 140px;
+            font-size: 21px;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        
+        .tracings {
+            margin-right: 140px;
+            margin-top: 40px;
+            font-size: 17px;
+            border-top: 1px solid #e2d6c1;
+            padding-top: 10px;
+            line-height: 1.8;
+        }
+        
+        .cover-image {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            width: 110px;
+            height: 155px;
+            object-fit: cover;
+            border: 1px solid #ddd;
+            display: none;
+            background: #fff;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+        
+        .marc-box {
+            width: 100%;
+            max-width: 850px;
+            height: 280px;
+            background: #1e293b;
+            color: #4ade80;
+            padding: 25px;
+            border-radius: 15px;
+            font-family: monospace;
+            font-size: 16px;
+            border: 1px solid #334155;
+            direction: ltr;
+            text-align: left;
+            line-height: 1.6;
+            resize: none;
+        }
+        
+        .export-btn {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            transition: all 0.3s;
+        }
+        
+        .export-btn:hover {
+            background: #2563eb;
+        }
+        
+        .close-btn {
+            margin-top: 25px;
+            width: 100%;
+            padding: 12px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .close-btn:hover {
+            background: #dc2626;
+        }
+        
+        .dot {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 25px;
+            background: #0f172a;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <!-- محتوى الصفحة الرئيسية (اختياري) -->
+    <div style="padding: 50px; text-align: center;">
+        <h1>نظام الفهرسة المتقدم</h1>
+        <p>اضغط على الزر العائم لفتح بطاقة الكتاب</p>
+    </div>
 
+   <!-- 1. الزر العائم -->
+    <div class="floating-card-btn" onclick="toggleCard()">
+        <span style="font-weight: bold;">بطاقة الكتاب</span>
+        <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+        </svg>
+    </div>
+
+    <!-- 2. نافذة البطاقة المنبثقة -->
+    <div class="card-modal" id="cardModal">
+        <div class="modal-content">
+            <!-- مدخلات البيانات (يمين) -->
+            <div class="input-section">
+                <h3>📋 بيانات الفهرسة</h3>
+                
+                <label>📸 رفع غلاف الكتاب:</label>
+                <input type="file" id="fileInput" accept="image/*" onchange="loadImg(this)">
+                
+                <!-- ISBN مع زر تكرار -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                    <label>📚 الترقيم الدولي (020):</label>
+                    <button class="add-btn" onclick="addISBNField()">+ إضافة ISBN آخر</button>
+                </div>
+                <div id="isbn-container">
+                    <div class="repeatable-field" id="isbn-0">
+                        <button class="remove-btn" onclick="removeField('isbn-0')">✕</button>
+                        <input type="text" class="isbn-input" oninput="draw()" placeholder="مثال: 978-3-16-148410-0">
+                    </div>
+                </div>
+                
+                <label>🔢 رقم التصنيف (082):</label>
+                <input type="text" id="i082" oninput="draw()" placeholder="مثال: 025.3">
+                
+                <!-- المدخل الرئيسي مع قائمة منسدلة -->
+                <label>👤 المدخل الرئيسي (100-130):</label>
+                <div style="display: flex; gap: 10px;">
+                    <select id="mainEntryTag" style="width: 30%;" onchange="draw()">
+                        <option value="100">100 (شخص)</option>
+                        <option value="110">110 (هيئة)</option>
+                        <option value="111">111 (مؤتمر)</option>
+                        <option value="130">130 (عنوان موحد)</option>
+                    </select>
+                    <input type="text" id="mainEntryValue" oninput="draw()" placeholder="اسم المدخل" style="width: 70%;">
+                </div>
+                
+                <label>📖 العنوان وبيان المسؤولية (245):</label>
+                <textarea id="i245" oninput="draw()" placeholder="العنوان الرئيسي / المؤلف" style="height: 60px;"></textarea>
+                
+                <label>🏢 بيانات النشر (260):</label>
+                <input type="text" id="i260" oninput="draw()" placeholder="المكان : الناشر، التاريخ">
+                
+                <label>📏 الوصف المادي (300):</label>
+                <input type="text" id="i300" oninput="draw()" placeholder="مثال: 300 ص. : إيض. ؛ 24 سم">
+                
+                <!-- السلسلة مع قائمة منسدلة -->
+                <label>📚 السلسلة (490/830):</label>
+                <div style="display: flex; gap: 10px;">
+                    <select id="seriesTag" style="width: 30%;" onchange="draw()">
+                        <option value="490">490 (مسلسلة)</option>
+                        <option value="830">830 (مدخل إضافي)</option>
+                    </select>
+                    <input type="text" id="seriesValue" oninput="draw()" placeholder="اسم السلسلة" style="width: 70%;">
+                </div>
+                
+                <label>📝 الملاحظات (500):</label>
+                <textarea id="i500" oninput="draw()" placeholder="ملاحظات عامة أو تبصرات" style="height: 60px;"></textarea>
+                
+                <!-- الموضوعات مع تكرار وقائمة منسدلة كاملة -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                    <label>🏷️ الموضوعات (6XX):</label>
+                    <button class="add-btn" onclick="addSubjectField()">+ إضافة موضوع</button>
+                </div>
+                <div id="subjects-container">
+                    <div class="repeatable-field" id="subject-0">
+                        <button class="remove-btn" onclick="removeField('subject-0')">✕</button>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <select class="subject-tag" style="width: 30%;" onchange="draw()">
+                                <option value="600">600 (شخص)</option>
+                                <option value="610">610 (هيئة)</option>
+                                <option value="611">611 (مؤتمر)</option>
+                                <option value="630">630 (عنوان موحد)</option>
+                                <option value="650" selected>650 (مصطلح)</option>
+                                <option value="651">651 (جغرافي)</option>
+                                <option value="655">655 (نوع/شكل)</option>
+                            </select>
+                            <input type="text" class="subject-value" style="width: 65%;" oninput="draw()" placeholder="الموضوع (استخدم - للأقسام)">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- المداخل الإضافية مع تكرار وقائمة منسدلة كاملة -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                    <label>👥 المداخل الإضافية (700-740):</label>
+                    <button class="add-btn" onclick="addAdditionalField()">+ إضافة مدخل</button>
+                </div>
+                <div id="additional-container">
+                    <div class="repeatable-field" id="additional-0">
+                        <button class="remove-btn" onclick="removeField('additional-0')">✕</button>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <select class="additional-tag" style="width: 30%;" onchange="draw()">
+                                <option value="700">700 (شخص)</option>
+                                <option value="710">710 (هيئة)</option>
+                                <option value="711">711 (مؤتمر)</option>
+                                <option value="730">730 (عنوان موحد)</option>
+                                <option value="740">740 (عنوان مرتبط)</option>
+                            </select>
+                            <input type="text" class="additional-value" style="width: 65%;" oninput="draw()" placeholder="اسم المدخل الإضافي">
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- خيارات الباركود -->
+                <div class="barcode-options">
+                    <h4 style="margin: 0 0 10px;">🔲 إعدادات الباركود</h4>
+                    
+                    <label>نوع الباركود:</label>
+                    <select id="barcodeType" onchange="draw()">
+                        <option value="code128">Code 128 (قياسي)</option>
+                        <option value="ean13">EAN-13</option>
+                        <option value="ean8">EAN-8</option>
+                        <option value="upc">UPC</option>
+                        <option value="isbn">ISBN</option>
+                        <option value="codabar">Codabar</option>
+                    </select>
+                    
+                    <label>قيمة الباركود (اترك فارغاً للتلقائي):</label>
+                    <input type="text" id="barcodeValue" oninput="draw()" placeholder="تلقائي من ISBN">
+                    
+                    <div style="display: flex; gap: 10px;">
+                        <div style="flex: 1;">
+                            <label>الارتفاع:</label>
+                            <input type="number" id="barcodeHeight" value="50" min="20" max="100" oninput="draw()">
+                        </div>
+                        <div style="flex: 1;">
+                            <label>العرض:</label>
+                            <input type="number" id="barcodeWidth" value="2" min="1" max="5" oninput="draw()">
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="close-btn" onclick="toggleCard()">إغلاق</button>
+            </div>
+
+            <!-- منطقة العرض (يسار) مع تحسينات -->
+            <div class="preview-section">
+                <!-- البطاقة الورقية مع تحسينات الحجم -->
+                <div class="library-card" id="final-card">
+                    <div class="call-number" id="v-082"></div>
+                    <div class="main-entry" id="v-100"></div>
+                    
+                    <div class="body-text">
+                        <span id="v-245" style="font-weight: bold;"></span>
+                        <span id="v-260"></span>
+                        <span id="v-300"></span>
+                        <span id="v-490" style="font-style: italic; color: #4b5563;"></span>
+                    </div>
+                    
+                    <div class="body-text" id="v-500" style="font-style: italic; color: #374151;"></div>
+                    <div class="tracings" id="v-tracings"></div>
+                    
+                    <!-- صورة الغلاف -->
+                    <img class="cover-image" id="v-img">
+                    
+                    <!-- حقل الباركود -->
+                    <div class="barcode-container" id="barcodeContainer">
+                        <svg id="barcode"></svg>
+                        <div class="barcode-number" id="barcodeText"></div>
+                    </div>
+                    
+                    <div class="dot"></div>
+                </div>
+
+                <!-- صندوق عرض مارك واضح -->
+                <div class="marc-container">
+                    <div class="marc-header">
+                        <span>📄 MARC 21 RECORD</span>
+                    </div>
+                    <textarea class="marc-box" id="v-marc" readonly></textarea>
+                </div>
+
+                <!-- زر التصدير -->
+                <button class="export-btn" onclick="saveMarc()">📄 تصدير سجل MARC21 (.mrc)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- إضافة مكتبة الباركود -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    
+    <style>
+        /* إضافة الأنماط الجديدة مع الحفاظ على القديمة */
+        .repeatable-field {
+            border: 2px solid #c49a6c;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            background: rgba(255, 248, 235, 0.8);
+            position: relative;
+        }
+        
+        .repeatable-field .remove-btn {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #c0392b;
+            color: white;
+            border: 2px solid white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            z-index: 5;
+        }
+        
+        .repeatable-field .remove-btn:hover {
+            background: #e74c3c;
+        }
+        
+        .add-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            margin: 5px 0;
+        }
+        
+        .add-btn:hover {
+            background: #2ecc71;
+        }
+        
+        .barcode-options {
+            background: #e8d9bf;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 1px solid #8b5a2b;
+        }
+        
+        .barcode-container {
+            position: absolute;
+            bottom: 50px;
+            right: 50px;
+            text-align: center;
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+            border: 2px solid #8b5a2b;
+            z-index: 20;
+        }
+        
+        .barcode-number {
+            font-size: 12px;
+            margin-top: 3px;
+            color: #333;
+            font-family: monospace;
+        }
+        
+        .marc-container {
+            width: 100%;
+            max-width: 850px;
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #f1c40f;
+            margin-top: 20px;
+        }
+        
+        .marc-header {
+            background: #f1c40f;
+            padding: 10px 15px;
+            font-weight: bold;
+            color: #2c1e14;
+            font-size: 16px;
+        }
+        
+        /* تحسين حجم البطاقة */
+        .library-card {
+            width: 900px;
+            min-height: 550px;
+            padding: 50px;
+        }
+        
+        .call-number {
+            font-size: 26px;
+            width: 140px;
+        }
+        
+        .main-entry {
+            margin-right: 180px;
+            font-size: 28px;
+        }
+        
+        .body-text {
+            margin-right: 180px;
+            font-size: 22px;
+        }
+        
+        .tracings {
+            margin-right: 180px;
+            font-size: 18px;
+        }
+        
+        .cover-image {
+            width: 120px;
+            height: 165px;
+            bottom: 50px;
+            left: 50px;
+        }
+        
+        /* تحسين العرض في قسم الإدخال */
+        .input-section {
+            overflow-y: auto;
+            max-height: 95vh;
+            padding: 20px;
+        }
+        
+        .input-section select, .input-section input, .input-section textarea {
+            margin-bottom: 15px;
+        }
+    </style>
+
+    <script>
+        // عدادات للحقول المتكررة
+        let subjectCount = 1;
+        let additionalCount = 1;
+        let isbnCount = 1;
+        
+        // فتح/إغلاق النافذة المنبثقة
+        function toggleCard() {
+            const modal = document.getElementById('cardModal');
+            modal.style.display = modal.style.display === 'none' || modal.style.display === '' ? 'flex' : 'none';
+            if (modal.style.display === 'flex') {
+                setTimeout(draw, 200);
+            }
+        }
+
+        // إضافة حقل ISBN جديد
+        function addISBNField() {
+            const container = document.getElementById('isbn-container');
+            const newField = document.createElement('div');
+            newField.className = 'repeatable-field';
+            newField.id = `isbn-${isbnCount}`;
+            newField.innerHTML = `
+                <button class="remove-btn" onclick="removeField('isbn-${isbnCount}')">✕</button>
+                <input type="text" class="isbn-input" oninput="draw()" placeholder="مثال: 978-3-16-148410-0">
+            `;
+            container.appendChild(newField);
+            isbnCount++;
+            draw();
+        }
+
+        // إضافة حقل موضوع جديد
+        function addSubjectField() {
+            const container = document.getElementById('subjects-container');
+            const newField = document.createElement('div');
+            newField.className = 'repeatable-field';
+            newField.id = `subject-${subjectCount}`;
+            newField.innerHTML = `
+                <button class="remove-btn" onclick="removeField('subject-${subjectCount}')">✕</button>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <select class="subject-tag" style="width: 30%;" onchange="draw()">
+                        <option value="600">600 (شخص)</option>
+                        <option value="610">610 (هيئة)</option>
+                        <option value="611">611 (مؤتمر)</option>
+                        <option value="630">630 (عنوان موحد)</option>
+                        <option value="650" selected>650 (مصطلح)</option>
+                        <option value="651">651 (جغرافي)</option>
+                        <option value="655">655 (نوع/شكل)</option>
+                    </select>
+                    <input type="text" class="subject-value" style="width: 65%;" oninput="draw()" placeholder="الموضوع (استخدم - للأقسام)">
+                </div>
+            `;
+            container.appendChild(newField);
+            subjectCount++;
+            draw();
+        }
+
+        // إضافة حقل مدخل إضافي جديد
+        function addAdditionalField() {
+            const container = document.getElementById('additional-container');
+            const newField = document.createElement('div');
+            newField.className = 'repeatable-field';
+            newField.id = `additional-${additionalCount}`;
+            newField.innerHTML = `
+                <button class="remove-btn" onclick="removeField('additional-${additionalCount}')">✕</button>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <select class="additional-tag" style="width: 30%;" onchange="draw()">
+                        <option value="700">700 (شخص)</option>
+                        <option value="710">710 (هيئة)</option>
+                        <option value="711">711 (مؤتمر)</option>
+                        <option value="730">730 (عنوان موحد)</option>
+                        <option value="740">740 (عنوان مرتبط)</option>
+                    </select>
+                    <input type="text" class="additional-value" style="width: 65%;" oninput="draw()" placeholder="اسم المدخل الإضافي">
+                </div>
+            `;
+            container.appendChild(newField);
+            additionalCount++;
+            draw();
+        }
+
+        // إزالة حقل
+        function removeField(id) {
+            const field = document.getElementById(id);
+            if (field) {
+                field.remove();
+                draw();
+            }
+        }
+
+        // تحميل وعرض الصورة
+        function loadImg(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var img = document.getElementById('v-img');
+                    img.src = e.target.result;
+                    img.style.display = 'block';
+                    draw();
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // جمع قيم ISBN المتعددة
+        function getISBNs() {
+            const isbns = [];
+            document.querySelectorAll('.isbn-input').forEach(input => {
+                if (input.value.trim()) {
+                    isbns.push(input.value.trim());
+                }
+            });
+            return isbns;
+        }
+
+        // جمع الموضوعات
+        function getSubjects() {
+            const subjects = [];
+            document.querySelectorAll('#subjects-container .repeatable-field').forEach(field => {
+                const tag = field.querySelector('.subject-tag').value;
+                const value = field.querySelector('.subject-value').value;
+                if (value.trim()) {
+                    subjects.push({ tag, value: value.trim() });
+                }
+            });
+            return subjects;
+        }
+
+        // جمع المداخل الإضافية
+        function getAdditional() {
+            const additional = [];
+            document.querySelectorAll('#additional-container .repeatable-field').forEach(field => {
+                const tag = field.querySelector('.additional-tag').value;
+                const value = field.querySelector('.additional-value').value;
+                if (value.trim()) {
+                    additional.push({ tag, value: value.trim() });
+                }
+            });
+            return additional;
+        }
+
+        // توليد الباركود
+        function generateBarcode() {
+            const barcodeType = document.getElementById('barcodeType').value;
+            let barcodeValue = document.getElementById('barcodeValue').value.trim();
+            const height = parseInt(document.getElementById('barcodeHeight').value);
+            const width = parseInt(document.getElementById('barcodeWidth').value);
+            
+            if (!barcodeValue) {
+                const isbns = getISBNs();
+                if (isbns.length > 0) {
+                    barcodeValue = isbns[0].replace(/[-\s]/g, '');
+                } else {
+                    barcodeValue = '978' + Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
+                }
+            }
+            
+            document.getElementById('barcodeText').innerText = barcodeValue;
+            
+            try {
+                JsBarcode("#barcode", barcodeValue, {
+                    format: barcodeType,
+                    width: width,
+                    height: height,
+                    displayValue: false,
+                    lineColor: "#000",
+                    background: "#fff",
+                    margin: 5
+                });
+            } catch (e) {
+                console.error("خطأ في الباركود:", e);
+            }
+        }
+
+        // تحديث البطاقة وكود مارك
+        function draw() {
+            // عرض البيانات الأساسية
+            document.getElementById('v-082').innerText = document.getElementById('i082').value;
+            document.getElementById('v-100').innerText = document.getElementById('mainEntryValue').value;
+            document.getElementById('v-245').innerText = document.getElementById('i245').value;
+            document.getElementById('v-260').innerText = document.getElementById('i260').value ? " . — " + document.getElementById('i260').value : "";
+            document.getElementById('v-300').innerText = document.getElementById('i300').value ? " . — " + document.getElementById('i300').value : "";
+            document.getElementById('v-490').innerText = document.getElementById('seriesValue').value ? " . — (" + document.getElementById('seriesValue').value + ")" : "";
+            document.getElementById('v-500').innerText = document.getElementById('i500').value;
+
+            // معالجة الموضوعات والمداخل للعرض
+            const subjects = getSubjects();
+            const additional = getAdditional();
+            
+            let tracings = "";
+            subjects.forEach((s, i) => {
+                tracings += (i+1) + ". " + s.value + " ";
+            });
+            
+            additional.forEach((a, i) => {
+                tracings += " أ." + (i+1) + " " + a.value + " ";
+            });
+            
+            document.getElementById('v-tracings').innerText = tracings;
+
+            // توليد الباركود
+            generateBarcode();
+
+            // توليد كود مارك
+            let m = `LDR 00000nam a2200000 i 4500\n`;
+            
+            // ISBNs المتعددة
+            getISBNs().forEach(isbn => {
+                m += `020 ## $a ${isbn}\n`;
+            });
+            
+            if(document.getElementById('i082').value) m += `082 04 $a ${document.getElementById('i082').value}\n`;
+            if(document.getElementById('mainEntryValue').value) {
+                m += `${document.getElementById('mainEntryTag').value} 1# $a ${document.getElementById('mainEntryValue').value}\n`;
+            }
+            if(document.getElementById('i245').value) m += `245 10 $a ${document.getElementById('i245').value}\n`;
+            if(document.getElementById('i260').value) m += `260 ## $a ${document.getElementById('i260').value}\n`;
+            if(document.getElementById('i300').value) m += `300 ## $a ${document.getElementById('i300').value}\n`;
+            if(document.getElementById('seriesValue').value) {
+                m += `${document.getElementById('seriesTag').value} #0 $a ${document.getElementById('seriesValue').value}\n`;
+            }
+            if(document.getElementById('i500').value) m += `500 ## $a ${document.getElementById('i500').value}\n`;
+            
+            // الموضوعات المتعددة
+            subjects.forEach(s => {
+                m += `${s.tag} #4 $a ${s.value}\n`;
+            });
+            
+            // المداخل الإضافية المتعددة
+            additional.forEach(a => {
+                m += `${a.tag} 1# $a ${a.value}\n`;
+            });
+            
+            document.getElementById('v-marc').value = m;
+        }
+
+        // حفظ ملف مارك
+        function saveMarc() {
+            const text = document.getElementById('v-marc').value;
+            const blob = new Blob([text], {type: "text/plain"});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = "catalog_record.mrc";
+            link.click();
+        }
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            &copy; 2026 منصة عماد كاظم السعدي الأكاديمية - جميع الحقوق محفوظة
+        </p>
+    </div>
+</div>
 
 <script>
-// 1. وظيفة التنقل بين التبويبات (Tabs)
-function switchTab(event, tabId) {
-    // إخفاء جميع مساحات العمل
-    const workAreas = document.querySelectorAll('.work-area');
-    workAreas.forEach(area => {
-        area.style.display = 'none';
-        area.classList.remove('active');
-    });
+if(marc===""){
+marc="لا توجد بيانات للتحويل";
+}
+/* =========================================
 
-    // إزالة الحالة النشطة من جميع الأزرار
-    const tabButtons = document.querySelectorAll('.tab-btn');
-    tabButtons.forEach(btn => btn.classList.remove('active'));
+========================================= */
 
-    // إظهار التبويب المطلوب
-    const selectedTab = document.getElementById(tabId);
-    if (selectedTab) {
-        selectedTab.style.display = 'block';
-        selectedTab.classList.add('active');
-    }
 
-    // تمييز الزر الذي تم النقر عليه
-    if (event) event.currentTarget.classList.add('active');
+
+
+/* =========================================
+   4. التبويبات Tabs
+========================================= */
+
+function switchTab(event, tabId){
+
+document.querySelectorAll('.work-area').forEach(area=>{
+area.style.display='none';
+area.classList.remove('active');
+});
+
+document.querySelectorAll('.tab-btn').forEach(btn=>{
+btn.classList.remove('active');
+});
+
+const selectedTab=document.getElementById(tabId);
+
+if(selectedTab){
+selectedTab.style.display='block';
+selectedTab.classList.add('active');
 }
 
-// 2. وظيفة إضافة صف جديد (مع تحويل الزر لحذف)
-function addRow(button) {
-    const currentRow = button.closest('tr');
-    const newRow = currentRow.cloneNode(true);
-    
-    // تفريغ حقل النص في الصف الجديد
-    const input = newRow.querySelector('.data-input');
-    if (input) input.value = '';
+if(event) event.currentTarget.classList.add('active');
 
-    // تحويل زر الإضافة (+) إلى زر حذف (×)
-    const actionBtn = newRow.querySelector('button'); 
-    if (actionBtn) {
-        actionBtn.innerHTML = '×'; 
-        actionBtn.style.backgroundColor = '#e74c3c'; // لون أحمر
-        actionBtn.style.color = 'white';
-        // تغيير الوظيفة برمجياً لضمان العمل
-        actionBtn.onclick = function() { removeRow(this); };
-        actionBtn.setAttribute('onclick', 'removeRow(this)');
-    }
-
-    // إدراج الصف بعد الصف الحالي
-    currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
 }
 
-// 3. وظيفة حذف الصف
-function removeRow(button) {
-    const rowToRemove = button.closest('tr');
-    rowToRemove.remove();
+
+/* =========================================
+   5. إضافة صف
+========================================= */
+
+function addRow(button){
+
+const currentRow=button.closest('tr');
+
+const newRow=currentRow.cloneNode(true);
+
+const input=newRow.querySelector('.data-input');
+
+if(input) input.value="";
+
+const actionBtn=newRow.querySelector('button');
+
+if(actionBtn){
+
+actionBtn.innerHTML='×';
+
+actionBtn.style.backgroundColor='#e74c3c';
+actionBtn.style.color='white';
+
+actionBtn.onclick=function(){ removeRow(this); };
+
 }
 
-// 4. وظيفة الحفظ النصي (Text) - تعمل على كل الصفوف (الأصلية والمضافة)
-function saveToFile() {
-    let content = "تنسيق مارك 21 - منصة عماد السعدي\n";
-    content += "----------------------------------\n\n";
+currentRow.parentNode.insertBefore(newRow,currentRow.nextSibling);
 
-    // جلب جميع الصفوف التي تحتوي على وسم data-tag
-    const rows = document.querySelectorAll('tr[data-tag]');
-    
-    rows.forEach(row => {
-        const tag = row.getAttribute('data-tag');
-        
-        // جلب المؤشرات (المربعات الصغيرة)
-        const ind1Input = row.querySelector('.ind-box input:nth-child(1)');
-        const ind2Input = row.querySelector('.ind-box input:nth-child(2)');
-        
-        const ind1 = (ind1Input && ind1Input.value.trim() !== "") ? ind1Input.value : "#";
-        const ind2 = (ind2Input && ind2Input.value.trim() !== "") ? ind2Input.value : "#";
-        
-        // جلب البيانات الأساسية
-        const dataInput = row.querySelector('.data-input');
-        const data = dataInput ? dataInput.value : "";
-
-        // الحفظ فقط إذا كان الحقل غير فارغ
-        if (data.trim() !== "") {
-            content += `${tag} ${ind1}${ind2} ${data}\n`;
-        }
-    });
-
-    // تنفيذ عملية التحميل
-    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "MARC21_Record.txt";
-    link.click();
 }
 
+
+/* =========================================
+   6. حذف صف
+========================================= */
+
+function removeRow(button){
+
+const row=button.closest('tr');
+
+if(row) row.remove();
+
+}
+
+
+/* =========================================
+   7. حفظ التسجيلات النصية
+========================================= */
+
+function saveToFile(){
+
+let content="تنسيق مارك 21 - منصة عماد السعدي\n";
+content+="----------------------------------\n\n";
+
+const rows=document.querySelectorAll('tr[data-tag]');
+
+rows.forEach(row=>{
+
+const tag=row.getAttribute('data-tag');
+
+const ind1Input=row.querySelector('.ind-box input:nth-child(1)');
+const ind2Input=row.querySelector('.ind-box input:nth-child(2)');
+
+const ind1=(ind1Input && ind1Input.value)?ind1Input.value:"#";
+const ind2=(ind2Input && ind2Input.value)?ind2Input.value:"#";
+
+const dataInput=row.querySelector('.data-input');
+const data=dataInput?dataInput.value:"";
+
+if(data.trim()!=""){
+content += `${tag} ${ind1}${ind2} ${data}\n`;
+}
+
+});
+
+const blob=new Blob([content],{type:"text/plain;charset=utf-8"});
+
+const link=document.createElement("a");
+
+link.href=URL.createObjectURL(blob);
+
+link.download="MARC21_Record.txt";
+
+link.click();
+
+}
+
+
+/* =========================================
+   8. نافذة مساعد مارك
+========================================= */
+
+function toggleMarcHelper(){
+
+const modal=document.getElementById('marcHelperModal');
+
+if(!modal) return;
+
+modal.style.display=(modal.style.display==='flex')?'none':'flex';
+
+}
+
+function addToHelperSheet(){
+
+const select=document.getElementById('helper-select');
+const sheet=document.getElementById('helper-result');
+
+if(!select || !sheet) return;
+
+if(select.selectedIndex<=0) return;
+
+const text=select.options[select.selectedIndex].text;
+const tag=select.options[select.selectedIndex].value;
+
+const time=new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'});
+
+sheet.value += `[${time}] ${tag} -> ${text}\n`;
+
+sheet.scrollTop=sheet.scrollHeight;
+
+}
+
+function copyHelperText(){
+
+const text=document.getElementById('helper-result');
+
+if(!text) return;
+
+text.select();
+
+document.execCommand('copy');
+
+alert('تم النسخ لمسودة الحافظة');
+
+}
+
+
+/* =========================================
+   9. النوافذ المنبثقة
+========================================= */
+
+function openModal(id){
+
+const modal=document.getElementById(id);
+
+if(modal) modal.style.display="block";
+
+}
+
+function closeModal(id){
+
+const modal=document.getElementById(id);
+
+if(modal) modal.style.display="none";
+
+}
+
+
+/* =========================================
+   10. إغلاق النافذة عند الضغط خارجها
+========================================= */
+
+window.onclick=function(event){
+
+const modal=document.getElementById('marcHelperModal');
+
+if(event.target===modal){
+
+modal.style.display="none";
+
+}
+
+}
+
+
+/* =========================================
+   11. تشغيل أول تبويب تلقائياً
+========================================= */
+
+document.addEventListener("DOMContentLoaded",function(){
+
+const firstTab=document.querySelector(".tab-btn");
+
+if(firstTab) firstTab.click();
+
+});
 
 
 </script>
-
-
-
-
-</body>
-</html>
-
-
 
