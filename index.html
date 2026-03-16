@@ -337,119 +337,175 @@
             gap: 20px;
         }
         
-        /* البطاقة الورقية */
+        /* البطاقة الورقية - محسنة */
         .library-card {
             width: 900px;
-            min-height: 550px;
-            background: #fffdf5;
-            border: 1px solid #d2b48c;
+            min-height: 600px;
+            background: #fff9ef;
+            border: 8px solid #8b5a2b;
             position: relative;
-            padding: 50px;
-            color: #1e293b;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            padding: 60px 50px;
+            color: #2c1e14;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 0 2px #e6c7a2;
             font-family: 'Times New Roman', serif;
             direction: rtl;
+            border-radius: 30px 30px 50px 50px;
+            background-image: linear-gradient(#f5e8d0 1px, transparent 1px);
+            background-size: 100% 40px;
+        }
+        
+        .library-card::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            right: 30px;
+            height: 30px;
+            background: repeating-linear-gradient(45deg, #c49a6c 0px, #c49a6c 8px, #e6c7a2 8px, #e6c7a2 16px);
+            border-radius: 15px;
+            border: 2px solid #6b3f1f;
         }
         
         .call-number {
             position: absolute;
-            top: 40px;
-            right: 50px;
+            top: 70px;
+            right: 70px;
             font-weight: bold;
-            font-size: 26px;
-            color: #b91c1c;
-            width: 140px;
+            font-size: 28px;
+            color: #a52a2a;
+            width: 160px;
             text-align: center;
+            font-family: 'Courier New', monospace;
+            background: #f0e0c0;
+            padding: 12px;
+            border: 3px solid #8b5a2b;
+            border-radius: 15px;
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
         }
         
         .main-entry {
-            margin-right: 180px;
+            margin-right: 220px;
             font-weight: bold;
-            font-size: 28px;
-            margin-bottom: 12px;
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: #2c1810;
+            border-bottom: 3px dotted #c49a6c;
+            padding-bottom: 10px;
+            font-family: 'Amiri', serif;
         }
         
         .body-text {
-            margin-right: 180px;
-            font-size: 22px;
-            line-height: 1.6;
+            margin-right: 220px;
+            font-size: 24px;
+            line-height: 2;
             text-align: justify;
+            margin-bottom: 15px;
         }
         
         .tracings {
-            margin-right: 180px;
-            margin-top: 40px;
-            font-size: 18px;
-            border-top: 1px solid #e2d6c1;
-            padding-top: 10px;
-            line-height: 1.8;
+            margin-right: 220px;
+            margin-top: 60px;
+            font-size: 20px;
+            border-top: 3px double #c49a6c;
+            padding-top: 20px;
+            line-height: 2.2;
+            background: rgba(255,255,240,0.5);
+            padding-right: 15px;
+            border-radius: 10px;
         }
         
         .cover-image {
             position: absolute;
-            bottom: 50px;
-            left: 50px;
-            width: 120px;
-            height: 165px;
+            bottom: 70px;
+            left: 70px;
+            width: 140px;
+            height: 195px;
             object-fit: cover;
-            border: 1px solid #ddd;
+            border: 4px solid #8b5a2b;
             display: none;
             background: #fff;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 8px 8px 20px rgba(0,0,0,0.4);
             z-index: 10;
+            border-radius: 8px 8px 20px 8px;
         }
         
         .barcode-container {
             position: absolute;
-            bottom: 50px;
-            right: 50px;
+            bottom: 60px;
+            right: 60px;
             text-align: center;
             background: white;
-            padding: 8px;
-            border-radius: 8px;
-            border: 2px solid #8b5a2b;
+            padding: 12px;
+            border-radius: 12px;
+            border: 3px solid #8b5a2b;
             z-index: 20;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+            min-width: 200px;
         }
         
         .barcode-number {
-            font-size: 12px;
-            margin-top: 3px;
+            font-size: 14px;
+            margin-top: 5px;
             color: #333;
             font-family: monospace;
+            font-weight: bold;
+            background: #f0f0f0;
+            padding: 3px;
+            border-radius: 4px;
+        }
+        
+        .system-number {
+            font-size: 13px;
+            margin-top: 10px;
+            color: #004b85;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            border-top: 2px dashed #8b5a2b;
+            padding-top: 8px;
+            background: #f9f3e7;
+            border-radius: 0 0 8px 8px;
+            padding: 8px;
+            text-align: center;
+            direction: ltr;
+            letter-spacing: 1px;
         }
         
         .dot {
             position: absolute;
-            bottom: 15px;
+            bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 25px;
-            height: 25px;
-            background: #0f172a;
+            width: 30px;
+            height: 30px;
+            background: #2c1e14;
             border-radius: 50%;
+            border: 3px solid #c49a6c;
         }
         
         .marc-container {
             width: 100%;
             max-width: 900px;
             background: #1e1e1e;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
-            border: 2px solid #f1c40f;
+            border: 3px solid #f1c40f;
             margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         
         .marc-header {
             background: #f1c40f;
-            padding: 10px 15px;
+            padding: 15px 20px;
             font-weight: bold;
             color: #2c1e14;
-            font-size: 16px;
+            font-size: 20px;
+            text-align: center;
         }
         
         .marc-box {
             width: 100%;
-            height: 280px;
+            height: 300px;
             background: #1e1e1e;
             color: #4ade80;
             padding: 25px;
@@ -458,7 +514,7 @@
             border: none;
             direction: ltr;
             text-align: left;
-            line-height: 1.6;
+            line-height: 1.8;
             resize: none;
         }
         
@@ -466,28 +522,33 @@
             background: #3b82f6;
             color: white;
             border: none;
-            padding: 12px 40px;
-            border-radius: 30px;
+            padding: 15px 50px;
+            border-radius: 40px;
             cursor: pointer;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 20px;
             transition: all 0.3s;
+            border: 3px solid #f1c40f;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
         
         .export-btn:hover {
             background: #2563eb;
+            transform: scale(1.05);
         }
         
         .close-btn {
-            margin-top: 25px;
+            margin-top: 30px;
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             background: #ef4444;
             color: white;
             border: none;
-            border-radius: 10px;
+            border-radius: 40px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 18px;
+            border: 2px solid #f1c40f;
         }
         
         .close-btn:hover {
@@ -556,6 +617,7 @@
             background: var(--koha-blue);
             color: white;
             margin-top: 30px;
+            font-size: 16px;
         }
         
         /* زر مساعد 008 */
@@ -568,10 +630,17 @@
             color: white;
             border: none;
             border-radius: 50px;
-            padding: 10px 20px;
+            padding: 12px 25px;
             cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             font-weight: bold;
+            font-size: 16px;
+            border: 2px solid white;
+        }
+        
+        .floating-helper-btn:hover {
+            background: #0d5bcc;
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -640,7 +709,7 @@
                         </div>
                     </div>
                 </td>
-                
+                <td><button class="add btn-action" style="visibility: hidden;">+</button></td>
             </tr>
             <tr data-tag="020">
                 <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/01X-09X-DW/bd020.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">020</span></td>
@@ -680,7 +749,7 @@
         </table>
     </div>
 
-    <!-- التبويبة 1: المداخل الرئيسية -->
+    <!-- التبويبة 1: المداخل الرئيسية (تم إخفاء أزرار التكرار) -->
     <div id="tab1" class="work-area">
         <table>
             <tr data-tag="100">
@@ -688,33 +757,33 @@
                 <td class="label-box">اسم شخصي</td>
                 <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a السعدي، عماد كاظم، $e مؤلف."></td>
-               
+                <td><button class="add btn-action" style="visibility: hidden;">+</button></td>
             </tr>
             <tr data-tag="110">
                 <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/1XX-DW/bd110.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">110</span></td>
                 <td class="label-box">اسم هيئة</td>
                 <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a جامعة بغداد. $b كلية الآداب."></td>
-                
+                <td><button class="add btn-action" style="visibility: hidden;">+</button></td>
             </tr>
             <tr data-tag="111">
                 <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/1XX-DW/bd111.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">111</span></td>
                 <td class="label-box">اسم مؤتمر</td>
                 <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a مؤتمر الفهرسة العربي $d (2023 : $c دبي)"></td>
-                
+                <td><button class="add btn-action" style="visibility: hidden;">+</button></td>
             </tr>
             <tr data-tag="130">
                 <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/1XX-DW/bd130.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">130</span></td>
                 <td class="label-box">عنوان موحد</td>
                 <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a القرآن الكريم."></td>
-                
+                <td><button class="add btn-action" style="visibility: hidden;">+</button></td>
             </tr>
         </table>
     </div>
 
-    <!-- التبويبة 2: العنوان والنشر -->
+    <!-- التبويبة 2: العنوان والنشر (تم إخفاء زر التكرار من 245) -->
     <div id="tab2" class="work-area">
         <table>
             <tr data-tag="210">
@@ -743,7 +812,7 @@
                 <td class="label-box">العنوان وبيان المسؤولية</td>
                 <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="0" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a عنوان الكتاب / $b بيان المسؤولية"></td>
-               
+                <td><button class="add btn-action" style="visibility: hidden;">+</button></td>
             </tr>
             <tr data-tag="246">
                 <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/20X-24X-DW/bd246.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">246</span></td>
@@ -757,7 +826,7 @@
                 <td class="label-box">بيان الطبعة</td>
                 <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a ط. 2."></td>
-                
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
             <tr data-tag="264">
                 <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/25X-28X-DW/bd264.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">264</span></td>
@@ -769,7 +838,7 @@
         </table>
     </div>
 
-    <!-- التبويبة 3: الوصف المادي -->
+    <!-- باقي التبويبات (3XX إلى 7XX) كما هي مع أزرار التكرار -->
     <div id="tab3" class="work-area">
         <table>
             <tr data-tag="300">
@@ -777,33 +846,32 @@
                 <td class="label-box">الوصف المادي</td>
                 <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a 350 ص. : $b مصور ؛ $c 24 سم."></td>
-                
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
             <tr data-tag="336">
                 <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/3XX-DW/bd336.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">336</span></td>
                 <td class="label-box">نوع المحتوى</td>
                 <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a نص $b txt $2 rdacontent"></td>
-               
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
             <tr data-tag="337">
                 <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/3XX-DW/bd337.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">337</span></td>
                 <td class="label-box">نوع الوسيط</td>
                 <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a غير مستخدم $b n $2 rdamedia"></td>
-                
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
             <tr data-tag="338">
                 <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/3XX-DW/bd338.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">338</span></td>
                 <td class="label-box">نوع الناقل</td>
                 <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
                 <td><input type="text" class="data-input" placeholder="$a مجلد $b nc $2 rdacarrier"></td>
-               
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
             </tr>
         </table>
     </div>
 
-    <!-- التبويبة 4: السلسلة -->
     <div id="tab4" class="work-area">
         <table>
             <tr data-tag="490">
@@ -823,7 +891,6 @@
         </table>
     </div>
 
-    <!-- التبويبة 5: التبصرات -->
     <div id="tab5" class="work-area">
         <table>
             <tr data-tag="500">
@@ -871,7 +938,6 @@
         </table>
     </div>
 
-    <!-- التبويبة 6: الموضوعات -->
     <div id="tab6" class="work-area">
         <table>
             <tr data-tag="600">
@@ -926,7 +992,6 @@
         </table>
     </div>
 
-    <!-- التبويبة 7: المداخل الإضافية -->
     <div id="tab7" class="work-area">
         <table>
             <tr data-tag="700">
@@ -969,7 +1034,6 @@
 </div>
 
 <!-- الأزرار العائمة -->
-<!-- زر بطاقة الكتاب -->
 <div class="floating-card-btn" onclick="toggleCard()">
     <span style="font-weight: bold;">بطاقة الكتاب</span>
     <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
@@ -977,7 +1041,6 @@
     </svg>
 </div>
 
-<!-- زر مساعد 008 -->
 <button onclick="toggleMarcHelper()" class="floating-helper-btn">
     🔍 مساعد 008
 </button>
@@ -1110,6 +1173,7 @@
                 <div class="barcode-container">
                     <svg id="barcode"></svg>
                     <div class="barcode-number" id="barcodeText"></div>
+                    <div class="system-number" id="systemNumber">رقم النظام: <span id="sysNumValue"></span></div>
                 </div>
                 <div class="dot"></div>
             </div>
@@ -1167,6 +1231,26 @@
 let subjectCount = 1;
 let additionalCount = 1;
 let isbnCount = 1;
+
+// =========================================
+// نظام توليد الرقم العشوائي
+// =========================================
+function generateSystemNumber() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+    
+    return `${year}${month}${day}-${random}`;
+}
+
+function updateSystemNumber() {
+    const sysSpan = document.getElementById('sysNumValue');
+    if (sysSpan) {
+        sysSpan.textContent = generateSystemNumber();
+    }
+}
 
 // =========================================
 // دوال التبويبات
@@ -1250,7 +1334,10 @@ function toggleCard() {
     const modal = document.getElementById('cardModal');
     modal.style.display = modal.style.display === 'none' || modal.style.display === '' ? 'flex' : 'none';
     if (modal.style.display === 'flex') {
-        setTimeout(drawCard, 200);
+        setTimeout(() => {
+            drawCard();
+            updateSystemNumber();
+        }, 200);
     }
 }
 
