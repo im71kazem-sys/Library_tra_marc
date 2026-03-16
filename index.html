@@ -4,702 +4,266 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>منصة عماد كاظم السعدي - نظام مارك 21 المتكامل</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Amiri&family=Aref+Ruqaa&family=Libre+Barcode+128&display=swap" rel="stylesheet">
+    <!-- إضافة مكتبة JsBarcode لتوليد الباركود -->
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <!-- إضافة Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <style>
-        :root { --koha-blue: #004b85; --koha-light: #f4f7f9; --border: #c8d1d9; --red: #d73a49; --green: #28a745; --yellow: #fffde7; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--koha-light); margin: 0; padding-bottom: 50px; }
-        header { background: var(--koha-blue); color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid #003660; }
-        .container { width: 95%; margin: 20px auto; background: white; border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; }
+        :root { 
+            --koha-blue: #004b85; 
+            --koha-light: #f4f7f9; 
+            --border: #c8d1d9; 
+            --red: #d73a49; 
+            --green: #28a745; 
+            --yellow: #fffde7;
+            --parchment: #fdfaf1; 
+            --ink: #2c1e14; 
+            --gold: #b8860b; 
+            --brown: #8b4513;
+        }
         
-        .tabs-header { display: flex; background: #e1e8ed; border-bottom: 1px solid var(--border); overflow-x: auto; }
-        .tab-btn { padding: 15px 20px; border: none; background: none; cursor: pointer; font-weight: bold; color: var(--koha-blue); border-left: 1px solid var(--border); white-space: nowrap; transition: 0.3s; }
-        .tab-btn.active { background: white; border-bottom: 3px solid var(--koha-blue); }
-
-        .work-area { padding: 20px; display: none; }
-        .work-area.active { display: block; }
-
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        tr { border-bottom: 1px solid #eee; transition: background 0.2s; }
-        tr:hover { background: #fcfcfc; }
-        td { padding: 12px; vertical-align: middle; }
-
-        .tag-info { display: flex; align-items: center; gap: 10px; width: 120px; }
-        .tag-num { font-weight: 700; color: var(--red); font-size: 1.1rem; font-family: monospace; }
-        .loc-link { text-decoration: none; font-size: 1rem; color: var(--koha-blue); }
-
-        .ind-box { display: flex; gap: 3px; }
-        .ind-box input { width: 25px; text-align: center; border: 1px solid #ccc; padding: 5px; background: var(--yellow); font-family: monospace; font-weight: bold; }
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background-color: var(--koha-light); 
+            margin: 0; 
+            padding-bottom: 50px; 
+        }
         
-        .label-box { width: 220px; font-size: 0.9rem; color: #333; font-weight: 600; }
-        .data-input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 1rem; box-sizing: border-box; }
-        .data-input:focus { border-color: var(--koha-blue); outline: none; background: #fff; }
-
-        .btn-action { border: none; border-radius: 4px; width: 30px; height: 30px; cursor: pointer; color: white; font-weight: bold; display: flex; align-items: center; justify-content: center; }
-        .add { background: var(--green); }
-        .del { background: var(--red); margin-top: 5px; }
-
-        .footer-actions { background: #f8f9fa; padding: 20px; text-align: center; border-top: 1px solid var(--border); }
-        .btn-main { padding: 12px 30px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; margin: 5px; font-family: 'Cairo'; transition: 0.3s; }
-        .btn-save { background: var(--koha-blue); color: white; }
-        .btn-reset { background: #6c757d; color: white; }
-		.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
-.modal-content { background: white; margin: 5% auto; padding: 25px; border-radius: 10px; width: 70%; direction: rtl; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-.close { float: left; font-size: 28px; cursor: pointer; color: #aaa; }
-.close:hover { color: red; }
-/* تصميم النافذة المنبثقة */
-        .modal { display: none; position: fixed; z-index: 10000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); }
-        .modal-content { background: white; margin: 2% auto; padding: 20px; border-radius: 12px; width: 95%; max-height: 90vh; overflow-y: auto; direction: rtl; box-shadow: 0 5px 30px rgba(0,0,0,0.3); border-top: 8px solid var(--koha-blue); }
+        header { 
+            background: var(--koha-blue); 
+            color: white; 
+            padding: 15px 30px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 4px solid #003660; 
+        }
         
-        .smart-layout { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 15px; }
+        .container { 
+            width: 95%; 
+            margin: 20px auto; 
+            background: white; 
+            border: 1px solid var(--border); 
+            border-radius: 8px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+            overflow: hidden; 
+        }
         
-        /* تصميم "قسم البطاقة المنظم" */
-        .card-form { background: #fffde7; padding: 15px; border: 1px solid #e6db55; border-radius: 8px; box-shadow: inset 0 0 10px rgba(0,0,0,0.05); }
-        .form-group { margin-bottom: 8px; display: flex; align-items: center; gap: 10px; }
-        .form-group label { width: 120px; font-size: 0.85rem; font-weight: bold; color: #555; }
-        .form-group input { flex: 1; padding: 6px; border: 1px solid #ccc; border-radius: 4px; font-family: 'Cairo'; font-size: 0.9rem; }
-        .form-group input:focus { border-color: var(--koha-blue); outline: none; background: #fff; }
-
-        /* صندوق النتيجة */
-        .result-box { background: #1e272e; color: #0be881; padding: 15px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.95rem; line-height: 1.6; white-space: pre-wrap; border: 2px solid #2f3542; min-height: 400px; }
+        .tabs-header { 
+            display: flex; 
+            background: #e1e8ed; 
+            border-bottom: 1px solid var(--border); 
+            overflow-x: auto; 
+        }
         
-        .btn-main { padding: 10px 15px; border-radius: 6px; font-weight: bold; cursor: pointer; border: none; font-family: 'Cairo'; margin: 5px 0; width: 100%; transition: 0.3s; }
-        .btn-save { background: var(--koha-blue); color: white; }
-        .btn-reset { background: #d63031; color: white; }
-        .btn-download { background: #27ae60; color: white; }
+        .tab-btn { 
+            padding: 15px 20px; 
+            border: none; 
+            background: none; 
+            cursor: pointer; 
+            font-weight: bold; 
+            color: var(--koha-blue); 
+            border-left: 1px solid var(--border); 
+            white-space: nowrap; 
+            transition: 0.3s; 
+        }
         
-        h4 { margin-top: 0; color: var(--koha-blue); border-bottom: 1px solid #eee; padding-bottom: 5px; font-size: 1rem; }
-        .close-btn { float: left; font-size: 30px; cursor: pointer; color: #999; }
-    </style>
-
-    </style>
-	
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة عماد السعدي - نظام مارك 21 المتكامل</title>
-    <link href="https://fonts.googleapis.com" rel="stylesheet">
-    <style>
-        <style>
-
-. body { background-color: #d1d1d1; font-family: 'Times New Roman', Times, serif; padding: 20px; }
-        .main-container { max-width: 1000px; margin: auto; display: flex; gap: 20px; flex-wrap: wrap; }
-        
-        /* قسم إدخال البيانات */
-        .input-panel { flex: 1; background: #f9f9f9; padding: 20px; border-radius: 5px; box-shadow: 0 0 10px rgba(0,0,0,0.2); min-width: 350px; }
-        .field { margin-bottom: 10px; display: flex; align-items: center; }
-        .field label { width: 100px; font-size: 14px; font-weight: bold; }
-        .field input, .field select { flex: 1; padding: 6px; border: 1px solid #aaa; border-radius: 3px; }
-
-        /* ستايل البطاقة القديمة */
-        .card-preview { 
-            width: 500px; 
-            height: 300px; 
-            background-color: #fff9e6; /* لون ورقي قديم */
-            border: 1px solid #b5b5b5; 
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-            padding: 30px;
-            position: relative;
-            color: #222;
-            font-family: "Courier New", Courier, monospace; /* خط يشبه الآلة الكاتبة */
-            line-height: 1.4;
-            overflow: hidden;
+        .tab-btn.active { 
+            background: white; 
+            border-bottom: 3px solid var(--koha-blue); 
         }
 
-        /* ثقب البطاقة الشهير في الأسفل */
-        .card-hole {
-            width: 25px;
-            height: 25px;
-            background-color: #d1d1d1;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 1px solid #aaa;
+        .work-area { 
+            padding: 20px; 
+            display: none; 
+        }
+        
+        .work-area.active { 
+            display: block; 
         }
 
-        .class-number { position: absolute; top: 30px; right: 30px; font-weight: bold; width: 60px; }
-        .main-entry { margin-bottom: 10px; font-weight: bold; }
-        .title-body { text-indent: 30px; }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 20px; 
+        }
         
-        /* قسم مخرجات مارك الأسود */
-        .marc-output {
-            width: 100%;
-            background: #1e1e1e;
-            color: #00ff00;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 5px;
-            font-family: monospace;
-            white-space: pre-wrap;
+        tr { 
+            border-bottom: 1px solid #eee; 
+            transition: background 0.2s; 
+        }
+        
+        tr:hover { 
+            background: #fcfcfc; 
+        }
+        
+        td { 
+            padding: 12px; 
+            vertical-align: middle; 
         }
 
-        h3 { border-bottom: 2px solid #0056b3; padding-bottom: 5px; margin-top: 0; color: #0056b3; }
-        button { background: #0056b3; color: white; border: none; padding: 10px 20px; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
-    </style>
-</head>
-<body>
-
-
-
-<header>
-
-    <div>
-        <strong>منصة عماد السعدي</strong> 
-        <div style="font-size: 0.9rem;">المستوى الكامل للوصف البيبليوغرافي</div>
-    </div>
-    
-    <div style="display: flex; gap: 10px;">
-        <!-- تغيير النص داخل الزر -->
-
-
-<div style="display: flex; gap: 10px;">
-   
-    
-    <button onclick="location.reload()" class="btn-reset">🧹 مسح البيانات</button> 
-    <button class="btn-main btn-save" onclick="saveToFile()">حفظ التسجيلة (Text)</button>
-</div>
-
-</header>
-
-
-<div class="tabs-header">
-    <button class="tab-btn active" onclick="switchTab(event, 'tab0')">0XX (الضبط)</button>
-    <button class="tab-btn" onclick="switchTab(event, 'tab1')">1XX (المدخل الرئيسي)</button>
-    
-    <!-- تقسيم زر الوصف إلى ثلاث تبويبات مستقلة -->
-    <button class="tab-btn" onclick="switchTab(event, 'tab2')">2XX (الوصف)</button>
-    <button class="tab-btn" onclick="switchTab(event, 'tab3')">3XX (الوصف المادي)</button>
-    <button class="tab-btn" onclick="switchTab(event, 'tab4')">4XX (السلسلة)</button>
-    
-    <button class="tab-btn" onclick="switchTab(event, 'tab5')">5XX (التبصرات)</button>
-    <button class="tab-btn" onclick="switchTab(event, 'tab6')">6XX (الموضوعات)</button>
-    <button class="tab-btn" onclick="switchTab(event, 'tab7')">7XX (مداخل إضافية)</button>
-	<div class="smart-grid">
-           
-
-</div>
-
-<script>
-    
-</script>
-
-</body>
-</html>
-</div>
-
-<!-- التبويبة 0: الضبط -->
-<div id="tab0" class="work-area active">
-    <table id="table0">
-        <!-- حقل 008 (بيانات ثابتة) - النسخة المعتمدة التي لا تكسر التصميم -->
-<tr data-tag="008">
-    <td class="tag-info">
-        <a href="https://www.loc.gov/marc/bibliographic/bd008.html" target="_blank" class="loc-link">🔗</a> 
-        <span class="tag-num">008</span>
-    </td>
-    <td class="label-box">بيانات ثابتة</td>
-    <td class="ind-box">
-        <input type="text" value="#" maxlength="1" disabled>
-        <input type="text" value="#" maxlength="1" disabled>
-    </td>
-    <td>
-        <div class="field-008-container" style="display: flex; gap: 5px; align-items: center; background: #f9f9f9; padding: 4px; border-radius: 4px; border: 1px dashed #ddd; justify-content: flex-end; width: 100%; max-width: 380px; margin-left: auto;">
-            
-            <!-- حقل النوع (أضفناه هنا ليكون صغيراً جداً) -->
-            <div class="sub-field" style="text-align: center;">
-                <small style="display:block; font-size:9px; color:#e67e22; font-weight:bold;">النوع</small>
-                <select style="width: 65px; height: 24px; border: 1px solid #ccc; border-radius: 2px; font-size: 10px; cursor: pointer;">
-                    <option value="B">كتب</option>
-                    <option value="S">دورية</option>
-                </select>
-            </div>
-
-            <div class="sub-field" style="text-align: center;">
-                <small style="display:block; font-size:9px; color:#666;">تاريخ (00-05)</small>
-                <input type="text" style="width: 55px; text-align: center; border: 1px solid #ccc; height: 24px; font-size: 10px;" placeholder="240519" maxlength="6">
-            </div>
-
-            <div class="sub-field" style="text-align: center;">
-                <small style="display:block; font-size:9px; color:#666;">دولة</small>
-                <input type="text" style="width: 35px; text-align: center; border: 1px solid #ccc; height: 24px; font-size: 10px;" placeholder="ua" maxlength="3">
-            </div>
-
-            <div class="sub-field" style="text-align: center;">
-                <small style="display:block; font-size:9px; color:#1a73e8; font-weight:bold;">اللغة (35-37)</small>
-                <select style="width: 85px; height: 24px; border: 1px solid #1a73e8; border-radius: 2px; font-size: 10px; cursor: pointer;">
-                    <option value="ara">العربية (ara)</option>
-                    <option value="eng">الإنجليزية</option>
-                </select>
-            </div>
-
-        </div>
-    </td>
-    <td><button class="add btn-action" style="visibility: hidden;">+</button></td>
-</tr>
-
-
-        <!-- ردمك 020 -->
-        <tr data-tag="020">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/01X-09X-DW/bd020.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">020</span></td>
-            <td class="label-box">ردمك (ISBN)</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a 9789957321245"></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-        <!-- 022 ردمد -->
-        <tr data-tag="022">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/01X-09X-DW/bd022.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">022</span></td>
-            <td class="label-box">ردمد (ISSN)</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a ‪0376-45837‫"></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-		
-        <!-- رمز اللغة 041 -->
-        <tr data-tag="041">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/01X-09X-DW/bd041.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">041</span></td>
-            <td class="label-box">رمز اللغة</td>
-            <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a ara"></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-
-        <!-- تصنيف الكونجرس 050 -->
-        <tr data-tag="050">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/01X-09X-DW/bd050.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">050</span></td>
-            <td class="label-box">تصنيف الكونجرس</td>
-            <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="0" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a Z668 $b .R36 2023"></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-
-        <!-- تصنيف ديوي 082 -->
-        <tr data-tag="082">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/01X-09X-DW/bd082.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">082</span></td>
-            <td class="label-box">تصنيف ديوي</td>
-            <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="4" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a 025.04 $2 23"></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-    </table>
-</div>
-
-
-
-    <!-- التبويبة 1: المداخل الرئيسية -->
-    <div id="tab1" class="work-area">
-        <table>
-            <tr data-tag="100">
-    <td class="tag-info">
-        <a href="https://www.bibalex.org/als/marcA/1XX-DW/bd100.html" target="_blank" class="loc-link">🔗</a> 
-        <span class="tag-num">100</span>
-    </td>
-    <td class="label-box">اسم شخصي</td>
-    <td class="ind-box">
-        <input type="text" value="1" maxlength="1"><input type="text" value="#" maxlength="1">
-    </td>
-    <td>
-        <input type="text" class="data-input" placeholder="$a السعدي، عماد كاظم، $e مؤلف.">
-    </td>
-    <td>
-            </td>
-</tr>
-
-            <tr data-tag="110">
-                <td class="tag-info">
-				<a href="https://www.bibalex.org/als/marcA/1XX-DW/bd110.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">110</span></td>
-                <td class="label-box">اسم هيئة</td>
-                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a جامعة بغداد. $b كلية الآداب."></td>
-            </tr>
-            <tr data-tag="111">
-                <td class="tag-info">
-				<a href="https://www.bibalex.org/als/marcA/1XX-DW/bd111.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">111</span></td>
-                <td class="label-box">اسم مؤتمر</td>
-                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a مؤتمر الفهرسة العربي $d (2023 : $c دبي)"></td>
-            </tr>
-            <tr data-tag="130">
-                <td class="tag-info">
-				<a href="https://www.bibalex.org/als/marcA/1XX-DW/bd130.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">130</span></td>
-                <td class="label-box">عنوان موحد</td>
-                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a القرآن الكريم."></td>
-            </tr>
-        </table>
-    </div>
-
- 
-
-        <!-- التبويبة 2: الوصف -->
-<div id="tab2" class="work-area">
-    <table>
-        <!-- 210 العنوان المختصر -->
-        <tr data-tag="210">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/20X-24X-DW/bd210.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">210</span></td>
-            <td class="label-box">العنوان المختصر</td>
-            <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a J. Library Stud."></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-        <!-- 222 العنوان المفتاحي -->
-        <tr data-tag="222">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/20X-24X-DW/bd222.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">222</span></td>
-            <td class="label-box">العنوان المفتاحي</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="0" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a مجلة الدراسات المكتبية"></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-        <!-- 240 العنوان المقنن -->
-        <tr data-tag="240">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/20X-24X-DW/bd240.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">240</span></td>
-            <td class="label-box">العنوان المقنن</td>
-            <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="0" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a قوانين حمورابي. $l العربية"></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-        <!-- 245 العنوان وبيان المسؤولية -->
-        <tr data-tag="245">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/20X-24X-DW/bd245.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">245</span></td>
-            <td class="label-box">العنوان وبيان المسؤولية</td>
-            <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="0" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a عنوان الكتاب... "></td>
-            
-        </tr>
-        <!-- 246 الأشكال المغايرة -->
-        <tr data-tag="246">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/20X-24X-DW/bd246.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">246</span></td>
-            <td class="label-box">الأشكال المغايرة</td>
-            <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="3" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$i العنوان على الغلاف... "></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-        <!-- 250 بيان الطبعة -->
-        <tr data-tag="250">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/25X-28X-DW/bd250.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">250</span></td>
-            <td class="label-box">بيان الطبعة</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a ط. 2."></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-        <!-- 264 النشر والتوزيع -->
-        <tr data-tag="264">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/25X-28X-DW/bd264.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">264</span></td>
-            <td class="label-box">النشر والتوزيع</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="1" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a عمان : $b دار الفكر، $c 2024."></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-    </table>
-</div>
-
-		<!-- التبويبة 3: الوصف المادي -->
-<div id="tab3" class="work-area">
-    <table>
-        <tr data-tag="300">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/3XX-DW/bd300.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">300</span></td>
-            <td class="label-box">الوصف المادي</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a 350 ص. : $b مصور ؛ $c 24 سم."></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-        <tr data-tag="336">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/3XX-DW/bd336.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">336</span></td>
-            <td class="label-box">نوع المحتوى</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a نص $b txt $2 rdacontent"></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-        <tr data-tag="337">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/3XX-DW/bd337.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">337</span></td>
-            <td class="label-box">نوع الوسيط</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a غير مستخدم $b n $2 rdamedia"></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-        <tr data-tag="338">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/3XX-DW/bd338.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">338</span></td>
-            <td class="label-box">نوع الناقل</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a مجلد $b nc $2 rdacarrier"></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-    </table>
-</div>
-
-<!-- التبويبة 4: السلسلة -->
-<div id="tab4" class="work-area">
-    <table>
-        <tr data-tag="490">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/4XX-DW/bd4xx.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">490</span></td>
-            <td class="label-box">بيان السلسلة</td>
-            <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a سلسلة دراسات مكتبية $v ج. 3"></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-    </table>
-</div>
->
-
-	
-
-    <!-- التبويبة 5: التبصرات -->
-<div id="tab5" class="work-area">
-    <table id="table5">
-        <!-- 500 تبصرة عامة -->
-        <tr data-tag="500">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/5XX-DW/bd500.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">500</span></td>
-            <td class="label-box">تبصرة عامة</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a يشتمل على كشافات."></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-
-        <!-- 502 تبصرة أطروحة -->
-        <tr data-tag="502">
-            <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd502.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">502</span></td>
-            <td class="label-box">تبصرة أطروحة</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$b دكتوراة $c جامعة بغداد $d 2023."></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-
-        <!-- 504 تبصرة بيبليوغرافية -->
-        <tr data-tag="504">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/5XX-DW/bd504.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">504</span></td>
-            <td class="label-box">تبصرة بيبليوغرافية</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a يتضمن إرجاعات بيبليوغرافية (ص. 340-348)."></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-
-        <!-- 505 تبصرة محتويات مقننة -->
-        <tr data-tag="505">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/5XX-DW/bd505.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">505</span></td>
-            <td class="label-box">تبصرة محتويات</td>
-            <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a ج.1. المدخل -- ج.2. التطبيق."></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-
-        <!-- 520 تبصرة ملخص -->
-        <tr data-tag="520">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/5XX-DW/bd520.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">520</span></td>
-            <td class="label-box">تبصرة ملخص</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a يتناول الكتاب تاريخ المكتبات في العصر الإسلامي."></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-
-        <!-- 541 تبصرة المصدر المباشر للتزويد -->
-        <tr data-tag="541">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/5XX-DW/bd541.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">541</span></td>
-            <td class="label-box">المصدر المباشر</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$cهدية;$a,عماد السعدي;$d1."></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-
-        <!-- 546 تبصرة اللغة -->
-        <tr data-tag="546">
-            <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/5XX-DW/bd546.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">546</span></td>
-            <td class="label-box">تبصرة اللغة</td>
-            <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-            <td><input type="text" class="data-input" placeholder="$a النص بالعربية مع ملخص بالإنجليزية."></td>
-            <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-        </tr>
-    </table>
-</div>
-
-
-    <!-- التبويبة 6: الموضوعات -->
-    <div id="tab6" class="work-area">
-        <table>
-            <!-- 600 -->
-            <tr data-tag="600">
-                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd600.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">600</span></td>
-                <td class="label-box">موضوع - اسم شخص</td>
-                <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="4" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a المتنبي، أحمد بن الحسين، $d 915-965."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-            <!-- 610 -->
-            <tr data-tag="610">
-                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd610.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">610</span></td>
-                <td class="label-box">موضوع - اسم هيئة</td>
-                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="4" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a جامعة الدول العربية."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-            <!-- 611 -->
-            <tr data-tag="611">
-                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd611.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">611</span></td>
-                <td class="label-box">موضوع - اسم مؤتمر</td>
-                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="4" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a معرض القاهرة الدولي للكتاب."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-			<!-- 630 -->
-            <tr data-tag="630">
-                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd630.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">630</span></td>
-                <td class="label-box">مدخل إضافي بالموضوع-عنوان مقنن</td>
-                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="4" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a القرآن."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-            <!-- 650 -->
-            <tr data-tag="650">
-                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd650.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">650</span></td>
-                <td class="label-box">موضوع - رأس موضوع</td>
-                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="4" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a المكتبات الرقمية $z العراق."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-            <!-- 651 -->
-            <tr data-tag="651">
-                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd651.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">651</span></td>
-                <td class="label-box">موضوع - اسم جغرافي</td>
-                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="4" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a بغداد $x تاريخ $y القرن 20."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-            <!-- 655 -->
-            <tr data-tag="655">
-                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd655.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">655</span></td>
-                <td class="label-box">موضوع - نوع/شكل</td>
-                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="4" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a قواميس."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-        </table>
-    </div>
-
-    <!-- التبويبة 7: المداخل الإضافية -->
-    <div id="tab7" class="work-area">
-        <table>
-            <tr data-tag="700">
-                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/70X-75X-DW/bd700.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">700</span></td>
-                <td class="label-box">إضافي - اسم شخص</td>
-                <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a محمد، علي، $e مترجم."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-            <tr data-tag="710">
-                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/70X-75X-DW/bd710.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">710</span></td>
-                <td class="label-box">إضافي - اسم هيئة</td>
-                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a جمعية المكتبات المتخصصة."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-            <tr data-tag="711">
-                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/70X-75X-DW/bd711.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">711</span></td>
-                <td class="label-box">إضافي - مؤتمر</td>
-                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a القمة العربية الرقمية."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-			<tr data-tag="730">
-                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/70X-75X-DW/bd730.html" target="_blank" class="loc-link">🔗</a>
-				<span class="tag-num">730</span></td>
-                <td class="label-box">مدخل إضافي-عنوان مقنن</td>
-                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
-                <td><input type="text" class="data-input" placeholder="$a ألف ليلة وليلة."></td>
-                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
-            </tr>
-        </table>
-		
-</script>
-
-
-    </div>
-<div class="footer-actions">
-    <!-- تعديل onclick لاستدعاء دالة التحميل -->
-    <button class="btn-main btn-save" onclick="downloadRecord()">حفظ التسجيلة</button>
-    <button class="btn-main btn-reset" onclick="location.reload()">إعادة ضبط</button>
-	<!-- زر عائم لفتح المساعد (يظهر في زاوية الشاشة) -->
-<button onclick="toggleMarcHelper()" style="position: fixed; bottom: 20px; left: 20px; z-index: 1000; background: #1a73e8; color: white; border: none; border-radius: 50px; padding: 10px 20px; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
-    🔍التاج 008
-	</button>
-
-<!-- النافذة المنبثقة (Modal) -->
-<div id="marcHelperModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;">
-    <div style="background: white; width: 90%; max-width: 800px; border-radius: 15px; padding: 20px; position: relative; max-height: 90vh; overflow-y: auto; direction: rtl;">
+        .tag-info { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            width: 120px; 
+        }
         
-        <span onclick="toggleMarcHelper()" style="position: absolute; left: 20px; top: 15px; cursor: pointer; font-size: 24px;">&times;</span>
-        <h3 style="border-bottom: 2px solid #1a73e8; padding-bottom: 10px; margin-bottom: 20px;">مساعد ضبط سجلات MARC</h3>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-            <!-- قسم الاختيارات (الكود الأول) -->
-            <div style="background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #ddd;">
-                <label style="font-weight: bold; display: block; margin-bottom: 10px;">اختر الحقل الفرعي (Leader/008):</label>
-                <select id="helper-select" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 5px; border: 1px solid #ccc;">
-                    <option value="" disabled selected>-- اختر من القائمة --</option>
-                    <optgroup label="Leader">
-                        <option value="LDR [00-04]">00-04: طول السجل</option>
-                        <option value="LDR [06]">06: نوع السجل</option>
-                    </optgroup>
-                    <optgroup label="Field 008">
-                        <option value="008 [35-37]">35-37: لغة الوعاء</option>
-                        <option value="008 [15-17]">15-17: بلد النشر</option>
-                    </optgroup>
-                </select>
-                <button onclick="addToHelperSheet()" style="width: 100%; background: #1a73e8; color: white; border: none; padding: 8px; border-radius: 5px; cursor: pointer;">إضافة للمسودة +</button>
-            </div>
-
-            <!-- قسم المسودة (النتيجة) -->
-            <div>
-                <label style="font-weight: bold;">مسودة التجميع السريع:</label>
-                <textarea id="helper-result" style="width: 100%; height: 120px; margin-top: 10px; border-radius: 5px; border: 1px solid #ccc; font-family: monospace; padding: 10px;" placeholder="ستظهر البيانات المختارة هنا..."></textarea>
-                <button onclick="copyHelperText()" style="width: 100%; margin-top: 5px; background: #333; color: white; border: none; padding: 5px; border-radius: 5px; cursor: pointer; font-size: 12px;">نسخ المحتوى</button>
-            </div>
-        </div>
-
-        <!-- حقل 008 التفصيلي (الكود الثاني) -->
-        <div style="margin-top: 20px; padding: 15px; border: 1px dashed #1a73e8; border-radius: 10px;">
-            <h4 style="margin-top: 0; color: #1a73e8;">معاينة سريعة لحقل 008 الأساسي:</h4>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap; background: #fff; padding: 10px;">
-                <div style="text-align: center;">
-                    <small style="display:block; font-size:10px; color:#e67e22;">النوع</small>
-                    <select style="font-size: 11px; padding: 3px;"><option>كتب (B)</option><option>دورية (S)</option></select>
-                </div>
-                <div style="text-align: center;">
-                    <small style="display:block; font-size:10px;">تاريخ (00-05)</small>
-                    <input type="text" value="240519" style="width: 60px; text-align: center;">
-                </div>
-                <div style="text-align: center;">
-                    <small style="display:block; font-size:10px; color:#1a73e8;">اللغة</small>
-                    <select style="font-size: 11px; padding: 3px;"><option>العربية (ara)</option><option>الإنجليزية</option></select>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!DOCTYPE html>
-<html dir="rtl" lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام الفهرسة المتقدم - بطاقة الكتاب</title>
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f1f5f9; margin: 0; padding: 0; }
+        .tag-num { 
+            font-weight: 700; 
+            color: var(--red); 
+            font-size: 1.1rem; 
+            font-family: monospace; 
+        }
         
-        /* الزر العائم */
+        .loc-link { 
+            text-decoration: none; 
+            font-size: 1rem; 
+            color: var(--koha-blue); 
+        }
+
+        .ind-box { 
+            display: flex; 
+            gap: 3px; 
+        }
+        
+        .ind-box input { 
+            width: 25px; 
+            text-align: center; 
+            border: 1px solid #ccc; 
+            padding: 5px; 
+            background: var(--yellow); 
+            font-family: monospace; 
+            font-weight: bold; 
+        }
+        
+        .label-box { 
+            width: 220px; 
+            font-size: 0.9rem; 
+            color: #333; 
+            font-weight: 600; 
+        }
+        
+        .data-input { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            font-family: 'Courier New', monospace; 
+            font-size: 1rem; 
+            box-sizing: border-box; 
+        }
+        
+        .data-input:focus { 
+            border-color: var(--koha-blue); 
+            outline: none; 
+            background: #fff; 
+        }
+
+        .btn-action { 
+            border: none; 
+            border-radius: 4px; 
+            width: 30px; 
+            height: 30px; 
+            cursor: pointer; 
+            color: white; 
+            font-weight: bold; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+        }
+        
+        .add { 
+            background: var(--green); 
+        }
+        
+        .del { 
+            background: var(--red); 
+            margin-top: 5px; 
+        }
+
+        .footer-actions { 
+            background: #f8f9fa; 
+            padding: 20px; 
+            text-align: center; 
+            border-top: 1px solid var(--border); 
+        }
+        
+        .btn-main { 
+            padding: 12px 30px; 
+            border-radius: 6px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            border: none; 
+            margin: 5px; 
+            font-family: 'Cairo'; 
+            transition: 0.3s; 
+        }
+        
+        .btn-save { 
+            background: var(--koha-blue); 
+            color: white; 
+        }
+        
+        .btn-reset { 
+            background: #6c757d; 
+            color: white; 
+        }
+        
+        /* تصميم النوافذ المنبثقة */
+        .modal { 
+            display: none; 
+            position: fixed; 
+            z-index: 10000; 
+            left: 0; 
+            top: 0; 
+            width: 100%; 
+            height: 100%; 
+            background: rgba(0,0,0,0.6); 
+        }
+        
+        .modal-content { 
+            background: white; 
+            margin: 2% auto; 
+            padding: 20px; 
+            border-radius: 12px; 
+            width: 95%; 
+            max-height: 90vh; 
+            overflow-y: auto; 
+            direction: rtl; 
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3); 
+            border-top: 8px solid var(--koha-blue); 
+        }
+        
+        .close { 
+            float: left; 
+            font-size: 28px; 
+            cursor: pointer; 
+            color: #aaa; 
+        }
+        
+        .close:hover { 
+            color: red; 
+        }
+        
+        /* حقل 008 المصغر */
+        .field-008-container { 
+            display: flex; 
+            gap: 5px; 
+            align-items: center; 
+            background: #f9f9f9; 
+            padding: 4px; 
+            border-radius: 4px; 
+            border: 1px dashed #ddd; 
+            justify-content: flex-end; 
+            width: 100%; 
+            max-width: 380px; 
+            margin-left: auto; 
+        }
+        
+        /* الزر العائم لبطاقة الكتاب */
         .floating-card-btn {
             position: fixed;
             bottom: 30px;
@@ -717,12 +281,13 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             transition: all 0.3s;
         }
+        
         .floating-card-btn:hover {
             background: #1e2b37;
             transform: scale(1.05);
         }
         
-        /* نافذة البطاقة المنبثقة */
+        /* نافذة بطاقة الكتاب المنبثقة */
         .card-modal {
             display: none;
             position: fixed;
@@ -735,21 +300,19 @@
             justify-content: center;
             align-items: center;
             direction: rtl;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
         }
         
-        .modal-content {
+        .modal-content-grid {
             background: #fff;
             width: 98%;
-            max-width: 1500px;
+            max-width: 1600px;
             height: 95vh;
             border-radius: 20px;
             display: grid;
-            grid-template-columns: 400px 1fr;
+            grid-template-columns: 450px 1fr;
             overflow: hidden;
         }
         
-        /* قسم الإدخال */
         .input-section {
             padding: 25px;
             background: #f8fafc;
@@ -764,25 +327,6 @@
             margin-bottom: 20px;
         }
         
-        .input-section input, .input-section textarea, .input-section select {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 5px;
-            font-family: inherit;
-            box-sizing: border-box;
-        }
-        
-        .input-section label {
-            font-size: 13px;
-            font-weight: bold;
-            display: block;
-            margin-bottom: 3px;
-            color: #475569;
-        }
-        
-        /* منطقة العرض */
         .preview-section {
             background: #0f172a;
             padding: 30px;
@@ -795,8 +339,8 @@
         
         /* البطاقة الورقية */
         .library-card {
-            width: 850px;
-            min-height: 450px;
+            width: 900px;
+            min-height: 550px;
             background: #fffdf5;
             border: 1px solid #d2b48c;
             position: relative;
@@ -812,29 +356,30 @@
             top: 40px;
             right: 50px;
             font-weight: bold;
-            font-size: 24px;
+            font-size: 26px;
             color: #b91c1c;
-            width: 120px;
+            width: 140px;
+            text-align: center;
         }
         
         .main-entry {
-            margin-right: 140px;
+            margin-right: 180px;
             font-weight: bold;
-            font-size: 26px;
+            font-size: 28px;
             margin-bottom: 12px;
         }
         
         .body-text {
-            margin-right: 140px;
-            font-size: 21px;
+            margin-right: 180px;
+            font-size: 22px;
             line-height: 1.6;
             text-align: justify;
         }
         
         .tracings {
-            margin-right: 140px;
+            margin-right: 180px;
             margin-top: 40px;
-            font-size: 17px;
+            font-size: 18px;
             border-top: 1px solid #e2d6c1;
             padding-top: 10px;
             line-height: 1.8;
@@ -842,10 +387,10 @@
         
         .cover-image {
             position: absolute;
-            bottom: 40px;
-            left: 40px;
-            width: 110px;
-            height: 155px;
+            bottom: 50px;
+            left: 50px;
+            width: 120px;
+            height: 165px;
             object-fit: cover;
             border: 1px solid #ddd;
             display: none;
@@ -854,17 +399,63 @@
             z-index: 10;
         }
         
+        .barcode-container {
+            position: absolute;
+            bottom: 50px;
+            right: 50px;
+            text-align: center;
+            background: white;
+            padding: 8px;
+            border-radius: 8px;
+            border: 2px solid #8b5a2b;
+            z-index: 20;
+        }
+        
+        .barcode-number {
+            font-size: 12px;
+            margin-top: 3px;
+            color: #333;
+            font-family: monospace;
+        }
+        
+        .dot {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 25px;
+            height: 25px;
+            background: #0f172a;
+            border-radius: 50%;
+        }
+        
+        .marc-container {
+            width: 100%;
+            max-width: 900px;
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid #f1c40f;
+            margin-top: 20px;
+        }
+        
+        .marc-header {
+            background: #f1c40f;
+            padding: 10px 15px;
+            font-weight: bold;
+            color: #2c1e14;
+            font-size: 16px;
+        }
+        
         .marc-box {
             width: 100%;
-            max-width: 850px;
             height: 280px;
-            background: #1e293b;
+            background: #1e1e1e;
             color: #4ade80;
             padding: 25px;
-            border-radius: 15px;
-            font-family: monospace;
+            font-family: 'Courier New', monospace;
             font-size: 16px;
-            border: 1px solid #334155;
+            border: none;
             direction: ltr;
             text-align: left;
             line-height: 1.6;
@@ -903,216 +494,7 @@
             background: #dc2626;
         }
         
-        .dot {
-            position: absolute;
-            bottom: 15px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 25px;
-            height: 25px;
-            background: #0f172a;
-            border-radius: 50%;
-        }
-    </style>
-</head>
-<body>
-    <!-- محتوى الصفحة الرئيسية (اختياري) -->
-    <div style="padding: 50px; text-align: center;">
-        <h1>نظام الفهرسة المتقدم</h1>
-        <p>اضغط على الزر العائم لفتح بطاقة الكتاب</p>
-    </div>
-
-   <!-- 1. الزر العائم -->
-    <div class="floating-card-btn" onclick="toggleCard()">
-        <span style="font-weight: bold;">بطاقة الكتاب</span>
-        <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
-            <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
-        </svg>
-    </div>
-
-    <!-- 2. نافذة البطاقة المنبثقة -->
-    <div class="card-modal" id="cardModal">
-        <div class="modal-content">
-            <!-- مدخلات البيانات (يمين) -->
-            <div class="input-section">
-                <h3>📋 بيانات الفهرسة</h3>
-                
-                <label>📸 رفع غلاف الكتاب:</label>
-                <input type="file" id="fileInput" accept="image/*" onchange="loadImg(this)">
-                
-                <!-- ISBN مع زر تكرار -->
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-                    <label>📚 الترقيم الدولي (020):</label>
-                    <button class="add-btn" onclick="addISBNField()">+ إضافة ISBN آخر</button>
-                </div>
-                <div id="isbn-container">
-                    <div class="repeatable-field" id="isbn-0">
-                        <button class="remove-btn" onclick="removeField('isbn-0')">✕</button>
-                        <input type="text" class="isbn-input" oninput="draw()" placeholder="مثال: 978-3-16-148410-0">
-                    </div>
-                </div>
-                
-                <label>🔢 رقم التصنيف (082):</label>
-                <input type="text" id="i082" oninput="draw()" placeholder="مثال: 025.3">
-                
-                <!-- المدخل الرئيسي مع قائمة منسدلة -->
-                <label>👤 المدخل الرئيسي (100-130):</label>
-                <div style="display: flex; gap: 10px;">
-                    <select id="mainEntryTag" style="width: 30%;" onchange="draw()">
-                        <option value="100">100 (شخص)</option>
-                        <option value="110">110 (هيئة)</option>
-                        <option value="111">111 (مؤتمر)</option>
-                        <option value="130">130 (عنوان موحد)</option>
-                    </select>
-                    <input type="text" id="mainEntryValue" oninput="draw()" placeholder="اسم المدخل" style="width: 70%;">
-                </div>
-                
-                <label>📖 العنوان وبيان المسؤولية (245):</label>
-                <textarea id="i245" oninput="draw()" placeholder="العنوان الرئيسي / المؤلف" style="height: 60px;"></textarea>
-                
-                <label>🏢 بيانات النشر (260):</label>
-                <input type="text" id="i260" oninput="draw()" placeholder="المكان : الناشر، التاريخ">
-                
-                <label>📏 الوصف المادي (300):</label>
-                <input type="text" id="i300" oninput="draw()" placeholder="مثال: 300 ص. : إيض. ؛ 24 سم">
-                
-                <!-- السلسلة مع قائمة منسدلة -->
-                <label>📚 السلسلة (490/830):</label>
-                <div style="display: flex; gap: 10px;">
-                    <select id="seriesTag" style="width: 30%;" onchange="draw()">
-                        <option value="490">490 (مسلسلة)</option>
-                        <option value="830">830 (مدخل إضافي)</option>
-                    </select>
-                    <input type="text" id="seriesValue" oninput="draw()" placeholder="اسم السلسلة" style="width: 70%;">
-                </div>
-                
-                <label>📝 الملاحظات (500):</label>
-                <textarea id="i500" oninput="draw()" placeholder="ملاحظات عامة أو تبصرات" style="height: 60px;"></textarea>
-                
-                <!-- الموضوعات مع تكرار وقائمة منسدلة كاملة -->
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-                    <label>🏷️ الموضوعات (6XX):</label>
-                    <button class="add-btn" onclick="addSubjectField()">+ إضافة موضوع</button>
-                </div>
-                <div id="subjects-container">
-                    <div class="repeatable-field" id="subject-0">
-                        <button class="remove-btn" onclick="removeField('subject-0')">✕</button>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <select class="subject-tag" style="width: 30%;" onchange="draw()">
-                                <option value="600">600 (شخص)</option>
-                                <option value="610">610 (هيئة)</option>
-                                <option value="611">611 (مؤتمر)</option>
-                                <option value="630">630 (عنوان موحد)</option>
-                                <option value="650" selected>650 (مصطلح)</option>
-                                <option value="651">651 (جغرافي)</option>
-                                <option value="655">655 (نوع/شكل)</option>
-                            </select>
-                            <input type="text" class="subject-value" style="width: 65%;" oninput="draw()" placeholder="الموضوع (استخدم - للأقسام)">
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- المداخل الإضافية مع تكرار وقائمة منسدلة كاملة -->
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-                    <label>👥 المداخل الإضافية (700-740):</label>
-                    <button class="add-btn" onclick="addAdditionalField()">+ إضافة مدخل</button>
-                </div>
-                <div id="additional-container">
-                    <div class="repeatable-field" id="additional-0">
-                        <button class="remove-btn" onclick="removeField('additional-0')">✕</button>
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <select class="additional-tag" style="width: 30%;" onchange="draw()">
-                                <option value="700">700 (شخص)</option>
-                                <option value="710">710 (هيئة)</option>
-                                <option value="711">711 (مؤتمر)</option>
-                                <option value="730">730 (عنوان موحد)</option>
-                                <option value="740">740 (عنوان مرتبط)</option>
-                            </select>
-                            <input type="text" class="additional-value" style="width: 65%;" oninput="draw()" placeholder="اسم المدخل الإضافي">
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- خيارات الباركود -->
-                <div class="barcode-options">
-                    <h4 style="margin: 0 0 10px;">🔲 إعدادات الباركود</h4>
-                    
-                    <label>نوع الباركود:</label>
-                    <select id="barcodeType" onchange="draw()">
-                        <option value="code128">Code 128 (قياسي)</option>
-                        <option value="ean13">EAN-13</option>
-                        <option value="ean8">EAN-8</option>
-                        <option value="upc">UPC</option>
-                        <option value="isbn">ISBN</option>
-                        <option value="codabar">Codabar</option>
-                    </select>
-                    
-                    <label>قيمة الباركود (اترك فارغاً للتلقائي):</label>
-                    <input type="text" id="barcodeValue" oninput="draw()" placeholder="تلقائي من ISBN">
-                    
-                    <div style="display: flex; gap: 10px;">
-                        <div style="flex: 1;">
-                            <label>الارتفاع:</label>
-                            <input type="number" id="barcodeHeight" value="50" min="20" max="100" oninput="draw()">
-                        </div>
-                        <div style="flex: 1;">
-                            <label>العرض:</label>
-                            <input type="number" id="barcodeWidth" value="2" min="1" max="5" oninput="draw()">
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="close-btn" onclick="toggleCard()">إغلاق</button>
-            </div>
-
-            <!-- منطقة العرض (يسار) مع تحسينات -->
-            <div class="preview-section">
-                <!-- البطاقة الورقية مع تحسينات الحجم -->
-                <div class="library-card" id="final-card">
-                    <div class="call-number" id="v-082"></div>
-                    <div class="main-entry" id="v-100"></div>
-                    
-                    <div class="body-text">
-                        <span id="v-245" style="font-weight: bold;"></span>
-                        <span id="v-260"></span>
-                        <span id="v-300"></span>
-                        <span id="v-490" style="font-style: italic; color: #4b5563;"></span>
-                    </div>
-                    
-                    <div class="body-text" id="v-500" style="font-style: italic; color: #374151;"></div>
-                    <div class="tracings" id="v-tracings"></div>
-                    
-                    <!-- صورة الغلاف -->
-                    <img class="cover-image" id="v-img">
-                    
-                    <!-- حقل الباركود -->
-                    <div class="barcode-container" id="barcodeContainer">
-                        <svg id="barcode"></svg>
-                        <div class="barcode-number" id="barcodeText"></div>
-                    </div>
-                    
-                    <div class="dot"></div>
-                </div>
-
-                <!-- صندوق عرض مارك واضح -->
-                <div class="marc-container">
-                    <div class="marc-header">
-                        <span>📄 MARC 21 RECORD</span>
-                    </div>
-                    <textarea class="marc-box" id="v-marc" readonly></textarea>
-                </div>
-
-                <!-- زر التصدير -->
-                <button class="export-btn" onclick="saveMarc()">📄 تصدير سجل MARC21 (.mrc)</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- إضافة مكتبة الباركود -->
-    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
-    
-    <style>
-        /* إضافة الأنماط الجديدة مع الحفاظ على القديمة */
+        /* حقول متكررة */
         .repeatable-field {
             border: 2px solid #c49a6c;
             padding: 15px;
@@ -1168,582 +550,961 @@
             border: 1px solid #8b5a2b;
         }
         
-        .barcode-container {
-            position: absolute;
-            bottom: 50px;
-            right: 50px;
+        .footer {
             text-align: center;
-            background: white;
-            padding: 8px;
-            border-radius: 8px;
-            border: 2px solid #8b5a2b;
-            z-index: 20;
-        }
-        
-        .barcode-number {
-            font-size: 12px;
-            margin-top: 3px;
-            color: #333;
-            font-family: monospace;
-        }
-        
-        .marc-container {
-            width: 100%;
-            max-width: 850px;
-            background: #1e1e1e;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid #f1c40f;
-            margin-top: 20px;
-        }
-        
-        .marc-header {
-            background: #f1c40f;
-            padding: 10px 15px;
-            font-weight: bold;
-            color: #2c1e14;
-            font-size: 16px;
-        }
-        
-        /* تحسين حجم البطاقة */
-        .library-card {
-            width: 900px;
-            min-height: 550px;
-            padding: 50px;
-        }
-        
-        .call-number {
-            font-size: 26px;
-            width: 140px;
-        }
-        
-        .main-entry {
-            margin-right: 180px;
-            font-size: 28px;
-        }
-        
-        .body-text {
-            margin-right: 180px;
-            font-size: 22px;
-        }
-        
-        .tracings {
-            margin-right: 180px;
-            font-size: 18px;
-        }
-        
-        .cover-image {
-            width: 120px;
-            height: 165px;
-            bottom: 50px;
-            left: 50px;
-        }
-        
-        /* تحسين العرض في قسم الإدخال */
-        .input-section {
-            overflow-y: auto;
-            max-height: 95vh;
             padding: 20px;
+            background: var(--koha-blue);
+            color: white;
+            margin-top: 30px;
         }
         
-        .input-section select, .input-section input, .input-section textarea {
-            margin-bottom: 15px;
+        /* زر مساعد 008 */
+        .floating-helper-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 9999;
+            background: #1a73e8;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-weight: bold;
         }
     </style>
+</head>
+<body>
 
-    <script>
-        // عدادات للحقول المتكررة
-        let subjectCount = 1;
-        let additionalCount = 1;
-        let isbnCount = 1;
-        
-        // فتح/إغلاق النافذة المنبثقة
-        function toggleCard() {
-            const modal = document.getElementById('cardModal');
-            modal.style.display = modal.style.display === 'none' || modal.style.display === '' ? 'flex' : 'none';
-            if (modal.style.display === 'flex') {
-                setTimeout(draw, 200);
-            }
-        }
+<header>
+    <div>
+        <strong>منصة عماد كاظم السعدي</strong> 
+        <div style="font-size: 0.9rem;">المستوى الكامل للوصف البيبليوغرافي</div>
+    </div>
+    
+    <div style="display: flex; gap: 10px;">
+        <button onclick="location.reload()" class="btn-reset">🧹 مسح البيانات</button> 
+        <button class="btn-main btn-save" onclick="saveToFile()">💾 حفظ التسجيلة (Text)</button>
+    </div>
+</header>
 
-        // إضافة حقل ISBN جديد
-        function addISBNField() {
-            const container = document.getElementById('isbn-container');
-            const newField = document.createElement('div');
-            newField.className = 'repeatable-field';
-            newField.id = `isbn-${isbnCount}`;
-            newField.innerHTML = `
-                <button class="remove-btn" onclick="removeField('isbn-${isbnCount}')">✕</button>
-                <input type="text" class="isbn-input" oninput="draw()" placeholder="مثال: 978-3-16-148410-0">
-            `;
-            container.appendChild(newField);
-            isbnCount++;
-            draw();
-        }
+<div class="container">
+    <div class="tabs-header">
+        <button class="tab-btn active" onclick="switchTab(event, 'tab0')">0XX (الضبط)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab1')">1XX (المدخل الرئيسي)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab2')">2XX (العنوان والنشر)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab3')">3XX (الوصف المادي)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab4')">4XX (السلسلة)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab5')">5XX (التبصرات)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab6')">6XX (الموضوعات)</button>
+        <button class="tab-btn" onclick="switchTab(event, 'tab7')">7XX (مداخل إضافية)</button>
+    </div>
 
-        // إضافة حقل موضوع جديد
-        function addSubjectField() {
-            const container = document.getElementById('subjects-container');
-            const newField = document.createElement('div');
-            newField.className = 'repeatable-field';
-            newField.id = `subject-${subjectCount}`;
-            newField.innerHTML = `
-                <button class="remove-btn" onclick="removeField('subject-${subjectCount}')">✕</button>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <select class="subject-tag" style="width: 30%;" onchange="draw()">
-                        <option value="600">600 (شخص)</option>
-                        <option value="610">610 (هيئة)</option>
-                        <option value="611">611 (مؤتمر)</option>
-                        <option value="630">630 (عنوان موحد)</option>
-                        <option value="650" selected>650 (مصطلح)</option>
-                        <option value="651">651 (جغرافي)</option>
-                        <option value="655">655 (نوع/شكل)</option>
-                    </select>
-                    <input type="text" class="subject-value" style="width: 65%;" oninput="draw()" placeholder="الموضوع (استخدم - للأقسام)">
-                </div>
-            `;
-            container.appendChild(newField);
-            subjectCount++;
-            draw();
-        }
+    <!-- التبويبة 0: الضبط -->
+    <div id="tab0" class="work-area active">
+        <table>
+            <tr data-tag="008">
+                <td class="tag-info">
+                    <a href="https://www.loc.gov/marc/bibliographic/bd008.html" target="_blank" class="loc-link">🔗</a> 
+                    <span class="tag-num">008</span>
+                </td>
+                <td class="label-box">بيانات ثابتة</td>
+                <td class="ind-box">
+                    <input type="text" value="#" maxlength="1" disabled>
+                    <input type="text" value="#" maxlength="1" disabled>
+                </td>
+                <td>
+                    <div class="field-008-container">
+                        <div style="text-align: center;">
+                            <small style="display:block; font-size:9px; color:#e67e22;">النوع</small>
+                            <select style="width: 65px; height: 24px; border: 1px solid #ccc;">
+                                <option value="B">كتب</option>
+                                <option value="S">دورية</option>
+                            </select>
+                        </div>
+                        <div style="text-align: center;">
+                            <small style="display:block; font-size:9px;">تاريخ</small>
+                            <input type="text" style="width: 55px; text-align: center; border: 1px solid #ccc; height: 24px; font-size: 10px;" placeholder="240519" maxlength="6">
+                        </div>
+                        <div style="text-align: center;">
+                            <small style="display:block; font-size:9px;">دولة</small>
+                            <input type="text" style="width: 35px; text-align: center; border: 1px solid #ccc; height: 24px; font-size: 10px;" placeholder="ua" maxlength="3">
+                        </div>
+                        <div style="text-align: center;">
+                            <small style="display:block; font-size:9px; color:#1a73e8;">اللغة</small>
+                            <select style="width: 85px; height: 24px; border: 1px solid #1a73e8;">
+                                <option value="ara">العربية (ara)</option>
+                                <option value="eng">الإنجليزية</option>
+                            </select>
+                        </div>
+                    </div>
+                </td>
+                
+            </tr>
+            <tr data-tag="020">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/01X-09X-DW/bd020.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">020</span></td>
+                <td class="label-box">ردمك (ISBN)</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a 9789957321245"></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="022">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/01X-09X-DW/bd022.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">022</span></td>
+                <td class="label-box">ردمد (ISSN)</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a 0376-45837"></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="041">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/01X-09X-DW/bd041.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">041</span></td>
+                <td class="label-box">رمز اللغة</td>
+                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a ara"></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="050">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/01X-09X-DW/bd050.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">050</span></td>
+                <td class="label-box">تصنيف الكونجرس</td>
+                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="0" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a Z668 $b .R36 2023"></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="082">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/01X-09X-DW/bd082.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">082</span></td>
+                <td class="label-box">تصنيف ديوي</td>
+                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a 025.04 $2 23"></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+        </table>
+    </div>
 
-        // إضافة حقل مدخل إضافي جديد
-        function addAdditionalField() {
-            const container = document.getElementById('additional-container');
-            const newField = document.createElement('div');
-            newField.className = 'repeatable-field';
-            newField.id = `additional-${additionalCount}`;
-            newField.innerHTML = `
-                <button class="remove-btn" onclick="removeField('additional-${additionalCount}')">✕</button>
-                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <select class="additional-tag" style="width: 30%;" onchange="draw()">
-                        <option value="700">700 (شخص)</option>
-                        <option value="710">710 (هيئة)</option>
-                        <option value="711">711 (مؤتمر)</option>
-                        <option value="730">730 (عنوان موحد)</option>
-                        <option value="740">740 (عنوان مرتبط)</option>
-                    </select>
-                    <input type="text" class="additional-value" style="width: 65%;" oninput="draw()" placeholder="اسم المدخل الإضافي">
-                </div>
-            `;
-            container.appendChild(newField);
-            additionalCount++;
-            draw();
-        }
+    <!-- التبويبة 1: المداخل الرئيسية -->
+    <div id="tab1" class="work-area">
+        <table>
+            <tr data-tag="100">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/1XX-DW/bd100.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">100</span></td>
+                <td class="label-box">اسم شخصي</td>
+                <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a السعدي، عماد كاظم، $e مؤلف."></td>
+               
+            </tr>
+            <tr data-tag="110">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/1XX-DW/bd110.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">110</span></td>
+                <td class="label-box">اسم هيئة</td>
+                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a جامعة بغداد. $b كلية الآداب."></td>
+                
+            </tr>
+            <tr data-tag="111">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/1XX-DW/bd111.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">111</span></td>
+                <td class="label-box">اسم مؤتمر</td>
+                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a مؤتمر الفهرسة العربي $d (2023 : $c دبي)"></td>
+                
+            </tr>
+            <tr data-tag="130">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/1XX-DW/bd130.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">130</span></td>
+                <td class="label-box">عنوان موحد</td>
+                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a القرآن الكريم."></td>
+                
+            </tr>
+        </table>
+    </div>
 
-        // إزالة حقل
-        function removeField(id) {
-            const field = document.getElementById(id);
-            if (field) {
-                field.remove();
-                draw();
-            }
-        }
+    <!-- التبويبة 2: العنوان والنشر -->
+    <div id="tab2" class="work-area">
+        <table>
+            <tr data-tag="210">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/20X-24X-DW/bd210.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">210</span></td>
+                <td class="label-box">العنوان المختصر</td>
+                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a J. Library Stud."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="222">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/20X-24X-DW/bd222.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">222</span></td>
+                <td class="label-box">العنوان المفتاحي</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="0" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a مجلة الدراسات المكتبية"></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="240">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/20X-24X-DW/bd240.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">240</span></td>
+                <td class="label-box">العنوان المقنن</td>
+                <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="0" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a قوانين حمورابي. $l العربية"></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="245">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/20X-24X-DW/bd245.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">245</span></td>
+                <td class="label-box">العنوان وبيان المسؤولية</td>
+                <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="0" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a عنوان الكتاب / $b بيان المسؤولية"></td>
+               
+            </tr>
+            <tr data-tag="246">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/20X-24X-DW/bd246.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">246</span></td>
+                <td class="label-box">الأشكال المغايرة</td>
+                <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="3" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$i العنوان على الغلاف"></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="250">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/25X-28X-DW/bd250.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">250</span></td>
+                <td class="label-box">بيان الطبعة</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a ط. 2."></td>
+                
+            </tr>
+            <tr data-tag="264">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/25X-28X-DW/bd264.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">264</span></td>
+                <td class="label-box">النشر والتوزيع</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="1" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a عمان : $b دار الفكر، $c 2024."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+        </table>
+    </div>
 
-        // تحميل وعرض الصورة
-        function loadImg(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var img = document.getElementById('v-img');
-                    img.src = e.target.result;
-                    img.style.display = 'block';
-                    draw();
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
+    <!-- التبويبة 3: الوصف المادي -->
+    <div id="tab3" class="work-area">
+        <table>
+            <tr data-tag="300">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/3XX-DW/bd300.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">300</span></td>
+                <td class="label-box">الوصف المادي</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a 350 ص. : $b مصور ؛ $c 24 سم."></td>
+                
+            </tr>
+            <tr data-tag="336">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/3XX-DW/bd336.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">336</span></td>
+                <td class="label-box">نوع المحتوى</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a نص $b txt $2 rdacontent"></td>
+               
+            </tr>
+            <tr data-tag="337">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/3XX-DW/bd337.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">337</span></td>
+                <td class="label-box">نوع الوسيط</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a غير مستخدم $b n $2 rdamedia"></td>
+                
+            </tr>
+            <tr data-tag="338">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/3XX-DW/bd338.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">338</span></td>
+                <td class="label-box">نوع الناقل</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a مجلد $b nc $2 rdacarrier"></td>
+               
+            </tr>
+        </table>
+    </div>
 
-        // جمع قيم ISBN المتعددة
-        function getISBNs() {
-            const isbns = [];
-            document.querySelectorAll('.isbn-input').forEach(input => {
-                if (input.value.trim()) {
-                    isbns.push(input.value.trim());
-                }
-            });
-            return isbns;
-        }
+    <!-- التبويبة 4: السلسلة -->
+    <div id="tab4" class="work-area">
+        <table>
+            <tr data-tag="490">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/4XX-DW/bd4xx.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">490</span></td>
+                <td class="label-box">بيان السلسلة</td>
+                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a سلسلة دراسات مكتبية $v ج. 3"></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="830">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/80X-83X-DW/bd830.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">830</span></td>
+                <td class="label-box">مدخل إضافي للسلسلة</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a سلسلة دراسات مكتبية ; $v 3."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+        </table>
+    </div>
 
-        // جمع الموضوعات
-        function getSubjects() {
-            const subjects = [];
-            document.querySelectorAll('#subjects-container .repeatable-field').forEach(field => {
-                const tag = field.querySelector('.subject-tag').value;
-                const value = field.querySelector('.subject-value').value;
-                if (value.trim()) {
-                    subjects.push({ tag, value: value.trim() });
-                }
-            });
-            return subjects;
-        }
+    <!-- التبويبة 5: التبصرات -->
+    <div id="tab5" class="work-area">
+        <table>
+            <tr data-tag="500">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/5XX-DW/bd500.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">500</span></td>
+                <td class="label-box">تبصرة عامة</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a يشتمل على كشافات."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="502">
+                <td class="tag-info"><a href="https://www.loc.gov/marc/bibliographic/bd502.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">502</span></td>
+                <td class="label-box">تبصرة أطروحة</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$b دكتوراة $c جامعة بغداد $d 2023."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="504">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/5XX-DW/bd504.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">504</span></td>
+                <td class="label-box">تبصرة بيبليوغرافية</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a يتضمن إرجاعات بيبليوغرافية (ص. 340-348)."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="505">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/5XX-DW/bd505.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">505</span></td>
+                <td class="label-box">تبصرة محتويات</td>
+                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a ج.1. المدخل -- ج.2. التطبيق."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="520">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/5XX-DW/bd520.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">520</span></td>
+                <td class="label-box">تبصرة ملخص</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a يتناول الكتاب تاريخ المكتبات."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="546">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/5XX-DW/bd546.html" target="_blank" class="loc-link">🔗</a> <span class="tag-num">546</span></td>
+                <td class="label-box">تبصرة اللغة</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a النص بالعربية مع ملخص بالإنجليزية."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+        </table>
+    </div>
 
-        // جمع المداخل الإضافية
-        function getAdditional() {
-            const additional = [];
-            document.querySelectorAll('#additional-container .repeatable-field').forEach(field => {
-                const tag = field.querySelector('.additional-tag').value;
-                const value = field.querySelector('.additional-value').value;
-                if (value.trim()) {
-                    additional.push({ tag, value: value.trim() });
-                }
-            });
-            return additional;
-        }
+    <!-- التبويبة 6: الموضوعات -->
+    <div id="tab6" class="work-area">
+        <table>
+            <tr data-tag="600">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd600.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">600</span></td>
+                <td class="label-box">موضوع - اسم شخص</td>
+                <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a المتنبي، أحمد بن الحسين، $d 915-965."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="610">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd610.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">610</span></td>
+                <td class="label-box">موضوع - اسم هيئة</td>
+                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a جامعة الدول العربية."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="611">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd611.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">611</span></td>
+                <td class="label-box">موضوع - اسم مؤتمر</td>
+                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a معرض القاهرة الدولي للكتاب."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="630">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd630.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">630</span></td>
+                <td class="label-box">موضوع - عنوان مقنن</td>
+                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a القرآن."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="650">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd650.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">650</span></td>
+                <td class="label-box">موضوع - رأس موضوع</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a المكتبات الرقمية $z العراق."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="651">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd651.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">651</span></td>
+                <td class="label-box">موضوع - اسم جغرافي</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a بغداد $x تاريخ $y القرن 20."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="655">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/6XX-DW/bd655.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">655</span></td>
+                <td class="label-box">موضوع - نوع/شكل</td>
+                <td class="ind-box"><input type="text" value="#" maxlength="1"><input type="text" value="4" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a قواميس."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+        </table>
+    </div>
 
-        // توليد الباركود
-        function generateBarcode() {
-            const barcodeType = document.getElementById('barcodeType').value;
-            let barcodeValue = document.getElementById('barcodeValue').value.trim();
-            const height = parseInt(document.getElementById('barcodeHeight').value);
-            const width = parseInt(document.getElementById('barcodeWidth').value);
-            
-            if (!barcodeValue) {
-                const isbns = getISBNs();
-                if (isbns.length > 0) {
-                    barcodeValue = isbns[0].replace(/[-\s]/g, '');
-                } else {
-                    barcodeValue = '978' + Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
-                }
-            }
-            
-            document.getElementById('barcodeText').innerText = barcodeValue;
-            
-            try {
-                JsBarcode("#barcode", barcodeValue, {
-                    format: barcodeType,
-                    width: width,
-                    height: height,
-                    displayValue: false,
-                    lineColor: "#000",
-                    background: "#fff",
-                    margin: 5
-                });
-            } catch (e) {
-                console.error("خطأ في الباركود:", e);
-            }
-        }
-
-        // تحديث البطاقة وكود مارك
-        function draw() {
-            // عرض البيانات الأساسية
-            document.getElementById('v-082').innerText = document.getElementById('i082').value;
-            document.getElementById('v-100').innerText = document.getElementById('mainEntryValue').value;
-            document.getElementById('v-245').innerText = document.getElementById('i245').value;
-            document.getElementById('v-260').innerText = document.getElementById('i260').value ? " . — " + document.getElementById('i260').value : "";
-            document.getElementById('v-300').innerText = document.getElementById('i300').value ? " . — " + document.getElementById('i300').value : "";
-            document.getElementById('v-490').innerText = document.getElementById('seriesValue').value ? " . — (" + document.getElementById('seriesValue').value + ")" : "";
-            document.getElementById('v-500').innerText = document.getElementById('i500').value;
-
-            // معالجة الموضوعات والمداخل للعرض
-            const subjects = getSubjects();
-            const additional = getAdditional();
-            
-            let tracings = "";
-            subjects.forEach((s, i) => {
-                tracings += (i+1) + ". " + s.value + " ";
-            });
-            
-            additional.forEach((a, i) => {
-                tracings += " أ." + (i+1) + " " + a.value + " ";
-            });
-            
-            document.getElementById('v-tracings').innerText = tracings;
-
-            // توليد الباركود
-            generateBarcode();
-
-            // توليد كود مارك
-            let m = `LDR 00000nam a2200000 i 4500\n`;
-            
-            // ISBNs المتعددة
-            getISBNs().forEach(isbn => {
-                m += `020 ## $a ${isbn}\n`;
-            });
-            
-            if(document.getElementById('i082').value) m += `082 04 $a ${document.getElementById('i082').value}\n`;
-            if(document.getElementById('mainEntryValue').value) {
-                m += `${document.getElementById('mainEntryTag').value} 1# $a ${document.getElementById('mainEntryValue').value}\n`;
-            }
-            if(document.getElementById('i245').value) m += `245 10 $a ${document.getElementById('i245').value}\n`;
-            if(document.getElementById('i260').value) m += `260 ## $a ${document.getElementById('i260').value}\n`;
-            if(document.getElementById('i300').value) m += `300 ## $a ${document.getElementById('i300').value}\n`;
-            if(document.getElementById('seriesValue').value) {
-                m += `${document.getElementById('seriesTag').value} #0 $a ${document.getElementById('seriesValue').value}\n`;
-            }
-            if(document.getElementById('i500').value) m += `500 ## $a ${document.getElementById('i500').value}\n`;
-            
-            // الموضوعات المتعددة
-            subjects.forEach(s => {
-                m += `${s.tag} #4 $a ${s.value}\n`;
-            });
-            
-            // المداخل الإضافية المتعددة
-            additional.forEach(a => {
-                m += `${a.tag} 1# $a ${a.value}\n`;
-            });
-            
-            document.getElementById('v-marc').value = m;
-        }
-
-        // حفظ ملف مارك
-        function saveMarc() {
-            const text = document.getElementById('v-marc').value;
-            const blob = new Blob([text], {type: "text/plain"});
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = "catalog_record.mrc";
-            link.click();
-        }
-    </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            &copy; 2026 منصة عماد كاظم السعدي الأكاديمية - جميع الحقوق محفوظة
-        </p>
+    <!-- التبويبة 7: المداخل الإضافية -->
+    <div id="tab7" class="work-area">
+        <table>
+            <tr data-tag="700">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/70X-75X-DW/bd700.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">700</span></td>
+                <td class="label-box">إضافي - اسم شخص</td>
+                <td class="ind-box"><input type="text" value="1" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a محمد، علي، $e مترجم."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="710">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/70X-75X-DW/bd710.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">710</span></td>
+                <td class="label-box">إضافي - اسم هيئة</td>
+                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a جمعية المكتبات المتخصصة."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="711">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/70X-75X-DW/bd711.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">711</span></td>
+                <td class="label-box">إضافي - مؤتمر</td>
+                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a القمة العربية الرقمية."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="730">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/70X-75X-DW/bd730.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">730</span></td>
+                <td class="label-box">إضافي - عنوان مقنن</td>
+                <td class="ind-box"><input type="text" value="2" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a ألف ليلة وليلة."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+            <tr data-tag="740">
+                <td class="tag-info"><a href="https://www.bibalex.org/als/marcA/70X-75X-DW/bd740.html" target="_blank" class="loc-link">🔗</a><span class="tag-num">740</span></td>
+                <td class="label-box">إضافي - عنوان مرتبط</td>
+                <td class="ind-box"><input type="text" value="0" maxlength="1"><input type="text" value="#" maxlength="1"></td>
+                <td><input type="text" class="data-input" placeholder="$a عنوان فرعي آخر."></td>
+                <td><button class="add btn-action" onclick="addRow(this)">+</button></td>
+            </tr>
+        </table>
     </div>
 </div>
 
+<!-- الأزرار العائمة -->
+<!-- زر بطاقة الكتاب -->
+<div class="floating-card-btn" onclick="toggleCard()">
+    <span style="font-weight: bold;">بطاقة الكتاب</span>
+    <svg width="24" height="24" fill="white" viewBox="0 0 24 24">
+        <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/>
+    </svg>
+</div>
+
+<!-- زر مساعد 008 -->
+<button onclick="toggleMarcHelper()" class="floating-helper-btn">
+    🔍 مساعد 008
+</button>
+
+<!-- نافذة بطاقة الكتاب المنبثقة -->
+<div class="card-modal" id="cardModal">
+    <div class="modal-content-grid">
+        <div class="input-section">
+            <h3>📋 بيانات بطاقة الكتاب</h3>
+            
+            <label>📸 رفع غلاف الكتاب:</label>
+            <input type="file" id="fileInput" accept="image/*" onchange="loadImg(this)">
+            
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label>📚 الترقيم الدولي (020):</label>
+                <button class="add-btn" onclick="addISBNField()">+ إضافة ISBN</button>
+            </div>
+            <div id="isbn-container">
+                <div class="repeatable-field" id="isbn-0">
+                    <button class="remove-btn" onclick="removeField('isbn-0')">✕</button>
+                    <input type="text" class="isbn-input" oninput="drawCard()" placeholder="مثال: 978-3-16-148410-0">
+                </div>
+            </div>
+            
+            <label>🔢 رقم التصنيف (082):</label>
+            <input type="text" id="i082" oninput="drawCard()" placeholder="مثال: 025.3">
+            
+            <label>👤 المدخل الرئيسي:</label>
+            <div style="display: flex; gap: 10px;">
+                <select id="mainEntryTag" style="width: 30%;" onchange="drawCard()">
+                    <option value="100">100 (شخص)</option>
+                    <option value="110">110 (هيئة)</option>
+                    <option value="111">111 (مؤتمر)</option>
+                    <option value="130">130 (عنوان موحد)</option>
+                </select>
+                <input type="text" id="mainEntryValue" oninput="drawCard()" placeholder="اسم المدخل" style="width: 70%;">
+            </div>
+            
+            <label>📖 العنوان (245):</label>
+            <textarea id="i245" oninput="drawCard()" placeholder="العنوان الرئيسي / المؤلف" style="height: 60px;"></textarea>
+            
+            <label>🏢 النشر (260):</label>
+            <input type="text" id="i260" oninput="drawCard()" placeholder="المكان : الناشر، التاريخ">
+            
+            <label>📏 الوصف المادي (300):</label>
+            <input type="text" id="i300" oninput="drawCard()" placeholder="مثال: 300 ص. ؛ 24 سم">
+            
+            <label>📚 السلسلة:</label>
+            <div style="display: flex; gap: 10px;">
+                <select id="seriesTag" style="width: 30%;" onchange="drawCard()">
+                    <option value="490">490 (مسلسلة)</option>
+                    <option value="830">830 (مدخل إضافي)</option>
+                </select>
+                <input type="text" id="seriesValue" oninput="drawCard()" placeholder="اسم السلسلة" style="width: 70%;">
+            </div>
+            
+            <label>📝 الملاحظات (500):</label>
+            <textarea id="i500" oninput="drawCard()" placeholder="ملاحظات عامة" style="height: 60px;"></textarea>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label>🏷️ الموضوعات:</label>
+                <button class="add-btn" onclick="addSubjectField()">+ إضافة موضوع</button>
+            </div>
+            <div id="subjects-container">
+                <div class="repeatable-field" id="subject-0">
+                    <button class="remove-btn" onclick="removeField('subject-0')">✕</button>
+                    <div style="display: flex; gap: 10px;">
+                        <select class="subject-tag" style="width: 30%;" onchange="drawCard()">
+                            <option value="600">600 (شخص)</option>
+                            <option value="610">610 (هيئة)</option>
+                            <option value="611">611 (مؤتمر)</option>
+                            <option value="630">630 (عنوان)</option>
+                            <option value="650" selected>650 (مصطلح)</option>
+                            <option value="651">651 (جغرافي)</option>
+                            <option value="655">655 (نوع)</option>
+                        </select>
+                        <input type="text" class="subject-value" style="width: 65%;" oninput="drawCard()" placeholder="الموضوع">
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label>👥 مداخل إضافية:</label>
+                <button class="add-btn" onclick="addAdditionalField()">+ إضافة مدخل</button>
+            </div>
+            <div id="additional-container">
+                <div class="repeatable-field" id="additional-0">
+                    <button class="remove-btn" onclick="removeField('additional-0')">✕</button>
+                    <div style="display: flex; gap: 10px;">
+                        <select class="additional-tag" style="width: 30%;" onchange="drawCard()">
+                            <option value="700">700 (شخص)</option>
+                            <option value="710">710 (هيئة)</option>
+                            <option value="711">711 (مؤتمر)</option>
+                            <option value="730">730 (عنوان)</option>
+                            <option value="740">740 (مرتبط)</option>
+                        </select>
+                        <input type="text" class="additional-value" style="width: 65%;" oninput="drawCard()" placeholder="اسم المدخل">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="barcode-options">
+                <h4>🔲 إعدادات الباركود</h4>
+                <label>نوع الباركود:</label>
+                <select id="barcodeType" onchange="drawCard()">
+                    <option value="code128">Code 128</option>
+                    <option value="ean13">EAN-13</option>
+                    <option value="isbn">ISBN</option>
+                </select>
+                <label>القيمة (اترك للتلقائي):</label>
+                <input type="text" id="barcodeValue" oninput="drawCard()" placeholder="تلقائي من ISBN">
+            </div>
+            
+            <button class="close-btn" onclick="toggleCard()">إغلاق</button>
+        </div>
+        
+        <div class="preview-section">
+            <div class="library-card" id="final-card">
+                <div class="call-number" id="v-082"></div>
+                <div class="main-entry" id="v-100"></div>
+                <div class="body-text">
+                    <span id="v-245"></span>
+                    <span id="v-260"></span>
+                    <span id="v-300"></span>
+                    <span id="v-490"></span>
+                </div>
+                <div class="body-text" id="v-500"></div>
+                <div class="tracings" id="v-tracings"></div>
+                <img class="cover-image" id="v-img">
+                <div class="barcode-container">
+                    <svg id="barcode"></svg>
+                    <div class="barcode-number" id="barcodeText"></div>
+                </div>
+                <div class="dot"></div>
+            </div>
+            
+            <div class="marc-container">
+                <div class="marc-header">📄 MARC 21 RECORD</div>
+                <textarea class="marc-box" id="v-marc" readonly></textarea>
+            </div>
+            
+            <button class="export-btn" onclick="saveMarc()">📥 تصدير سجل MARC21</button>
+        </div>
+    </div>
+</div>
+
+<!-- نافذة مساعد مارك -->
+<div id="marcHelperModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; justify-content: center; align-items: center;">
+    <div style="background: white; width: 90%; max-width: 800px; border-radius: 15px; padding: 20px; position: relative; max-height: 90vh; overflow-y: auto; direction: rtl;">
+        
+        <span onclick="toggleMarcHelper()" style="position: absolute; left: 20px; top: 15px; cursor: pointer; font-size: 24px;">&times;</span>
+        <h3 style="border-bottom: 2px solid #1a73e8; padding-bottom: 10px; margin-bottom: 20px;">مساعد ضبط سجلات MARC</h3>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div style="background: #f8fafc; padding: 15px; border-radius: 10px;">
+                <label style="font-weight: bold;">اختر الحقل:</label>
+                <select id="helper-select" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+                    <option value="" disabled selected>-- اختر --</option>
+                    <optgroup label="Leader">
+                        <option value="LDR [00-04]">00-04: طول السجل</option>
+                        <option value="LDR [06]">06: نوع السجل</option>
+                    </optgroup>
+                    <optgroup label="Field 008">
+                        <option value="008 [35-37]">35-37: لغة الوعاء</option>
+                        <option value="008 [15-17]">15-17: بلد النشر</option>
+                    </optgroup>
+                </select>
+                <button onclick="addToHelperSheet()" style="width: 100%; background: #1a73e8; color: white; border: none; padding: 8px; border-radius: 5px; cursor: pointer;">إضافة للمسودة +</button>
+            </div>
+            <div>
+                <label style="font-weight: bold;">المسودة:</label>
+                <textarea id="helper-result" style="width: 100%; height: 120px; margin-top: 10px; padding: 10px; font-family: monospace;" placeholder="البيانات المختارة..."></textarea>
+                <button onclick="copyHelperText()" style="width: 100%; margin-top: 5px; background: #333; color: white; border: none; padding: 5px; border-radius: 5px; cursor: pointer;">نسخ</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2026 منصة عماد كاظم السعدي الأكاديمية - جميع الحقوق محفوظة</p>
+</div>
+
 <script>
-if(marc===""){
-marc="لا توجد بيانات للتحويل";
+// =========================================
+// متغيرات العدادات
+// =========================================
+let subjectCount = 1;
+let additionalCount = 1;
+let isbnCount = 1;
+
+// =========================================
+// دوال التبويبات
+// =========================================
+function switchTab(event, tabId) {
+    document.querySelectorAll('.work-area').forEach(area => {
+        area.style.display = 'none';
+        area.classList.remove('active');
+    });
+    
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    const selectedTab = document.getElementById(tabId);
+    if (selectedTab) {
+        selectedTab.style.display = 'block';
+        selectedTab.classList.add('active');
+    }
+    
+    if (event) event.currentTarget.classList.add('active');
 }
-/* =========================================
 
-========================================= */
+// =========================================
+// دوال إضافة وحذف الصفوف
+// =========================================
+function addRow(button) {
+    const currentRow = button.closest('tr');
+    const newRow = currentRow.cloneNode(true);
+    const input = newRow.querySelector('.data-input');
+    if (input) input.value = "";
+    
+    const actionBtn = newRow.querySelector('button');
+    if (actionBtn) {
+        actionBtn.innerHTML = '×';
+        actionBtn.style.backgroundColor = '#e74c3c';
+        actionBtn.onclick = function() { removeRow(this); };
+    }
+    
+    currentRow.parentNode.insertBefore(newRow, currentRow.nextSibling);
+}
 
+function removeRow(button) {
+    const row = button.closest('tr');
+    if (row) row.remove();
+}
 
+// =========================================
+// دوال حفظ الملفات
+// =========================================
+function saveToFile() {
+    let content = "تنسيق مارك 21 - منصة عماد السعدي\n";
+    content += "----------------------------------\n\n";
+    
+    const rows = document.querySelectorAll('tr[data-tag]');
+    rows.forEach(row => {
+        const tag = row.getAttribute('data-tag');
+        const ind1Input = row.querySelector('.ind-box input:nth-child(1)');
+        const ind2Input = row.querySelector('.ind-box input:nth-child(2)');
+        const ind1 = (ind1Input && ind1Input.value) ? ind1Input.value : "#";
+        const ind2 = (ind2Input && ind2Input.value) ? ind2Input.value : "#";
+        const dataInput = row.querySelector('.data-input');
+        const data = dataInput ? dataInput.value : "";
+        
+        if (data.trim() != "") {
+            content += `${tag} ${ind1}${ind2} ${data}\n`;
+        }
+    });
+    
+    const blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "MARC21_Record.txt";
+    link.click();
+}
 
+// =========================================
+// دوال بطاقة الكتاب
+// =========================================
+function toggleCard() {
+    const modal = document.getElementById('cardModal');
+    modal.style.display = modal.style.display === 'none' || modal.style.display === '' ? 'flex' : 'none';
+    if (modal.style.display === 'flex') {
+        setTimeout(drawCard, 200);
+    }
+}
 
-/* =========================================
-   4. التبويبات Tabs
-========================================= */
+function addISBNField() {
+    const container = document.getElementById('isbn-container');
+    const newField = document.createElement('div');
+    newField.className = 'repeatable-field';
+    newField.id = `isbn-${isbnCount}`;
+    newField.innerHTML = `
+        <button class="remove-btn" onclick="removeField('isbn-${isbnCount}')">✕</button>
+        <input type="text" class="isbn-input" oninput="drawCard()" placeholder="مثال: 978-3-16-148410-0">
+    `;
+    container.appendChild(newField);
+    isbnCount++;
+    drawCard();
+}
 
-function switchTab(event, tabId){
+function addSubjectField() {
+    const container = document.getElementById('subjects-container');
+    const newField = document.createElement('div');
+    newField.className = 'repeatable-field';
+    newField.id = `subject-${subjectCount}`;
+    newField.innerHTML = `
+        <button class="remove-btn" onclick="removeField('subject-${subjectCount}')">✕</button>
+        <div style="display: flex; gap: 10px;">
+            <select class="subject-tag" style="width: 30%;" onchange="drawCard()">
+                <option value="600">600 (شخص)</option>
+                <option value="610">610 (هيئة)</option>
+                <option value="611">611 (مؤتمر)</option>
+                <option value="630">630 (عنوان)</option>
+                <option value="650" selected>650 (مصطلح)</option>
+                <option value="651">651 (جغرافي)</option>
+                <option value="655">655 (نوع)</option>
+            </select>
+            <input type="text" class="subject-value" style="width: 65%;" oninput="drawCard()" placeholder="الموضوع">
+        </div>
+    `;
+    container.appendChild(newField);
+    subjectCount++;
+    drawCard();
+}
 
-document.querySelectorAll('.work-area').forEach(area=>{
-area.style.display='none';
-area.classList.remove('active');
+function addAdditionalField() {
+    const container = document.getElementById('additional-container');
+    const newField = document.createElement('div');
+    newField.className = 'repeatable-field';
+    newField.id = `additional-${additionalCount}`;
+    newField.innerHTML = `
+        <button class="remove-btn" onclick="removeField('additional-${additionalCount}')">✕</button>
+        <div style="display: flex; gap: 10px;">
+            <select class="additional-tag" style="width: 30%;" onchange="drawCard()">
+                <option value="700">700 (شخص)</option>
+                <option value="710">710 (هيئة)</option>
+                <option value="711">711 (مؤتمر)</option>
+                <option value="730">730 (عنوان)</option>
+                <option value="740">740 (مرتبط)</option>
+            </select>
+            <input type="text" class="additional-value" style="width: 65%;" oninput="drawCard()" placeholder="اسم المدخل">
+        </div>
+    `;
+    container.appendChild(newField);
+    additionalCount++;
+    drawCard();
+}
+
+function removeField(id) {
+    const field = document.getElementById(id);
+    if (field) {
+        field.remove();
+        drawCard();
+    }
+}
+
+function loadImg(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            var img = document.getElementById('v-img');
+            img.src = e.target.result;
+            img.style.display = 'block';
+            drawCard();
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function getISBNs() {
+    const isbns = [];
+    document.querySelectorAll('.isbn-input').forEach(input => {
+        if (input.value.trim()) {
+            isbns.push(input.value.trim());
+        }
+    });
+    return isbns;
+}
+
+function getSubjects() {
+    const subjects = [];
+    document.querySelectorAll('#subjects-container .repeatable-field').forEach(field => {
+        const tag = field.querySelector('.subject-tag').value;
+        const value = field.querySelector('.subject-value').value;
+        if (value.trim()) {
+            subjects.push({ tag, value: value.trim() });
+        }
+    });
+    return subjects;
+}
+
+function getAdditional() {
+    const additional = [];
+    document.querySelectorAll('#additional-container .repeatable-field').forEach(field => {
+        const tag = field.querySelector('.additional-tag').value;
+        const value = field.querySelector('.additional-value').value;
+        if (value.trim()) {
+            additional.push({ tag, value: value.trim() });
+        }
+    });
+    return additional;
+}
+
+function generateBarcode() {
+    const barcodeType = document.getElementById('barcodeType').value;
+    let barcodeValue = document.getElementById('barcodeValue').value.trim();
+    const height = 50;
+    const width = 2;
+    
+    if (!barcodeValue) {
+        const isbns = getISBNs();
+        if (isbns.length > 0) {
+            barcodeValue = isbns[0].replace(/[-\s]/g, '');
+        } else {
+            barcodeValue = '978' + Math.floor(Math.random() * 1000000000).toString().padStart(9, '0');
+        }
+    }
+    
+    document.getElementById('barcodeText').innerText = barcodeValue;
+    
+    try {
+        JsBarcode("#barcode", barcodeValue, {
+            format: barcodeType,
+            width: width,
+            height: height,
+            displayValue: false
+        });
+    } catch (e) {
+        console.error("خطأ في الباركود:", e);
+    }
+}
+
+function drawCard() {
+    document.getElementById('v-082').innerText = document.getElementById('i082').value;
+    document.getElementById('v-100').innerText = document.getElementById('mainEntryValue').value;
+    document.getElementById('v-245').innerText = document.getElementById('i245').value;
+    document.getElementById('v-260').innerText = document.getElementById('i260').value ? " . — " + document.getElementById('i260').value : "";
+    document.getElementById('v-300').innerText = document.getElementById('i300').value ? " . — " + document.getElementById('i300').value : "";
+    document.getElementById('v-490').innerText = document.getElementById('seriesValue').value ? " . — (" + document.getElementById('seriesValue').value + ")" : "";
+    document.getElementById('v-500').innerText = document.getElementById('i500').value;
+
+    const subjects = getSubjects();
+    const additional = getAdditional();
+    
+    let tracings = "";
+    subjects.forEach((s, i) => {
+        tracings += (i+1) + ". " + s.value + " ";
+    });
+    additional.forEach((a, i) => {
+        tracings += " أ." + (i+1) + " " + a.value + " ";
+    });
+    
+    document.getElementById('v-tracings').innerText = tracings;
+    generateBarcode();
+
+    let m = `LDR 00000nam a2200000 i 4500\n`;
+    
+    getISBNs().forEach(isbn => {
+        m += `020 ## $a ${isbn}\n`;
+    });
+    
+    if(document.getElementById('i082').value) m += `082 04 $a ${document.getElementById('i082').value}\n`;
+    if(document.getElementById('mainEntryValue').value) {
+        m += `${document.getElementById('mainEntryTag').value} 1# $a ${document.getElementById('mainEntryValue').value}\n`;
+    }
+    if(document.getElementById('i245').value) m += `245 10 $a ${document.getElementById('i245').value}\n`;
+    if(document.getElementById('i260').value) m += `260 ## $a ${document.getElementById('i260').value}\n`;
+    if(document.getElementById('i300').value) m += `300 ## $a ${document.getElementById('i300').value}\n`;
+    if(document.getElementById('seriesValue').value) {
+        m += `${document.getElementById('seriesTag').value} #0 $a ${document.getElementById('seriesValue').value}\n`;
+    }
+    if(document.getElementById('i500').value) m += `500 ## $a ${document.getElementById('i500').value}\n`;
+    
+    subjects.forEach(s => {
+        m += `${s.tag} #4 $a ${s.value}\n`;
+    });
+    
+    additional.forEach(a => {
+        m += `${a.tag} 1# $a ${a.value}\n`;
+    });
+    
+    document.getElementById('v-marc').value = m;
+}
+
+function saveMarc() {
+    const text = document.getElementById('v-marc').value;
+    const blob = new Blob([text], {type: "text/plain"});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = "catalog_record.mrc";
+    link.click();
+}
+
+// =========================================
+// دوال مساعد مارك
+// =========================================
+function toggleMarcHelper() {
+    const modal = document.getElementById('marcHelperModal');
+    modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+}
+
+function addToHelperSheet() {
+    const select = document.getElementById('helper-select');
+    const sheet = document.getElementById('helper-result');
+    if (select.selectedIndex <= 0) return;
+    
+    const text = select.options[select.selectedIndex].text;
+    const tag = select.options[select.selectedIndex].value;
+    const time = new Date().toLocaleTimeString('ar-EG', {hour: '2-digit', minute: '2-digit'});
+    
+    sheet.value += `[${time}] ${tag} -> ${text}\n`;
+    sheet.scrollTop = sheet.scrollHeight;
+}
+
+function copyHelperText() {
+    const text = document.getElementById('helper-result');
+    text.select();
+    document.execCommand('copy');
+    alert('تم النسخ');
+}
+
+// =========================================
+// تشغيل أول تبويب عند التحميل
+// =========================================
+document.addEventListener("DOMContentLoaded", function() {
+    const firstTab = document.querySelector(".tab-btn");
+    if (firstTab) firstTab.click();
 });
 
-document.querySelectorAll('.tab-btn').forEach(btn=>{
-btn.classList.remove('active');
-});
-
-const selectedTab=document.getElementById(tabId);
-
-if(selectedTab){
-selectedTab.style.display='block';
-selectedTab.classList.add('active');
-}
-
-if(event) event.currentTarget.classList.add('active');
-
-}
-
-
-/* =========================================
-   5. إضافة صف
-========================================= */
-
-function addRow(button){
-
-const currentRow=button.closest('tr');
-
-const newRow=currentRow.cloneNode(true);
-
-const input=newRow.querySelector('.data-input');
-
-if(input) input.value="";
-
-const actionBtn=newRow.querySelector('button');
-
-if(actionBtn){
-
-actionBtn.innerHTML='×';
-
-actionBtn.style.backgroundColor='#e74c3c';
-actionBtn.style.color='white';
-
-actionBtn.onclick=function(){ removeRow(this); };
-
-}
-
-currentRow.parentNode.insertBefore(newRow,currentRow.nextSibling);
-
-}
-
-
-/* =========================================
-   6. حذف صف
-========================================= */
-
-function removeRow(button){
-
-const row=button.closest('tr');
-
-if(row) row.remove();
-
-}
-
-
-/* =========================================
-   7. حفظ التسجيلات النصية
-========================================= */
-
-function saveToFile(){
-
-let content="تنسيق مارك 21 - منصة عماد السعدي\n";
-content+="----------------------------------\n\n";
-
-const rows=document.querySelectorAll('tr[data-tag]');
-
-rows.forEach(row=>{
-
-const tag=row.getAttribute('data-tag');
-
-const ind1Input=row.querySelector('.ind-box input:nth-child(1)');
-const ind2Input=row.querySelector('.ind-box input:nth-child(2)');
-
-const ind1=(ind1Input && ind1Input.value)?ind1Input.value:"#";
-const ind2=(ind2Input && ind2Input.value)?ind2Input.value:"#";
-
-const dataInput=row.querySelector('.data-input');
-const data=dataInput?dataInput.value:"";
-
-if(data.trim()!=""){
-content += `${tag} ${ind1}${ind2} ${data}\n`;
-}
-
-});
-
-const blob=new Blob([content],{type:"text/plain;charset=utf-8"});
-
-const link=document.createElement("a");
-
-link.href=URL.createObjectURL(blob);
-
-link.download="MARC21_Record.txt";
-
-link.click();
-
-}
-
-
-/* =========================================
-   8. نافذة مساعد مارك
-========================================= */
-
-function toggleMarcHelper(){
-
-const modal=document.getElementById('marcHelperModal');
-
-if(!modal) return;
-
-modal.style.display=(modal.style.display==='flex')?'none':'flex';
-
-}
-
-function addToHelperSheet(){
-
-const select=document.getElementById('helper-select');
-const sheet=document.getElementById('helper-result');
-
-if(!select || !sheet) return;
-
-if(select.selectedIndex<=0) return;
-
-const text=select.options[select.selectedIndex].text;
-const tag=select.options[select.selectedIndex].value;
-
-const time=new Date().toLocaleTimeString('ar-EG',{hour:'2-digit',minute:'2-digit'});
-
-sheet.value += `[${time}] ${tag} -> ${text}\n`;
-
-sheet.scrollTop=sheet.scrollHeight;
-
-}
-
-function copyHelperText(){
-
-const text=document.getElementById('helper-result');
-
-if(!text) return;
-
-text.select();
-
-document.execCommand('copy');
-
-alert('تم النسخ لمسودة الحافظة');
-
-}
-
-
-/* =========================================
-   9. النوافذ المنبثقة
-========================================= */
-
-function openModal(id){
-
-const modal=document.getElementById(id);
-
-if(modal) modal.style.display="block";
-
-}
-
-function closeModal(id){
-
-const modal=document.getElementById(id);
-
-if(modal) modal.style.display="none";
-
-}
-
-
-/* =========================================
-   10. إغلاق النافذة عند الضغط خارجها
-========================================= */
-
-window.onclick=function(event){
-
-const modal=document.getElementById('marcHelperModal');
-
-if(event.target===modal){
-
-modal.style.display="none";
-
-}
-
-}
-
-
-/* =========================================
-   11. تشغيل أول تبويب تلقائياً
-========================================= */
-
-document.addEventListener("DOMContentLoaded",function(){
-
-const firstTab=document.querySelector(".tab-btn");
-
-if(firstTab) firstTab.click();
-
-});
-
-
+// إغلاق النافذة عند الضغط خارجها
+window.onclick = function(event) {
+    const modal = document.getElementById('marcHelperModal');
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+};
 </script>
 
+</body>
+</html>
